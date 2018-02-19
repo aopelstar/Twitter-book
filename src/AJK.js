@@ -1,4 +1,4 @@
 
-    function fun(){
-        return fun times
+    function fun(times){
+        return fun + times
     }
