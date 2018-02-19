@@ -1,3 +1,9 @@
 *{
     background-color: black;
 }
+
+div {
+    border-radius: 100%;
+    border: dotted;
+    border-width: 100px;
+}
