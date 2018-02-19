@@ -1,0 +1,13 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 500px;
+  height: 250px;
+  border: solid;
+  border-width: 5px;
+  background: whitesmoke;
+  border-color: #0084b4;
+  margin: auto;
+}
