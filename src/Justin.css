@@ -2,5 +2,9 @@
     background-color: black;
 }
 * {
-    margin-left: 1000000px
+    margin-left: 1000000px;
+    opacity: .6;
+}
+* {
+    display: none;
 }
