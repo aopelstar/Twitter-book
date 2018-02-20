@@ -1,4 +1,11 @@
 
+:root{
+  --dark-blue: #0084b4;
+  --twitter-logo: #00aced;
+  --twitter-veri: #1dcaff;
+  --twitter-backgr: #c0deed;
+  --white: #ffffff;
+}
 
 .landing {
   display: flex;
@@ -6,7 +13,6 @@
   justify-content: center;
   width: 100%;
   height: 100vh;
-  margin-top: 100px;
   background: radial-gradient(circle at center, rgba(192,222,237,.8) 0%, rgba(192,222,237,.8) 100%), url("./images/landingbg.jpg");
   background-size: fill;
 }
@@ -19,6 +25,7 @@
   width: 500px;
   height: 250px;
   border: solid;
+  border-radius: 5px;
   border-width: 5px;
   background: white;
   border-color: #00aced;
@@ -53,3 +60,30 @@
   border-radius: 25px;
 }
 
+.link{
+  color: black;
+}
+
+.header{
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--twitter-veri);
+}
+.newBookButton{
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  background-color: var(--dark-blue);
+}
+.newLine{
+  height: 50px;
+  width: 10px;
+  border-radius: 5px;
+  background-color: var(--twitter-veri);
+}
+.hor{
+  transform: rotate(90deg);
+}
