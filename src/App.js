@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import './reset.css';
 import './App.css';
 import Header from './components/Header';
 import Routes from './routes';
