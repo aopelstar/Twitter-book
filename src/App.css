@@ -7,6 +7,10 @@
   --white: #ffffff;
 }
 
+*{
+  overflow-x: hidden;
+}
+
 .landing {
   display: flex;
   flex-direction: column;
@@ -58,6 +62,10 @@
   border-color: white;
   color: white;
   border-radius: 25px;
+}
+
+.loginButton{
+  outline: none;
 }
 
 .accountBody {
@@ -118,21 +126,26 @@
   color: black;
 }
 
-.header{
-  height: 50px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  background-color: var(--twitter-veri);
+.link{
+  color: black;
 }
 .newBookButton{
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
   height: 70px;
   width: 70px;
   border-radius: 50%;
   background-color: var(--dark-blue);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 2px 2px 2px silver,
+  -2px 2px 2px silver;
 }
 .newLine{
+  position: absolute;
   height: 50px;
   width: 10px;
   border-radius: 5px;
@@ -140,4 +153,62 @@
 }
 .hor{
   transform: rotate(90deg);
+}
+.H{
+  margin-top: 50px;
+}
+.header{
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  align-items: center;
+  background-color: var(--twitter-veri);
+}
+.hamMenu{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 1s;
+}
+.hamLine{
+  height: 5px;
+  width: 35px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  border-radius: 5px;
+  background-color: var(--white)
+}
+.headerProfileImg{
+  height: 40px;
+  width: 40px;
+  border: 2px solid var(--dark-blue);
+  border-radius: 50%;
+  z-index: 1;
+}
+.menuLinks{
+  height: 300px;
+  width: 200px;
+  position: absolute;
+  top: 0px;
+  right: -200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--twitter-veri);
+  transition: 1s;
+}
+.slideLeft{
+  right: 0px;
+}
+.HamSlide{
+  margin-right: 200px;
+}
+.right{
+  position: absolute;
+  left: 20px;
+  top: 10px;
 }
