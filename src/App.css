@@ -1,3 +1,16 @@
+
+
+.landing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  margin-top: 100px;
+  background: radial-gradient(circle at center, rgba(192,222,237,.8) 0%, rgba(192,222,237,.8) 100%), url("./images/landingbg.jpg");
+  background-size: fill;
+}
+
 .login {
   display: flex;
   flex-direction: column;
@@ -7,7 +20,36 @@
   height: 250px;
   border: solid;
   border-width: 5px;
-  background: whitesmoke;
-  border-color: #0084b4;
+  background: white;
+  border-color: #00aced;
   margin: auto;
+  box-shadow: 5px 10px 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
+
+.landingLogo {
+  width: 75px;
+  height: 75px;
+  border: solid;
+}
+
+.login h1 {
+  font-size: 40px;
+  font-family: 'Dancing Script', cursive;
+  color: #0084b4;
+  font-weight: 700;
+}
+
+.login button {
+  height: 40px;
+  width: 120px;
+  font-size: 15px;
+  background: #00aced;
+  border: solid;
+  border-width: 2px;
+  border-color: white;
+  color: white;
+  border-radius: 25px;
+}
+
