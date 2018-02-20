@@ -55,8 +55,13 @@ app.use(session({
             ).then( user => {
                 return done(null, user[0].auth_id)
             })
+        } else if (users[0]) {
+            db.update_user([user_id, displayName, picture])
+            .then( user => {
+                return done(null, user[0].auth_id)
+            })
         } else {
-            done(null, users[0].auth_id)
+           return done(null, users[0].auth_id)
         }
     })
 
