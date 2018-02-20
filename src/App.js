@@ -3,6 +3,8 @@ import './reset.css';
 import './App.css';
 import Header from './components/Header';
 import Routes from './routes';
+import Redux from 'react-redux';
+
 
 class App extends Component {
   render() {

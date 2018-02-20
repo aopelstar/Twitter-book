@@ -12,7 +12,7 @@ const cors = require('cors');
 
 //app set up
 
-//const checkforSession = require('./middleware/checkForSession');
+const checkforSession = require('./middleware/checkForSession');
 const app = express();
 
 app.use( bodyparser.json());
