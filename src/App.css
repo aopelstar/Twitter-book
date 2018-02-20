@@ -53,3 +53,14 @@
   border-radius: 25px;
 }
 
+.accountAvatar {
+  display: flex;
+  justify-content: space-around;
+  border: solid;
+  border-width: 2px;
+  border-color: #00aced;
+}
+
+.accountImage {
+  
+}
