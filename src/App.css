@@ -60,6 +60,60 @@
   border-radius: 25px;
 }
 
+.accountBody {
+  padding: 40px;
+}
+
+.accountAvatar {
+  display: flex;
+  justify-content: space-around;
+  border: solid;
+  border-width: 2px;
+  border-color: #00aced;
+  width: 500px;
+  height: 250px;
+  padding: 25px;
+}
+
+.accountImage {
+  width: 45%;
+  border-radius: 50%;
+  border: solid;
+  border-width: 5px;
+  border-color: var(--dark-blue);
+}
+
+.line {
+  margin-top: -19px;
+  height: 20px;
+  border-bottom: solid;
+  border-width: 1px;
+  border-color: black;
+  width: 0%;
+  transition: width .3s;
+}
+
+.accountName {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.accountName div {
+  font-size: 40px;
+}
+
+.accountLinks a {
+  text-decoration: none;
+  color: black;
+}
+
+.accountLinks div:hover > .line {
+  width: 100%;
+}
+
+
 .link{
   color: black;
 }
