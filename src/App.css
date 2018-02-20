@@ -63,15 +63,6 @@
 .link{
   color: black;
 }
-
-.header{
-  height: 50px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  background-color: var(--twitter-veri);
-}
 .newBookButton{
   position: absolute;
   bottom: 10px;
@@ -96,4 +87,21 @@
 }
 .hor{
   transform: rotate(90deg);
+}
+.header{
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--twitter-veri);
+}
+.headerProfileImg{
+  height: 40px;
+  width: 40px;
+  border: 2px solid var(--dark-blue);
+  border-radius: 50%;
+}
+.loginButton{
+  outline: none;
 }

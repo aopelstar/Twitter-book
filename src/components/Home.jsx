@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Header from './Header';
+import Header from './Header'; 
+import { Link } from 'react-router-dom';
 
-export default class Home extends Component{
+export default class Home extends Component {
     // video tutorial modal
     // featured books
     // influential people
@@ -9,23 +10,28 @@ export default class Home extends Component{
     // categories filter
     // add new book
     // search users to save tweets ???
-    constructor(){
+    constructor() {
         super();
-        this.state ={
-            animateLoad: true,
+        this.state = {
+            seachInput: '',
         }
     }
-    componentDidMount(){
-        
+    componentDidMount() {
+
     }
-    render(){
-        return(
+    updateTweetSearch(val){
+        this.setState({
+            seachInput: val
+        })
+    }
+    render() {
+        return (
             <div>
                 <Header />
                 <div className="searchContainer">
                     <div className="tweetSearch">
                         <h1>Search Tweets</h1>
-                        <input type="text" onChange={() => { e => this.updateTweetSearch(e.target.value)}}/>
+                        <input type="text" onChange={() => { e => this.updateTweetSearch(e.target.value) }} />
                     </div>
                     <div className="tweetCategories">
                         <div className="categories">
@@ -38,10 +44,10 @@ export default class Home extends Component{
                 </div>
                 <div className="featuredContainer">
 
-                    <div className="newBookButton">
+                    <Link to="/newbook"><div className="newBookButton">
                         <div className="newLine"></div>
                         <div className="newLine hor"></div>
-                    </div>
+                    </div></Link>
                 </div>
             </div>
         )
