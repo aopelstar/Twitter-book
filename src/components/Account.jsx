@@ -26,7 +26,7 @@ class Account extends Component {
     render() {
 
         let user = this.state.user;
-        console.log(user);
+
         return (
             <div>
                 <Header />
@@ -39,9 +39,11 @@ class Account extends Component {
                         </div>
                     </div>
                     <div className="accountLinks">
-                        <Link to="/account/update"><div>Update Acount Info<div className="line"></div></div></Link>
-                        <Link to="/account/order-history"><div>Order History<div className="line"></div></div></Link>
-                        <Link to="/account/drafts"><div>Draft Books<div className="line"></div></div></Link>
+                        <div><Link to="/account/update">Timeline<div className="line"></div></Link></div>
+                        <div><Link to="/account/update">Update Acount Info<div className="line"></div></Link></div>
+                        <div><Link to="/account/order-history">Order History<div className="line"></div></Link></div>
+                        <div><Link to="/account/drafts">Draft Books<div className="line"></div></Link></div>
+                        <div><a href={process.env.REACT_APP_LOGOUT}>Logout<div className="line"></div></a></div>
                     </div>
                 </div>
             </div>
