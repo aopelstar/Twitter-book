@@ -96,7 +96,7 @@ app.get('/auth/me', (req, res) => {
 
 app.get('/auth/logout', function( req, res ) {
     req.logOut();
-    res.redirect('/#/logout')
+    res.redirect(process.env.LOGOUT_REDIRECT)
 })
 
 
