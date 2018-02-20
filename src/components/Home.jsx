@@ -40,7 +40,7 @@ export default class Home extends Component{
 
                     <div className="newBookButton">
                         <div className="newLine"></div>
-                        <div className="newLine"></div>
+                        <div className="newLine hor"></div>
                     </div>
                 </div>
             </div>

@@ -3,6 +3,8 @@
   --dark-blue: #0084b4;
   --twitter-logo: #00aced;
   --twitter-veri: #1dcaff;
+  --twitter-backgr: #c0deed;
+  --white: #ffffff;
 }
 
 .landing {
@@ -68,10 +70,20 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  background-color: var(--twitter-veri);
 }
 .newBookButton{
   height: 70px;
   width: 70px;
   border-radius: 50%;
-  background-color: var(--dark-blue)
+  background-color: var(--dark-blue);
+}
+.newLine{
+  height: 50px;
+  width: 10px;
+  border-radius: 5px;
+  background-color: var(--twitter-veri);
+}
+.hor{
+  transform: rotate(90deg);
 }
