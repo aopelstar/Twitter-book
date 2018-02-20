@@ -6,8 +6,8 @@ class Landing extends Component {
             <div className="landing">
                 <div className="login">
                     <img src="" alt="logo" className="landingLogo" />
-                    <h1>Please Login or Signup</h1>
-                    <a href="twitter-book.auth0.com"><button>Login</button></a>
+                    <h1>Welcome to Twitter Book</h1>
+                    <a href="/auth"><button>Login / Signup</button></a>
                 </div>
             </div>
         )
