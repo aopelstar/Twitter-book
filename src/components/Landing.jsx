@@ -7,7 +7,7 @@ class Landing extends Component {
                 <div className="login">
                     <img src="" alt="logo" className="landingLogo" />
                     <h1>Welcome to Twitter Book</h1>
-                    <a href="/auth"><button>Login / Signup</button></a>
+                    <a href={process.env.REACT_APP_LOGIN}><button>Login / Signup</button></a>
                 </div>
             </div>
         )

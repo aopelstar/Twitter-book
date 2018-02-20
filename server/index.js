@@ -44,9 +44,21 @@ app.use(session({
      scope: 'openid profile'
  }, function(accessToken, refreshToken, extraParams, profile, done) {
      
-    // destructuring waits until we know what we are getting --> let { } = profile
+    let { displayName, user_id, picture } = profile
     const db = app.get('db')
     console.log(profile)
+    
+    db.find_user( [user_id] ).then(function(users) {
+        if(!users[0]){
+            db.create_user(
+                [user_id, displayName, picture]
+            ).then( user => {
+                return done(null, user[0].auth_id)
+            })
+        } else {
+            done(null, users[0].auth_id)
+        }
+    })
 
 
  }))
@@ -55,14 +67,17 @@ app.use(session({
      return done(null, id);
  })
 
-//  passport.deserializeUser((id, done) => {
-//      app.get('db')
-//  })
+ passport.deserializeUser((id, done) => {
+     app.get('db').find_user([id])
+     .then(function(user) {
+         return done(null, user[0])
+     })
+ })
 
 
 app.get('/auth', passport.authenticate('auth0'));
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: '/#/home',
+    successRedirect: 'http://localhost:3000/#/home',
     failureRedirect: '/'
 }));
 
