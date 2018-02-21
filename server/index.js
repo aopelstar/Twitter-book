@@ -8,7 +8,8 @@ const session = require('express-session');
 const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
 const cors = require('cors');
-const controller = require('./controller/twitter_controller')
+const controller = require('./controller/twitter_controller');
+const axios = require('axios');
 
 
 //app set up
@@ -16,8 +17,8 @@ const controller = require('./controller/twitter_controller')
 const checkforSession = require('./middleware/checkForSession');
 const app = express();
 
-app.use( bodyparser.json());
-app.use( cors() );
+app.use(bodyparser.json());
+app.use(cors());
 
 // sessions
 
@@ -31,54 +32,54 @@ app.use(session({
 
 //authentication
 
- app.use(passport.initialize() );
- app.use(passport.session() );
+app.use(passport.initialize());
+app.use(passport.session());
 
- massive( process.env.CONNECTION_STRING).then( db => {
-     app.set('db', db);
- })
- passport.use(new Auth0Strategy({
-     domain: process.env.AUTH_DOMAIN,
-     clientID: process.env.AUTH_CLIENT_ID,
-     clientSecret: process.env.AUTH_CLIENT_SECRET,
-     callbackURL: process.env.AUTH_CALLBACK_URL,
-     scope: 'openid profile'
- }, function(accessToken, refreshToken, extraParams, profile, done) {
-     
+massive(process.env.CONNECTION_STRING).then(db => {
+    app.set('db', db);
+})
+passport.use(new Auth0Strategy({
+    domain: process.env.AUTH_DOMAIN,
+    clientID: process.env.AUTH_CLIENT_ID,
+    clientSecret: process.env.AUTH_CLIENT_SECRET,
+    callbackURL: process.env.AUTH_CALLBACK_URL,
+    scope: 'openid profile'
+}, function (accessToken, refreshToken, extraParams, profile, done) {
+
     let { displayName, user_id, picture } = profile
     const db = app.get('db')
     console.log(accessToken, profile)
-    
-    db.find_user( [user_id] ).then(function(users) {
-        if(!users[0]){
+
+    db.find_user([user_id]).then(function (users) {
+        if (!users[0]) {
             db.create_user(
                 [user_id, displayName, picture]
-            ).then( user => {
-                return done(null, {token: accessToken, id:user[0].auth_id})
+            ).then(user => {
+                return done(null, { token: accessToken, id: user[0].auth_id })
             })
         } else if (users[0]) {
             db.update_user([user_id, displayName, picture])
-            .then( user => {
-                return done(null, {token: accessToken, id:user[0].auth_id})
-            })
+                .then(user => {
+                    return done(null, { token: accessToken, id: user[0].auth_id })
+                })
         } else {
-           return done(null, users[0].auth_id)
+            return done(null, users[0].auth_id)
         }
     })
 
 
- }))
+}))
 
- passport.serializeUser((user, done) => {
-     return done(null, user);
- })
+passport.serializeUser((user, done) => {
+    return done(null, user);
+})
 
- passport.deserializeUser((user, done) => {
-     app.get('db').find_user([user.id])
-     .then(function(foundUser) {
-         return done(null, Object.assign(foundUser[0], {token: user.token}))
-     })
- })
+passport.deserializeUser((user, done) => {
+    app.get('db').find_user([user.id])
+        .then(function (foundUser) {
+            return done(null, Object.assign(foundUser[0], { token: user.token }))
+        })
+})
 
 
 app.get('/auth', passport.authenticate('auth0'));
@@ -88,26 +89,46 @@ app.get('/auth/callback', passport.authenticate('auth0', {
 }));
 
 app.get('/auth/me', (req, res) => {
-    if(!req.user) {
+    if (!req.user) {
         res.status(404).send('User not found');
     } else {
         res.status(200).send(req.user)
     }
 })
 
-app.get('/auth/logout', function( req, res ) {
+app.get('/auth/logout', function (req, res) {
     req.logOut();
     res.redirect(process.env.LOGOUT_REDIRECT)
 })
 
 
 //endpoints
-    //get tweets
-    
-app.get('/api/twitter', controller.getTweets)
+//get tweets
+app.get('/api/twitter', (req, res) => {
 
-    //get books
-app.get('/get-featured-books', (req,res) => {
+    // Import Twitter npm package
+    var Twit = require('twit');
+
+    // Twitter API Credentials
+    var T = new Twit({
+        consumer_key: process.env.CONSUMER_KEY,
+        consumer_secret: process.env.CONSUMER_SECRET,
+        access_token: process.env.ACCESS_TOKEN,
+        access_token_secret: process.env.ACCESS_TOKEN_SECRET
+    });
+
+    // Get twitter handle from API user request
+    // var handle = apitite.param('handle');
+
+    // Make call to Twitter API to get user's timeline
+    T.get('statuses/user_timeline', { user_id: '902817866', count:30 },  function (err, data, response) {
+        console.log(data)
+      }).then(resp => {
+        res.status(200).send(resp)
+    })
+})
+//get books
+app.get('/api/get-featured-books', (req, res) => {
     const db = app.get('db');
     db.books_test().then(resp => {
         res.status(200).send(resp)
@@ -115,7 +136,8 @@ app.get('/get-featured-books', (req,res) => {
 })
 
 
+
 //port
 
 const port = process.env.SERVER_PORT || 4321
-app.listen( port, () => console.log(`Lots of heavy petting on port ${port}`))
+app.listen(port, () => console.log(`Lots of heavy petting on port ${port}`))

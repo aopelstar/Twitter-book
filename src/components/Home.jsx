@@ -15,7 +15,8 @@ export default class Home extends Component {
         super();
         this.state = {
             seachInput: '',
-            fearturedBooks: []
+            fearturedBooks: [],
+            tweets: []
         }
     }
     componentDidMount() {
@@ -27,6 +28,9 @@ export default class Home extends Component {
         })
         axios.get('/api/twitter').then( res => {
             console.log(res)
+            this.setState({
+                tweets: res.data
+            })
         })
     }
     updateTweetSearch(val){
