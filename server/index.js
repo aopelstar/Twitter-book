@@ -101,7 +101,12 @@ app.get('/auth/logout', function( req, res ) {
 
 
 //endpoints
-
+app.get('/get-featured-books', (req,res) => {
+    const db = app.get('db');
+    db.books_test().then(resp => {
+        res.status(200).send(resp)
+    })
+})
 
 
 //port
