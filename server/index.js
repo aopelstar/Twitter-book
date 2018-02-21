@@ -8,6 +8,7 @@ const session = require('express-session');
 const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
 const cors = require('cors');
+const controller = require('./controller/twitter_controller')
 
 
 //app set up
@@ -46,19 +47,19 @@ app.use(session({
      
     let { displayName, user_id, picture } = profile
     const db = app.get('db')
-    console.log(profile)
+    console.log(accessToken, profile)
     
     db.find_user( [user_id] ).then(function(users) {
         if(!users[0]){
             db.create_user(
                 [user_id, displayName, picture]
             ).then( user => {
-                return done(null, user[0].auth_id)
+                return done(null, {token: accessToken, id:user[0].auth_id})
             })
         } else if (users[0]) {
             db.update_user([user_id, displayName, picture])
             .then( user => {
-                return done(null, user[0].auth_id)
+                return done(null, {token: accessToken, id:user[0].auth_id})
             })
         } else {
            return done(null, users[0].auth_id)
@@ -68,14 +69,14 @@ app.use(session({
 
  }))
 
- passport.serializeUser((id, done) => {
-     return done(null, id);
+ passport.serializeUser((user, done) => {
+     return done(null, user);
  })
 
- passport.deserializeUser((id, done) => {
-     app.get('db').find_user([id])
-     .then(function(user) {
-         return done(null, user[0])
+ passport.deserializeUser((user, done) => {
+     app.get('db').find_user([user.id])
+     .then(function(foundUser) {
+         return done(null, Object.assign(foundUser[0], {token: user.token}))
      })
  })
 
@@ -101,7 +102,9 @@ app.get('/auth/logout', function( req, res ) {
 
 
 //endpoints
-
+    //get tweets
+    
+app.get('/api/twitter', controller.getTweets)
 
 
 //port
