@@ -119,10 +119,11 @@ app.get('/api/twitter', (req, res) => {
 
     // Get twitter handle from API user request
     // var handle = apitite.param('handle');
+    let tid = req.user.auth_id.replace("twitter|", "");
+    console.log(tid)
 
     // Make call to Twitter API to get user's timeline
-    T.get('statuses/user_timeline', { user_id: '902817866', count:30 },  function (err, data, response) {
-        console.log(data)
+    T.get('statuses/user_timeline', { user_id: tid, count:30 },  function (err, data, response) {
       }).then(resp => {
         res.status(200).send(resp)
     })
