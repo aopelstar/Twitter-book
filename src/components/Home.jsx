@@ -45,7 +45,7 @@ export default class Home extends Component {
                 </div>
             )
         })
-        console.log(this.state.tweets.data)
+        console.log(this.state.tweets)
 
         let yourTweets = this.state.tweets.map((e,i) => {
             return (
@@ -53,6 +53,7 @@ export default class Home extends Component {
                     <h1>{e.user.name}</h1>
                     <h2>{e.user.screen_name}</h2>
                     <p>{e.text}</p>
+                    <br/>
                 </div>
             )
         })
