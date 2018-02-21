@@ -7,10 +7,6 @@
   --white: #ffffff;
 }
 
-*{
-  overflow-x: hidden;
-}
-
 .landing {
   display: flex;
   flex-direction: column;
@@ -120,7 +116,6 @@
 .accountLinks div:hover > .line {
   width: 100%;
 }
-
 
 .link{
   color: black;
