@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './Header'; 
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default class Home extends Component {
     // video tutorial modal
@@ -14,10 +15,19 @@ export default class Home extends Component {
         super();
         this.state = {
             seachInput: '',
+            fearturedBooks: []
         }
     }
     componentDidMount() {
-
+        axios.get('/api/get-featured-books').then( res => {
+            console.log(res.data)
+            this.setState({
+                fearturedBooks: res.data
+            })
+        })
+        axios.get('/api/twitter').then( res => {
+            console.log(res)
+        })
     }
     updateTweetSearch(val){
         this.setState({
@@ -25,6 +35,13 @@ export default class Home extends Component {
         })
     }
     render() {
+        let featuredBooks = this.state.fearturedBooks.map((e,i) => {
+            return(
+                <div key={i}>
+                    <div>{e.bookname}</div>
+                </div>
+            )
+        })
         return (
             <div>
                 <Header />
@@ -43,7 +60,9 @@ export default class Home extends Component {
                     </div>
                 </div>
                 <div className="featuredContainer">
-
+                    <div className="featuredbooks">
+                        {featuredBooks}
+                    </div>
                     <Link to="/newbook"><div className="newBookButton">
                         <div className="newLine"></div>
                         <div className="newLine hor"></div>

@@ -106,6 +106,14 @@ app.get('/auth/logout', function( req, res ) {
     
 app.get('/api/twitter', controller.getTweets)
 
+    //get books
+app.get('/get-featured-books', (req,res) => {
+    const db = app.get('db');
+    db.books_test().then(resp => {
+        res.status(200).send(resp)
+    })
+})
+
 
 //port
 
