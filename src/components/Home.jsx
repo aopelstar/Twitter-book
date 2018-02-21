@@ -19,17 +19,16 @@ export default class Home extends Component {
             tweets: []
         }
     }
-    componentDidMount() {
-        axios.get('/api/get-featured-books').then( res => {
+    async componentDidMount() {
+        await axios.get('/api/get-featured-books').then( res => {
             console.log(res.data)
             this.setState({
                 fearturedBooks: res.data
             })
         })
-        axios.get('/api/twitter').then( res => {
-            console.log(res)
+        await axios.get('/api/twitter').then( res => {
             this.setState({
-                tweets: res.data
+                tweets: res.data.data
             })
         })
     }
@@ -46,6 +45,17 @@ export default class Home extends Component {
                 </div>
             )
         })
+        console.log(this.state.tweets.data)
+
+        let yourTweets = this.state.tweets.map((e,i) => {
+            return (
+                <div key={i} className='tweets'> 
+                    <h1>{e.user.name}</h1>
+                    <h2>{e.user.screen_name}</h2>
+                    <p>{e.text}</p>
+                </div>
+            )
+        })
         return (
             <div>
                 <Header />
@@ -53,6 +63,7 @@ export default class Home extends Component {
                     <div className="tweetSearch">
                         <h1>Search Tweets</h1>
                         <input type="text" onChange={() => { e => this.updateTweetSearch(e.target.value) }} />
+                        {yourTweets}
                     </div>
                     <div className="tweetCategories">
                         <div className="categories">
