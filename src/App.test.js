@@ -9,7 +9,8 @@ const fns = require('./utils/functions');
 //   ReactDOM.unmountComponentAtNode(div);
 // });
 
-describe('justins tests', () => {
+//justins test
+describe('checking the preformance of my beautiful app that we are all creating', () => {
   test('changing the first of the text', () => {
     let text = fns.changeText()
     expect(text).toBe('my biggest beef with web development is that there are so few people with which to share your victories.')
