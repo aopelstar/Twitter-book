@@ -14,7 +14,7 @@ export default class Home extends Component {
     constructor() {
         super();
         this.state = {
-            seachInput: '',
+            searchInput: '',
             fearturedBooks: [],
             tweets: []
         }
@@ -27,6 +27,7 @@ export default class Home extends Component {
             })
         })
         await axios.get('/api/twitter').then( res => {
+            console.log(res)
             this.setState({
                 tweets: res.data.data
             })
@@ -34,7 +35,15 @@ export default class Home extends Component {
     }
     updateTweetSearch(val){
         this.setState({
-            seachInput: val
+            searchInput: val
+        })
+    }
+    handleSearch(){
+        var screenName = {
+            screenName: this.state.searchInput
+        }
+        axios.post("/api/searchedUser", screenName).then(res => {
+            console.log(res)
         })
     }
     render() {
@@ -45,8 +54,6 @@ export default class Home extends Component {
                 </div>
             )
         })
-        console.log(this.state.tweets)
-
         let yourTweets = this.state.tweets.map((e,i) => {
             return (
                 <div key={i} className='tweets'> 
@@ -63,7 +70,8 @@ export default class Home extends Component {
                 <div className="searchContainer">
                     <div className="tweetSearch">
                         <h1>Search Tweets</h1>
-                        <input type="text" onChange={() => { e => this.updateTweetSearch(e.target.value) }} />
+                        <input type="text" onChange={ e => this.updateTweetSearch(e.target.value)} />
+                        <button onClick={() => this.handleSearch()}>click this</button>
                         {yourTweets}
                     </div>
                     <div className="tweetCategories">
