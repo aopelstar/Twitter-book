@@ -71,13 +71,13 @@ export default class Home extends Component {
                     <img src={e.user.profile_image_url} alt="" />
                     <h1>{e.user.name}</h1>
                     <h2>{e.user.screen_name}</h2>
-                    <p>{e.text}</p>
-                    <img src={e.extended_entities ? e.extended_entities.media[0].media_url : null} alt=""/>
-                    {
-                    //     e.exteneded_emenities.media.map((e,i) => {
-                    //     <img src={e.media_url} alt=""/>
-                    // })
-                    }
+                    <p>{
+                        e.text
+                        }</p>
+                    <img src={e.extended_entities ? e.extended_entities.media[0] ? e.extended_entities.media[0].media_url : null : null} alt="" className="tweetImg"/>
+                    <img src={e.extended_entities ? e.extended_entities.media[1] ? e.extended_entities.media[1].media_url : null : null} alt="" className="tweetImg"/>
+                    <img src={e.extended_entities ? e.extended_entities.media[2] ? e.extended_entities.media[2].media_url : null : null} alt="" className="tweetImg"/>
+                    <img src={e.extended_entities ? e.extended_entities.media[3] ? e.extended_entities.media[3].media_url : null : null} alt="" className="tweetImg"/>
                     <br />
                 </div>
             )
