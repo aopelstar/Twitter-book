@@ -135,6 +135,7 @@ app.post('/api/searchedUser', (req, res) => {
         })
     })
 })
+
 // app.post('/api/slug', (req, res) => {
 //     T.get('users/suggestions/:slug', { slug: req.body.screenName, count: 10 }, function (err, data, response) {
 //     }).then(resp => {
