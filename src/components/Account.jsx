@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import Header from './Header';
 import { getUserInfo } from '../ducks/reducer';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -33,7 +32,6 @@ class Account extends Component {
 
         return (
             <div>
-                {/* <Header /> */}
                 <div className="accountBody">
                     <div className="accountAvatar">
                         <img className="accountImage" src={image} alt="You" />
