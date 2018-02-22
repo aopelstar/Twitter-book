@@ -10,7 +10,14 @@ const Auth0Strategy = require('passport-auth0');
 const cors = require('cors');
 const controller = require('./controller/twitter_controller');
 const axios = require('axios');
+const Twit = require('twit');
 
+var T = new Twit({
+    consumer_key: process.env.CONSUMER_KEY,
+    consumer_secret: process.env.CONSUMER_SECRET,
+    access_token: process.env.ACCESS_TOKEN,
+    access_token_secret: process.env.ACCESS_TOKEN_SECRET
+});
 
 //app set up
 
@@ -48,7 +55,6 @@ passport.use(new Auth0Strategy({
 
     let { displayName, user_id, picture } = profile
     const db = app.get('db')
-    console.log(accessToken, profile)
 
     db.find_user([user_id]).then(function (users) {
         if (!users[0]) {
@@ -105,29 +111,34 @@ app.get('/auth/logout', function (req, res) {
 //endpoints
 //get tweets
 app.get('/api/twitter', (req, res) => {
-
-    // Import Twitter npm package
-    var Twit = require('twit');
-
-    // Twitter API Credentials
-    var T = new Twit({
-        consumer_key: process.env.CONSUMER_KEY,
-        consumer_secret: process.env.CONSUMER_SECRET,
-        access_token: process.env.ACCESS_TOKEN,
-        access_token_secret: process.env.ACCESS_TOKEN_SECRET
-    });
-
     // Get twitter handle from API user request
     // var handle = apitite.param('handle');
     let tid = req.user.auth_id.replace("twitter|", "");
-    console.log(tid)
 
     // Make call to Twitter API to get user's timeline
-    T.get('statuses/user_timeline', { user_id: tid, count:30 },  function (err, data, response) {
-      }).then(resp => {
+    T.get('statuses/user_timeline', { user_id: tid, count: 30 }, function (err, data, response) {
+    }).then(resp => {
         res.status(200).send(resp)
     })
 })
+
+
+app.post('/api/searchedUser', (req, res) => {
+    T.get('users/lookup', { screen_name: req.body.screenName, count: 10 }, function (err, data, response) {
+    }).then(resp => {
+        var id = resp.data[0].id_str
+        T.get('statuses/user_timeline', { user_id: id, count: 30 }, function (err, data, response) {
+        }).then(respo => {
+            res.status(200).send(respo)
+        })
+    })
+})
+// app.post('/api/slug', (req, res) => {
+//     T.get('users/suggestions/:slug', { slug: req.body.screenName, count: 10 }, function (err, data, response) {
+//     }).then(resp => {
+//         res.status(200).send(resp)
+//     })
+// })
 //get books
 app.get('/api/get-featured-books', (req, res) => {
     const db = app.get('db');

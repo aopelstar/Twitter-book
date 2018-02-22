@@ -15,7 +15,6 @@ class Header extends Component {
     async componentDidMount() {
         await this.props.getUserInfo()
         const user = this.props.user
-        console.log(user.data)
         this.setState({
             user: user.data
         })
