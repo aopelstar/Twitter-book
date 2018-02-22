@@ -54,17 +54,18 @@ passport.use(new Auth0Strategy({
 }, function (accessToken, refreshToken, extraParams, profile, done) {
 
     let { displayName, user_id, picture } = profile
+    let image = picture.replace('normal', '400x400')
     const db = app.get('db')
 
     db.find_user([user_id]).then(function (users) {
         if (!users[0]) {
             db.create_user(
-                [user_id, displayName, picture]
+                [user_id, displayName, image]
             ).then(user => {
                 return done(null, { token: accessToken, id: user[0].auth_id })
             })
         } else if (users[0]) {
-            db.update_user([user_id, displayName, picture])
+            db.update_user([user_id, displayName, image])
                 .then(user => {
                     return done(null, { token: accessToken, id: user[0].auth_id })
                 })
@@ -114,6 +115,7 @@ app.get('/api/twitter', (req, res) => {
     // Get twitter handle from API user request
     // var handle = apitite.param('handle');
     let tid = req.user.auth_id.replace("twitter|", "");
+    
 
     // Make call to Twitter API to get user's timeline
     T.get('statuses/user_timeline', { user_id: tid, count: 30 }, function (err, data, response) {

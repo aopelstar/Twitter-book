@@ -25,7 +25,6 @@ export function getUserInfo() {
         type: GET_USER_INFO,
         payload: promise
     }
-
 }
 
 

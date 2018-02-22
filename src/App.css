@@ -87,6 +87,31 @@
   border-color: var(--dark-blue);
 }
 
+.accountUser {
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.accountScreen {
+  color: gray;
+}
+
+.tweetsFriendsFollowers {
+  display: flex;
+}
+
+.accountStats {
+  color: gray;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.accountStats div {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--twitter-logo)
+}
+
 .line {
   margin-top: -19px;
   height: 20px;
@@ -104,10 +129,6 @@
   align-items: center;
 }
 
-.accountName div {
-  font-size: 40px;
-}
-
 .accountLinks a {
   text-decoration: none;
   color: black;
@@ -121,9 +142,6 @@
   color: black;
 }
 
-.link{
-  color: black;
-}
 .newBookButton{
   position: absolute;
   bottom: 10px;
