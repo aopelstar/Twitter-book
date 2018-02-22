@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Header from './Header';
 import { getUserInfo } from '../ducks/reducer';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 class Account extends Component {
@@ -16,9 +17,10 @@ class Account extends Component {
 
     async componentDidMount() {
         await this.props.getUserInfo()
-        const user = this.props.user.data;
-        this.setState({
-            user: user
+        axios.get("/api/twitter").then(res => {
+            this.setState({
+                user: res.data.data[0].user
+            })
         })
     }
 
@@ -26,16 +28,23 @@ class Account extends Component {
     render() {
 
         let user = this.state.user;
+        let image = this.state.user.profile_image_url ? this.state.user.profile_image_url.replace('normal', '400x400') : null
+        console.log(user);
 
         return (
             <div>
                 <Header />
                 <div className="accountBody">
                     <div className="accountAvatar">
-                        <img className="accountImage" src={user.user_image} alt="You" />
+                        <img className="accountImage" src={image} alt="You" />
                         <div className="accountName">
-                            <div>{user.display_name}</div>
-                            {/* <div className="accountUserName"></div> */}
+                            <div className="accountUser">{user.name}</div>
+                            <div className="accountScreen">@{user.screen_name}</div>
+                            <div className="tweetsFriendsFollowers">
+                                <div className="accountStats">Tweets <div>{user.statuses_count}</div></div>
+                                <div className="accountStats">Following <div>{user.friends_count}</div></div>
+                                <div className="accountStats">Followers <div>{user.followers_count}</div></div>
+                            </div>
                         </div>
                     </div>
                     <div className="accountLinks">
