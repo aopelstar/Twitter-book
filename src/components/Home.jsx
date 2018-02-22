@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header from './Header';
+// import Header from './Header';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -95,7 +95,7 @@ export default class Home extends Component {
         })
         return (
             <div>
-                <Header />
+                {/* <Header /> */}
                 <div className="searchContainer">
                     <div className="tweetSearch">
                         <h1>Search Tweets</h1>
