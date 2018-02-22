@@ -125,20 +125,24 @@ app.get('/api/twitter', (req, res) => {
 })
 
 
-app.post('/api/searchedUser', (req, res) => {    
+app.post('/api/searchedUser', (req, res) => {
     console.log('req.body', req.body)
     T.get('users/lookup', { screen_name: req.body.screenName, count: 10 }, function (err, data, response) {
     }).then(resp => {
-        res.status(200).send(resp)
+        var id = resp.data[0].id_str
+        T.get('statuses/user_timeline', { user_id: id, count: 30 }, function (err, data, response) {
+        }).then(respo => {
+            res.status(200).send(respo)
+        })
     })
 })
-app.post('/api/slug', (req, res) => {    
-    console.log('req.body', req.body)
-    T.get('users/suggestions/:slug', { slug: req.body.screenName, count: 10 }, function (err, data, response) {
-    }).then(resp => {
-        res.status(200).send(resp)
-    })
-})
+// app.post('/api/slug', (req, res) => {
+//     console.log('req.body', req.body)
+//     T.get('users/suggestions/:slug', { slug: req.body.screenName, count: 10 }, function (err, data, response) {
+//     }).then(resp => {
+//         res.status(200).send(resp)
+//     })
+// })
 //get books
 app.get('/api/get-featured-books', (req, res) => {
     const db = app.get('db');
