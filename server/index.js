@@ -55,7 +55,6 @@ passport.use(new Auth0Strategy({
 
     let { displayName, user_id, picture } = profile
     const db = app.get('db')
-    console.log(accessToken, profile)
 
     db.find_user([user_id]).then(function (users) {
         if (!users[0]) {
@@ -115,7 +114,6 @@ app.get('/api/twitter', (req, res) => {
     // Get twitter handle from API user request
     // var handle = apitite.param('handle');
     let tid = req.user.auth_id.replace("twitter|", "");
-    console.log(tid)
 
     // Make call to Twitter API to get user's timeline
     T.get('statuses/user_timeline', { user_id: tid, count: 30 }, function (err, data, response) {
@@ -126,7 +124,6 @@ app.get('/api/twitter', (req, res) => {
 
 
 app.post('/api/searchedUser', (req, res) => {
-    console.log('req.body', req.body)
     T.get('users/lookup', { screen_name: req.body.screenName, count: 10 }, function (err, data, response) {
     }).then(resp => {
         var id = resp.data[0].id_str
@@ -137,7 +134,6 @@ app.post('/api/searchedUser', (req, res) => {
     })
 })
 // app.post('/api/slug', (req, res) => {
-//     console.log('req.body', req.body)
 //     T.get('users/suggestions/:slug', { slug: req.body.screenName, count: 10 }, function (err, data, response) {
 //     }).then(resp => {
 //         res.status(200).send(resp)
