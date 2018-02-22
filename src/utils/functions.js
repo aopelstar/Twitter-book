@@ -3,12 +3,9 @@
 
 module.exports = {
     changeText: () => {
-        var text = 'RT @aopelstar: my biggest beef with web development is that there are so few people with which to share your victories.'
-        for(var i = 0; i < text.length; i++){
-            if(text[i]===':'){
-                var t = text.slice(i + 2)
-            }
-        }
-        return t
+        var text = 'RT @KentMurphy: RT if you miss the Kid 🐐 https://t.co/PNopACMiVc'
+        var text1 = text.replace(/https.*$/g, '')
+        var text2 = text1.replace(/^(.*?)\: /g, '')
+        return text2
     }
 }

@@ -66,14 +66,15 @@ export default class Home extends Component {
             )
         })
         let yourTweets = this.state.tweets.map((e, i) => {
+            var text = e.text;
+            var text1 = text.replace(/https.*$/g, '')
+            var text2 = text1.replace(/^(.*?)\: /g, '')
             return (
                 <div key={i} className='tweets'>
                     <img src={e.user.profile_image_url} alt="" />
                     <h1>{e.user.name}</h1>
                     <h2>{e.user.screen_name}</h2>
-                    <p>{
-                        e.text
-                        }</p>
+                    <p>{text2}</p>
                     <img src={e.extended_entities ? e.extended_entities.media[0] ? e.extended_entities.media[0].media_url : null : null} alt="" className="tweetImg"/>
                     <img src={e.extended_entities ? e.extended_entities.media[1] ? e.extended_entities.media[1].media_url : null : null} alt="" className="tweetImg"/>
                     <img src={e.extended_entities ? e.extended_entities.media[2] ? e.extended_entities.media[2].media_url : null : null} alt="" className="tweetImg"/>
@@ -83,12 +84,15 @@ export default class Home extends Component {
             )
         })
         let searchedTweets = this.state.searchedTweets.map((e, i) => {
+            var text = e.text;
+            var text1 = text.replace(/https.*$/g, '')
+            var text2 = text1.replace(/^(.*?)\: /g, '')
             return (
                 <div key={i} className="tweets">
                     <img src={e.user.profile_image_url} alt="" />
                     <h1>{e.user.name}</h1>
                     <h2>{e.user.screen_name}</h2>
-                    <p>{e.text}</p>
+                    <p>{text2}</p>
                     <br/>
                 </div>
             )

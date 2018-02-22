@@ -10,9 +10,17 @@ const fns = require('./utils/functions');
 // });
 
 //justins test
-describe('checking the preformance of my beautiful app that we are all creating', () => {
+describe('removing the retweet tag from the text', () => {
   test('changing the first of the text', () => {
     let text = fns.changeText()
-    expect(text).toBe('my biggest beef with web development is that there are so few people with which to share your victories.')
+    expect(text).toBe('RT if you miss the Kid 🐐 ')
+  })
+  test('checking that it returns a value', () => {
+    let text = fns.changeText()
+    expect(text.length).toBeGreaterThan(0);
+  })
+  test('that the text is a string', () => {
+    let text = fns.changeText()
+    expect(typeof text).toBe('string')
   })
 })
