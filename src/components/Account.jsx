@@ -28,7 +28,7 @@ class Account extends Component {
     render() {
 
         let user = this.state.user;
-        let image = this.state.user.profile_image_url?this.state.user.profile_image_url.replace('normal', '400x400'):null
+        let image = this.state.user.profile_image_url ? this.state.user.profile_image_url.replace('normal', '400x400') : null
         console.log(user);
 
         return (
@@ -38,11 +38,13 @@ class Account extends Component {
                     <div className="accountAvatar">
                         <img className="accountImage" src={image} alt="You" />
                         <div className="accountName">
-                            <div>@{user.screen_name}</div>
-                            <div>{user.name}</div>
-                            <div>Followers: {user.followers_count}</div>
-                            <div>Friends: {user.friends_count}</div>
-                            <div></div>
+                            <div className="accountUser">{user.name}</div>
+                            <div className="accountScreen">@{user.screen_name}</div>
+                            <div className="tweetsFriendsFollowers">
+                                <div className="accountStats">Tweets <div>{user.statuses_count}</div></div>
+                                <div className="accountStats">Following <div>{user.friends_count}</div></div>
+                                <div className="accountStats">Followers <div>{user.followers_count}</div></div>
+                            </div>
                         </div>
                     </div>
                     <div className="accountLinks">

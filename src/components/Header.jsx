@@ -15,7 +15,6 @@ class Header extends Component {
     }
     async componentDidMount() {
         await this.props.getUserInfo()
-        const user = this.props.user
         axios.get("/api/twitter").then(res => {
             this.setState({
                 user: res.data.data[0].user
