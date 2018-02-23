@@ -1,21 +1,11 @@
-import React, {Component} from 'react';
-import { connect } from 'react-redux';
-import { getBookInfo } from '../../ducks/reducer';
+import React from 'react';
 
 
-class Step5 extends Component {
-    render() {
-        return (
-            <div>
+export default function Step5() {
+    return (
+        <div>
 
-            </div>
-        )
-    }
+        </div>
+    )
 }
 
-function mapStateToProps(state){
-    return ({
-        book: state.book
-    })
-}
-export default connect(mapStateToProps , {getBookInfo})(Step5)
