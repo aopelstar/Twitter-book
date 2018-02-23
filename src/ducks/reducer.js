@@ -13,8 +13,6 @@ const initialState = {
 
 const GET_USER_INFO = "GET_USER_INFO";
 const GET_BOOK_INFO = "GET_BOOK_INFO";
-const NEW_BOOK = "NEW_BOOK";
-
 
 
 
