@@ -1,21 +1,19 @@
 import React from 'react';
 
-
-function Step1(pros){
-    return(
+export default function Step1({size}) {
+    return (
         <div>
             <div className="stepOneContainer">
-                <div className="booksizeSmall" onClick={() => this.selectSmall()}>
-
+                <div className="bookSizeSmall" onClick={() => size('s')}>
+                    <div>8 x 8</div>
                 </div>
-                <div className="booksizeMedium" onClick={() => this.selectMedium()}>
-
+                <div className="bookSizeMedium" onClick={() => size('m')}>
+                    <div>10 x 10</div>
                 </div>
-                <div className="booksizeLarge" onClick={() => this.selectLarge()}>
-
+                <div className="bookSizeLarge" onClick={() => size('l')}>
+                    <div>11 X 14</div>
                 </div>
             </div>
         </div>
     )
 }
-export default Step1;
