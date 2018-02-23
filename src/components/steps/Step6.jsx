@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getBookInfo } from '../../ducks/reducer';
 
+class Step6 extends Component {
+    render() {
+        return (
+            <div>
 
-function Step6(pros){
-    return(
-        <div>
-            
-        </div>
-    )
+            </div>
+        )
+    }
 }
-export default Step6;
+
+function mapStateToProps(state){
+    return ({
+        book: state.book
+    })
+}
+export default connect(mapStateToProps , {getBookInfo})(Step6)
