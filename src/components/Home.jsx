@@ -67,7 +67,7 @@ export default class Home extends Component {
         let yourTweets = this.state.tweets.map((e, i) => {
             var text = e.text;
             var text1 = text.replace(/https.*$/g, '')
-            var text2 = text1.replace(/^(.*?)\: /g, '')
+            var text2 = text1.replace(/^(.*?): /g, '')
             return (
                 <div key={i} className='tweets'>
                     <img src={e.user.profile_image_url} alt="" />
@@ -85,7 +85,7 @@ export default class Home extends Component {
         let searchedTweets = this.state.searchedTweets.map((e, i) => {
             var text = e.text;
             var text1 = text.replace(/https.*$/g, '')
-            var text2 = text1.replace(/^(.*?)\: /g, '')
+            var text2 = text1.replace(/^(.*?): /g, '')
             return (
                 <div key={i} className="tweets">
                     <img src={e.user.profile_image_url} alt="" />
