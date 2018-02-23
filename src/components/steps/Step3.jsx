@@ -1,20 +1,13 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getBookInfo } from '../../ducks/reducer';
+import React from 'react';
 
-class Step3 extends Component {
-    render() {
-        return (
-            <div>
 
-            </div>
-        )
-    }
+export default function Step3(props) {
+    return (
+        <div>
+            <input type="text" placeholder="Title" value={} onChange={e=>props.handleTitleInput(e.target.value)}></input>
+            <input type="text" placeholder="Subtitle" value={} onChange={e=>props.handleSubtitleInput(e.target.value)}></input>
+            <input type="text" placeholder="Back" value={} onChange={e=>props.handleBackInput(e.target.value)}></input>
+        </div>
+    )
 }
 
-function mapStateToProps(state){
-    return ({
-        book: state.book
-    })
-}
-export default connect(mapStateToProps, {getBookInfo} )(Step3)
