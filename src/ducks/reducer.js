@@ -16,7 +16,6 @@ const GET_BOOK_INFO = "GET_BOOK_INFO";
 
 
 
-
 //action builder
 export function getUserInfo() {
     let promise = axios.get('auth/me')
@@ -29,8 +28,8 @@ export function getUserInfo() {
     }
 }
 
-export function getBookInfo() {
-    let bookData = axios.get('/api/book/').then(book => {
+export function getBookInfo(userId, bookId) {
+    let bookData = axios.get(`/api/book/${userId}/${bookId}`).then(book => {
         return book.data
     })
     return {
@@ -38,7 +37,6 @@ export function getBookInfo() {
         payload: bookData
     }
 }
-
 
 
 
