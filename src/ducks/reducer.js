@@ -13,6 +13,7 @@ const initialState = {
 
 const GET_USER_INFO = "GET_USER_INFO";
 const GET_BOOK_INFO = "GET_BOOK_INFO";
+const NEW_BOOK = "NEW_BOOK";
 
 
 
@@ -29,8 +30,8 @@ export function getUserInfo() {
     }
 }
 
-export function getBookInfo() {
-    let bookData = axios.get('/api/book/').then(book => {
+export function getBookInfo(userId, bookId) {
+    let bookData = axios.get(`/api/book/${userId}/${bookId}`).then(book => {
         return book.data
     })
     return {
@@ -38,7 +39,6 @@ export function getBookInfo() {
         payload: bookData
     }
 }
-
 
 
 
