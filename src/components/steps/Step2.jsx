@@ -1,11 +1,11 @@
-import React from react;
+import React from 'react';
 
 
 function Step2(pros){
     return(
         <div>
-            
+            step2
         </div>
     )
 }
-export default Step1;
+export default Step2;

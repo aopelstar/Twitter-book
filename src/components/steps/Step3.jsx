@@ -1,4 +1,4 @@
-import React from react;
+import React from 'react';
 
 
 function Step3(pros){
@@ -8,4 +8,4 @@ function Step3(pros){
         </div>
     )
 }
-export default Step1;
+export default Step3;
