@@ -124,7 +124,7 @@ app.get('/api/twitter', (req, res) => {
     })
 })
 
-
+//search for tweets from other people
 app.post('/api/searchedUser', (req, res) => {
     T.get('users/lookup', { screen_name: req.body.screenName, count: 10 }, function (err, data, response) {
     }).then(resp => {
@@ -149,6 +149,8 @@ app.get('/api/get-featured-books', (req, res) => {
         res.status(200).send(resp)
     })
 })
+
+//update books
 
 
 
