@@ -21,12 +21,17 @@ class NewBook extends Component {
             subtitle: '',
             backText: '',
             listOfTweets: {},
-            pageLayout: 'standardTweetsList'
+            pageLayout: 'standardTweetsList',
+            quantity: 0,
+            book_price: null
         }
         this.selectBookSize = this.selectBookSize.bind(this)
         this.handleTitleInput = this.handleTitleInput.bind(this)
         this.handleSubtitleInput = this.handleSubtitleInput.bind(this)
         this.handleBackInput = this.handleBackInput.bind(this)
+        this.increaseQuantity = this.increaseQuantity.bind(this)
+        this.decreaseQuantity = this.decreaseQuantity.bind(this)
+        this.addToCart = this.addToCart.bind(this)
     }
     async next() {
         await this.setState({
@@ -38,13 +43,13 @@ class NewBook extends Component {
             subtitle: this.state.title,
             backText: this.state.backText
         }
-        // if(this.state.position > 2){
-        //     axios.post('/api/create-book', book).then(res => {
-        //         console.log('res')
-        //     })
-        // }else{
-        //     null
-        // }
+        if(this.state.position > 2){
+            axios.post('/api/create-book', book).then(res => {
+                console.log('res')
+            })
+        }else{
+            null
+        }
     }
     prev() {
         this.setState({
@@ -54,17 +59,20 @@ class NewBook extends Component {
     selectBookSize(p) {
         if (p === 's') {
             this.setState({
-                size: 'small'
+                size: 'small',
+                book_price: 19.99
             })
         }
         if (p === 'm') {
             this.setState({
-                size: 'medium'
+                size: 'medium',
+                book_price: 29.99
             })
         }
         if (p === 'l') {
             this.setState({
-                size: 'large'
+                size: 'large',
+                book_price: 39.99
             })
         }
     }
@@ -88,6 +96,27 @@ class NewBook extends Component {
             pageLayout: p
         })
     }
+    addToCart(){
+        axios.post('/api/addtocart', {
+            book_id: this.state.book_id,
+            quantity: this.state.quantity,
+            book_price: this.state.book_price
+        }).then(res=>{
+            console.log(res);
+        })
+    }
+    increaseQuantity(){
+        var increment = this.state.quantity+1
+        this.setState({
+            quantity: increment
+        })
+    }
+    decreaseQuantity(){
+        var decrement = this.state.quantity-1
+        this.setState({
+            quantity:decrement
+        })
+    }
     render() {
         return (
             <div>
@@ -99,7 +128,13 @@ class NewBook extends Component {
                     handleTitleInput={this.handleTitleInput}
                 /> : null}
                 {this.state.position === 4 ? <Step4 handelPageLayout={this.handelPageLayout} listOfTweets={this.state.listOfTweets}/> : null}
-                {this.state.position === 5 ? <Step5 /> : null}
+                {this.state.position === 5 ? <Step5 
+                    quantity={this.state.quantity}
+                    increase={this.increaseQuantity}
+                    decrease={this.decreaseQuantity}
+                    addToCart={this.addToCart}
+                    book_price={this.state.book_price}
+                /> : null}
                 <button onClick={() => this.prev()}>Prev</button>
                 <button onClick={() => this.next()}>Next</button>
             </div>
