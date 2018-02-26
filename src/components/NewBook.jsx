@@ -8,7 +8,7 @@ import Step5 from './steps/Step5';
 import axios from 'axios'
 import { connect } from 'react-redux';
 import { getUserInfo } from '../ducks/reducer';
-import { Prompt } from 'react-router'
+import { Prompt } from 'react-router-dom';
 
 
 class NewBook extends Component {
@@ -27,7 +27,8 @@ class NewBook extends Component {
             pageLayout: 'standardTweetsList',
             featured: null,
             book_price: null,
-            draft: null
+            draft: null,
+            blocked: false
         }
         this.selectBookSize = this.selectBookSize.bind(this)
         this.handleTitleInput = this.handleTitleInput.bind(this)
@@ -42,11 +43,11 @@ class NewBook extends Component {
         this.setState({
             user: user
         })
-        console.log(this.state.user)
     }
     async next() {
         await this.setState({
-            position: this.state.position + 1
+            position: this.state.position + 1,
+            blocked: true
         })
         var book = {
             user_id: this.state.user.auth_id,
@@ -131,10 +132,6 @@ class NewBook extends Component {
     render() {
         return (
             <div>
-                <Prompt
-                    when={window.onbeforeunload}
-                    message="Are you sure you want to leave?"
-                />
                 {this.state.position === 1 ? <Step1 size={this.selectBookSize} /> : null}
                 {this.state.position === 2 ? <Step2 handleChange={this.handleChange} /> : null}
                 {this.state.position === 3 ? <Step3
@@ -142,10 +139,16 @@ class NewBook extends Component {
                     handleSubtitleInput={this.handleSubtitleInput}
                     handleTitleInput={this.handleTitleInput}
                 /> : null}
-                {this.state.position === 4 ? <Step4 handelPageLayout={this.handlePageLayout} listOfTweets={this.state.listOfTweets} /> : null}
+                {this.state.position === 4 ? <Step4 handlePageLayout={this.handlePageLayout} listOfTweets={this.state.listOfTweets} /> : null}
                 {this.state.position === 5 ? <Step5 /> : null}
                 <button onClick={() => this.prev()}>Prev</button>
                 <button onClick={() => this.next()}>Next</button>
+                <Prompt
+                    when={this.state.blocked}
+                    message={() =>
+                        `Select save changes before leaving this page.`
+                    }
+                />
             </div>
         )
     }
