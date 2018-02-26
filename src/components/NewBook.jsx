@@ -32,7 +32,7 @@ class NewBook extends Component {
         this.handleTitleInput = this.handleTitleInput.bind(this)
         this.handleSubtitleInput = this.handleSubtitleInput.bind(this)
         this.handleBackInput = this.handleBackInput.bind(this)
-        this.handelPageLayout = this.handelPageLayout.bind(this)
+        this.handlePageLayout = this.handlePageLayout.bind(this)
         this.handleChange = this.handleChange.bind(this)
     }
     async componentDidMount(){
@@ -116,7 +116,7 @@ class NewBook extends Component {
             backText: val
         })
     }
-    handelPageLayout(p){
+    handlePageLayout(p){
         this.setState({
             pageLayout: p
         })
@@ -138,7 +138,7 @@ class NewBook extends Component {
                     handleSubtitleInput={this.handleSubtitleInput}
                     handleTitleInput={this.handleTitleInput}
                 /> : null}
-                {this.state.position === 4 ? <Step4 handelPageLayout={this.handelPageLayout} listOfTweets={this.state.listOfTweets}/> : null}
+                {this.state.position === 4 ? <Step4 handlePageLayout={this.handlePageLayout} listOfTweets={this.state.listOfTweets}/> : null}
                 {this.state.position === 5 ? <Step5 /> : null}
                 <button onClick={() => this.prev()}>Prev</button>
                 <button onClick={() => this.next()}>Next</button>
