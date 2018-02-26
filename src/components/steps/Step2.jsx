@@ -1,9 +1,10 @@
 import React from 'react';
+// import { Swatches } from 'react-color';
 
-export default function Step2() {
+export default function Step2(props) {
     return (
         <div>
-            step2
+            {/* <Swatches /> */}
         </div>
     )
 }

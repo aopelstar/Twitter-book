@@ -14,30 +14,44 @@ class NewBook extends Component {
         super();
         this.state = {
             position: 1,
-            size: null,
+            book_id: 0,
+            size: '',
+            color: null,
             title: '',
             subtitle: '',
             backText: '',
+            listOfTweets: {},
+            pageLayout: 'standardTweetsList'
         }
         this.selectBookSize = this.selectBookSize.bind(this)
         this.handleTitleInput = this.handleTitleInput.bind(this)
         this.handleSubtitleInput = this.handleSubtitleInput.bind(this)
         this.handleBackInput = this.handleBackInput.bind(this)
     }
-    next() {
-        this.setState({
+    async next() {
+        await this.setState({
             position: this.state.position + 1
         })
-        //    axios.post('/api/create-book').then(res => {
-        //        console.log('res')
-        //    })
+        var book = {
+            size: this.state.size,
+            title: this.state.title,
+            subtitle: this.state.title,
+            backText: this.state.backText
+        }
+        // if(this.state.position > 2){
+        //     axios.post('/api/create-book', book).then(res => {
+        //         console.log('res')
+        //     })
+        // }else{
+        //     null
+        // }
     }
     prev() {
         this.setState({
             position: this.state.position - 1
         })
     }
-    selectBookSize(p){
+    selectBookSize(p) {
         if (p === 's') {
             this.setState({
                 size: 'small'
@@ -54,19 +68,24 @@ class NewBook extends Component {
             })
         }
     }
-    handleTitleInput(val){
+    handleTitleInput(val) {
         this.setState({
             title: val
         })
     }
-    handleSubtitleInput(val){
+    handleSubtitleInput(val) {
         this.setState({
             subtitle: val
         })
     }
-    handleBackInput(val){
+    handleBackInput(val) {
         this.setState({
             backText: val
+        })
+    }
+    handelPageLayout(p){
+        this.setState({
+            pageLayout: p
         })
     }
     render() {
@@ -74,12 +93,12 @@ class NewBook extends Component {
             <div>
                 {this.state.position === 1 ? <Step1 size={this.selectBookSize} /> : null}
                 {this.state.position === 2 ? <Step2 /> : null}
-                {this.state.position === 3 ? <Step3 
-                    handleBackInput = {this.handleBackInput}
-                    handleSubtitleInput = {this.handleSubtitleInput}
-                    handleTitleInput = {this.handleTitleInput}
+                {this.state.position === 3 ? <Step3
+                    handleBackInput={this.handleBackInput}
+                    handleSubtitleInput={this.handleSubtitleInput}
+                    handleTitleInput={this.handleTitleInput}
                 /> : null}
-                {this.state.position === 4 ? <Step4 /> : null}
+                {this.state.position === 4 ? <Step4 handelPageLayout={this.handelPageLayout} listOfTweets={this.state.listOfTweets}/> : null}
                 {this.state.position === 5 ? <Step5 /> : null}
                 <button onClick={() => this.prev()}>Prev</button>
                 <button onClick={() => this.next()}>Next</button>
@@ -92,4 +111,4 @@ function mapStateToProps(state) {
         user: state.user
     }
 }
-export default connect(mapStateToProps, {getUserInfo})(NewBook);
+export default connect(mapStateToProps, { getUserInfo })(NewBook);
