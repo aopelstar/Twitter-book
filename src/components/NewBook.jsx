@@ -8,6 +8,7 @@ import Step5 from './steps/Step5';
 import axios from 'axios'
 import { connect } from 'react-redux';
 import { getUserInfo } from '../ducks/reducer';
+import { Prompt } from 'react-router'
 
 
 class NewBook extends Component {
@@ -32,18 +33,19 @@ class NewBook extends Component {
         this.handleTitleInput = this.handleTitleInput.bind(this)
         this.handleSubtitleInput = this.handleSubtitleInput.bind(this)
         this.handleBackInput = this.handleBackInput.bind(this)
-        this.handelPageLayout = this.handelPageLayout.bind(this)
+        this.handlePageLayout = this.handlePageLayout.bind(this)
         this.handleChange = this.handleChange.bind(this)
     }
-    async componentDidMount(){
+    async componentDidMount() {
         await this.props.getUserInfo()
         const { user } = this.props
-        await this.setState({
-            user:  user
+        this.setState({
+            user: user
         })
+        console.log(this.state.user)
     }
     async next() {
-        this.setState({
+        await this.setState({
             position: this.state.position + 1
         })
         var book = {
@@ -59,7 +61,7 @@ class NewBook extends Component {
             book_price: this.state.book_price,
             draft: this.state.draft
         }
-        if(this.state.position > 1){
+        if (this.state.position > 1) {
             axios.post('/api/create-book', book).then(res => {
                 console.log(res.data)
                 this.setState({
@@ -75,7 +77,7 @@ class NewBook extends Component {
                     draft: res.data[0].draft
                 })
             })
-        }else{
+        } else {
             null
         }
     }
@@ -116,14 +118,12 @@ class NewBook extends Component {
             backText: val
         })
     }
-    handelPageLayout(p){
+    handlePageLayout(p) {
         this.setState({
             pageLayout: p
         })
     }
-    handleChange(color, event){
-        console.log(color)
-        console.log(color.hex)
+    handleChange(color, event) {
         this.setState({
             book_color: color.hex
         })
@@ -131,6 +131,10 @@ class NewBook extends Component {
     render() {
         return (
             <div>
+                <Prompt
+                    when={window.onbeforeunload}
+                    message="Are you sure you want to leave?"
+                />
                 {this.state.position === 1 ? <Step1 size={this.selectBookSize} /> : null}
                 {this.state.position === 2 ? <Step2 handleChange={this.handleChange} /> : null}
                 {this.state.position === 3 ? <Step3
@@ -138,7 +142,7 @@ class NewBook extends Component {
                     handleSubtitleInput={this.handleSubtitleInput}
                     handleTitleInput={this.handleTitleInput}
                 /> : null}
-                {this.state.position === 4 ? <Step4 handelPageLayout={this.handelPageLayout} listOfTweets={this.state.listOfTweets}/> : null}
+                {this.state.position === 4 ? <Step4 handelPageLayout={this.handlePageLayout} listOfTweets={this.state.listOfTweets} /> : null}
                 {this.state.position === 5 ? <Step5 /> : null}
                 <button onClick={() => this.prev()}>Prev</button>
                 <button onClick={() => this.next()}>Next</button>
