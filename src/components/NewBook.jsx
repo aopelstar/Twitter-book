@@ -38,13 +38,13 @@ class NewBook extends Component {
             subtitle: this.state.title,
             backText: this.state.backText
         }
-        // if(this.state.position > 2){
-        //     axios.post('/api/create-book', book).then(res => {
-        //         console.log('res')
-        //     })
-        // }else{
-        //     null
-        // }
+        if(this.state.position > 2){
+            axios.post('/api/create-book', book).then(res => {
+                console.log('res')
+            })
+        }else{
+            null
+        }
     }
     prev() {
         this.setState({
