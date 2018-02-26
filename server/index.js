@@ -9,6 +9,7 @@ const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
 const cors = require('cors');
 const controller = require('./controller/twitter_controller');
+const b_controller = require('./controller/book_controller');
 const axios = require('axios');
 const Twit = require('twit');
 
@@ -124,7 +125,7 @@ app.get('/api/twitter', (req, res) => {
     })
 })
 
-
+//search for tweets from other people
 app.post('/api/searchedUser', (req, res) => {
     T.get('users/lookup', { screen_name: req.body.screenName, count: 10 }, function (err, data, response) {
     }).then(resp => {
@@ -148,6 +149,22 @@ app.get('/api/get-featured-books', (req, res) => {
     db.books_test().then(resp => {
         res.status(200).send(resp)
     })
+})
+
+//update books
+
+app.post('/api/create-book', (req, res) => {
+    const db = app.get('db');
+    let { book_id, size, title, subtitle, color, backText } = req.body
+    if(book_id===0){
+        db.create_book([size]).then(resp =>{
+            res.status(200).send(resp)
+        })
+    } else{
+        db.update_book([book_id, title, subtitle, size, color, backText]).then(resp => {
+            res.status(200).send(resp)
+        })
+    }
 })
 
 
