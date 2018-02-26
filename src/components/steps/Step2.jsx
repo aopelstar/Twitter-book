@@ -1,10 +1,10 @@
 import React from 'react';
-// import { Swatches } from 'react-color';
+import { SwatchesPicker } from 'react-color';
 
 export default function Step2(props) {
     return (
         <div>
-            {/* <Swatches /> */}
+            <SwatchesPicker onChange={(color,event) => props.handleChange(color, event)} />
         </div>
     )
 }
