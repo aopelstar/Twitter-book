@@ -155,13 +155,13 @@ app.get('/api/get-featured-books', (req, res) => {
 
 app.post('/api/create-book', (req, res) => {
     const db = app.get('db');
-    let { book_id, size, title, subtitle, color, backText } = req.body
+    let { user_id, book_id, size, title, subtitle, color, backText } = req.body
     if(book_id===0){
         db.create_book([size]).then(resp =>{
             res.status(200).send(resp)
         })
     } else{
-        db.update_book([book_id, title, subtitle, size, color, backText]).then(resp => {
+        db.update_book([book_id, title, subtitle, user_id, size, color, backText]).then(resp => {
             res.status(200).send(resp)
         })
     }
