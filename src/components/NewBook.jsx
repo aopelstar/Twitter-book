@@ -15,6 +15,7 @@ class NewBook extends Component {
         this.state = {
             position: 1,
             book_id: 0,
+            user: {},
             size: '',
             color: null,
             title: '',
@@ -28,17 +29,26 @@ class NewBook extends Component {
         this.handleSubtitleInput = this.handleSubtitleInput.bind(this)
         this.handleBackInput = this.handleBackInput.bind(this)
     }
+    async componentDidMount(){
+        await this.props.getUserInfo()
+        const { user } = this.props
+        await this.setState({
+            user:  user
+        })
+    }
     async next() {
         await this.setState({
             position: this.state.position + 1
         })
         var book = {
+            user_id: this.state.user.auth_id,
+            book_id: this.state.book_id,
             size: this.state.size,
             title: this.state.title,
             subtitle: this.state.title,
             backText: this.state.backText
         }
-        if(this.state.position > 2){
+        if(this.state.position > 1){
             axios.post('/api/create-book', book).then(res => {
                 console.log('res')
             })
@@ -89,6 +99,7 @@ class NewBook extends Component {
         })
     }
     render() {
+        console.log(this.state.user)
         return (
             <div>
                 {this.state.position === 1 ? <Step1 size={this.selectBookSize} /> : null}
