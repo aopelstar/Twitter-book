@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import StripeCheckout from 'react-stripe-checkout';
+import axios from 'axios';
+import stripe from '../../stripeKey';
 
 export default class Step6 extends Component {
     constructor(){
-        super(props)
+        super()
     }
 
 
     onToken = (token) =>{
-        fetch('/save-stripe-token', {
-            method: 'POST',
-            body: JSON.stringify(toke),
-        }).then(response => {
-            response.json().then(data => {
-                alert(`we are in business, ${data.email}`);
-            })
+        token.card= void 0;
+        axios.post('/api/payment', {
+            token,
+            amount: 10
+
+        }).then(response =>{
+            alert("We are in business")
         })
     }
 
@@ -22,8 +24,11 @@ export default class Step6 extends Component {
         return(
             <div>
                 <StripeCheckout
-                token={this.onToken}
-                stripeKey="my_PUBLISHABLE_stripekey"
+                token= {this.onToken}
+                stripeKey= {stripe.pub_key} 
+                name="your order"
+                description="Please buy stuff"
+                amount={1000}
                 />
             </div>
         )
