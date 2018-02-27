@@ -101,6 +101,8 @@ app.post('/api/searchedUser', controller.searchTweets) //search for tweets from 
 app.get('/api/get-featured-books', controller.getBooks) //get books
 app.post('/api/create-book', controller.updateBooks) //update books
 app.post('/api/addtocart', controller.addToCart) //add to cart
+app.get('/api/getcart', controller.getCart) //get cart for specified user
+
 
 
 //Stripe Endpoint
