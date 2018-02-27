@@ -102,6 +102,8 @@ app.get('/api/get-featured-books', controller.getBooks) //get books
 app.post('/api/create-book', controller.updateBooks) //update books
 app.post('/api/addtocart', controller.addToCart) //add to cart
 app.get('/api/getcart', controller.getCart) //get cart for specified user
+app.post('/api/updatetweets', controller.updateTweets) //adds tweets to booktweets table prior to customizing the book
+app.get('/api/selectedtweets', controller.selectedTweets) //gets selected tweets for book creation step 4
 
 
 
