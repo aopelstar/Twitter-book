@@ -8,6 +8,7 @@ import Step6 from './steps/Step6';
 import axios from 'axios'
 import { connect } from 'react-redux';
 import { getUserInfo } from '../ducks/reducer';
+import { Prompt } from 'react-router-dom';
 
 
 class NewBook extends Component {
@@ -26,7 +27,8 @@ class NewBook extends Component {
             pageLayout: 'standardTweetsList',
             featured: null,
             book_price: null,
-            draft: null,
+            draft: true,
+            blocked: false,
             quantity: null
         }
         this.selectBookSize = this.selectBookSize.bind(this)
@@ -37,18 +39,20 @@ class NewBook extends Component {
         this.increaseQuantity = this.increaseQuantity.bind(this)
         this.decreaseQuantity = this.decreaseQuantity.bind(this)
         this.addToCart = this.addToCart.bind(this)
+        this.handlePageLayout = this.handlePageLayout.bind(this)
         this.handleChange = this.handleChange.bind(this)
     }
     async componentDidMount() {
         await this.props.getUserInfo()
         const { user } = this.props
-        await this.setState({
+        this.setState({
             user: user
         })
     }
     async next() {
-        this.setState({
-            position: this.state.position + 1
+        await this.setState({
+            position: this.state.position + 1,
+            blocked: true
         })
         var book = {
             user_id: this.state.user.auth_id,
@@ -128,6 +132,9 @@ class NewBook extends Component {
         })
     }
     addToCart(props) {
+        this.setState({
+            draft: false
+        })
         axios.post('/api/addtocart', {
             book_id: this.state.book_id,
             quantity: this.state.quantity,
@@ -175,6 +182,12 @@ class NewBook extends Component {
                 {this.state.position === 6? <Step6/>:null }
                 <button onClick={() => this.prev()}>Prev</button>
                 <button onClick={() => this.next()}>Next</button>
+                <Prompt
+                    when={this.state.blocked}
+                    message={() =>
+                        `Select save changes before leaving this page.`
+                    }
+                />
             </div>
         )
     }

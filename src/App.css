@@ -27,7 +27,7 @@
   border: solid;
   border-radius: 5px;
   border-width: 5px;
-  background: white;
+  background: rgb(255, 255, 255);
   border-color: #00aced;
   margin: auto;
   box-shadow: 5px 10px 20px;
@@ -38,9 +38,12 @@
 .landingLogo {
   width: 75px;
   height: 75px;
-  border: solid;
 }
-
+.logo{
+  height: 40px;
+  width: 110px;
+  margin-left: -30px;
+}
 .login h1 {
   font-size: 40px;
   font-family: 'Dancing Script', cursive;
@@ -171,6 +174,7 @@
   margin-top: 50px;
 }
 .header{
+  width: 100vw;
   height: 50px;
   display: flex;
   flex-direction: row;
@@ -202,6 +206,17 @@
   cursor: pointer;
   border-radius: 50%;
   z-index: 1;
+}
+.headerProfileImgContainer{
+  width: 110px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.hamMenuContainerDiv{
+  width: 110px;
+  display: flex;
+  flex-direction: row-reverse;
 }
 .menuLinks{
   height: 300px;
