@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Step1 from './steps/Step1';
 import Step2 from './steps/Step2';
-import ColorPicker from './ColorPicker';
 import Step3 from './steps/Step3';
 import Step4 from './steps/Step4';
 import Step5 from './steps/Step5';
@@ -63,25 +62,25 @@ class NewBook extends Component {
             book_price: this.state.book_price,
             draft: this.state.draft
         }
-        if (this.state.position > 1) {
-            axios.post('/api/create-book', book).then(res => {
-                console.log(res.data)
-                this.setState({
-                    book_id: res.data[0].book_id,
-                    size: res.data[0].book_size,
-                    color: res.data[0].book_color,
-                    title: res.data[0].book_title,
-                    subtitle: res.data[0].book_subtitle,
-                    backText: res.data[0].back_text,
-                    pageLayout: res.data[0].pages_format,
-                    featured: res.data[0].featured,
-                    book_price: res.data[0].book_price,
-                    draft: res.data[0].draft
-                })
-            })
-        } else {
-            null
-        }
+        // if (this.state.position > 1) {
+        //     axios.post('/api/create-book', book).then(res => {
+        //         console.log(res.data)
+        //         this.setState({
+        //             book_id: res.data[0].book_id,
+        //             size: res.data[0].book_size,
+        //             color: res.data[0].book_color,
+        //             title: res.data[0].book_title,
+        //             subtitle: res.data[0].book_subtitle,
+        //             backText: res.data[0].back_text,
+        //             pageLayout: res.data[0].pages_format,
+        //             featured: res.data[0].featured,
+        //             book_price: res.data[0].book_price,
+        //             draft: res.data[0].draft
+        //         })
+        //     })
+        // } else {
+        //     null
+        // }
     }
     prev() {
         this.setState({
@@ -128,11 +127,12 @@ class NewBook extends Component {
             pageLayout: p
         })
     }
-    addToCart() {
+    addToCart(props) {
         axios.post('/api/addtocart', {
             book_id: this.state.book_id,
             quantity: this.state.quantity,
-            book_price: this.state.book_price
+            book_price: this.state.book_price,
+            user_id: props.user.data.auth_id
         }).then(res => {
             console.log(res);
         })

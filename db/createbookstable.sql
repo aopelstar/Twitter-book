@@ -7,4 +7,5 @@ create table books
 , book_color varchar(20)
 , pages_format varchar(20)
 , featured boolean
-, book_price numeric(10, 2))
+, book_price numeric(10, 2)
+, draft boolean)
