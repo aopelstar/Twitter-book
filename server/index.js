@@ -12,6 +12,7 @@ const controller = require('./controller/twitter_controller');
 const b_controller = require('./controller/book_controller');
 const axios = require('axios');
 const Twit = require('twit');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
 var T = new Twit({
     consumer_key: process.env.CONSUMER_KEY,
