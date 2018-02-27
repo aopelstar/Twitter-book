@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Step1 from './steps/Step1';
 import Step2 from './steps/Step2';
-import ColorPicker from './ColorPicker';
 import Step3 from './steps/Step3';
 import Step4 from './steps/Step4';
 import Step5 from './steps/Step5';
@@ -36,6 +35,7 @@ class NewBook extends Component {
         this.handleTitleInput = this.handleTitleInput.bind(this)
         this.handleSubtitleInput = this.handleSubtitleInput.bind(this)
         this.handleBackInput = this.handleBackInput.bind(this)
+        this.handlePageLayout = this.handlePageLayout.bind(this)
         this.increaseQuantity = this.increaseQuantity.bind(this)
         this.decreaseQuantity = this.decreaseQuantity.bind(this)
         this.addToCart = this.addToCart.bind(this)
@@ -69,7 +69,6 @@ class NewBook extends Component {
         }
         if (this.state.position > 1) {
             axios.post('/api/create-book', book).then(res => {
-                console.log(res.data)
                 this.setState({
                     book_id: res.data[0].book_id,
                     size: res.data[0].book_size,
@@ -127,21 +126,22 @@ class NewBook extends Component {
             backText: val
         })
     }
-    handlePageLayout(p) {
+    handlePageLayout(p){
         this.setState({
             pageLayout: p
         })
     }
-    addToCart() {
+    addToCart(props) {
         this.setState({
             draft: false
         })
         axios.post('/api/addtocart', {
             book_id: this.state.book_id,
             quantity: this.state.quantity,
-            book_price: this.state.book_price
+            book_price: this.state.book_price,
+            user_id: this.props.user.data.auth_id
         }).then(res => {
-            console.log(res);
+            return res
         })
     }
     increaseQuantity() {
@@ -157,8 +157,6 @@ class NewBook extends Component {
         })
     }
     handleChange(color, event) {
-        console.log(color)
-        console.log(color.hex)
         this.setState({
             book_color: color.hex
         })

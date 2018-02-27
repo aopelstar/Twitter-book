@@ -1,5 +1,4 @@
 //requirements
-
 require('dotenv').config();
 const express = require('express');
 const bodyparser = require('body-parser');
@@ -9,17 +8,8 @@ const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
 const cors = require('cors');
 const controller = require('./controller/twitter_controller');
-const b_controller = require('./controller/book_controller');
 const axios = require('axios');
-const Twit = require('twit');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
-
-var T = new Twit({
-    consumer_key: process.env.CONSUMER_KEY,
-    consumer_secret: process.env.CONSUMER_SECRET,
-    access_token: process.env.ACCESS_TOKEN,
-    access_token_secret: process.env.ACCESS_TOKEN_SECRET
-});
+const paymentController = require('./controller/payment_controller');
 
 //app set up
 
@@ -28,6 +18,9 @@ const app = express();
 
 app.use(bodyparser.json());
 app.use(cors());
+massive(process.env.CONNECTION_STRING).then(db => {
+    app.set('db', db);
+})
 
 // sessions
 
@@ -37,16 +30,10 @@ app.use(session({
     saveUninitialized: true
 }))
 
-//app.use( checkforSession );
-
 //authentication
-
 app.use(passport.initialize());
 app.use(passport.session());
 
-massive(process.env.CONNECTION_STRING).then(db => {
-    app.set('db', db);
-})
 passport.use(new Auth0Strategy({
     domain: process.env.AUTH_DOMAIN,
     clientID: process.env.AUTH_CLIENT_ID,
@@ -54,7 +41,6 @@ passport.use(new Auth0Strategy({
     callbackURL: process.env.AUTH_CALLBACK_URL,
     scope: 'openid profile'
 }, function (accessToken, refreshToken, extraParams, profile, done) {
-
     let { displayName, user_id, picture } = profile
     let image = picture.replace('normal', '400x400')
     const db = app.get('db')
@@ -75,8 +61,6 @@ passport.use(new Auth0Strategy({
             return done(null, users[0].auth_id)
         }
     })
-
-
 }))
 
 passport.serializeUser((user, done) => {
@@ -97,6 +81,7 @@ app.get('/auth/callback', passport.authenticate('auth0', {
     failureRedirect: '/'
 }));
 
+//Auth0 Endpoints
 app.get('/auth/me', (req, res) => {
     if (!req.user) {
         res.status(404).send('User not found');
@@ -104,13 +89,13 @@ app.get('/auth/me', (req, res) => {
         res.status(200).send(req.user)
     }
 })
-
-app.get('/auth/logout', function (req, res) {
+app.get('/auth/logout', (req, res) => {
     req.logOut();
     res.redirect(process.env.LOGOUT_REDIRECT)
 })
 
 
+<<<<<<< HEAD
 //endpoints
 //get tweets
 app.get('/api/twitter', (req, res) => {
@@ -206,10 +191,19 @@ app.post('/api/payment', function(req, res, next){
     // }
   });
   });
+=======
+//TwitterBook Endpoints
+app.get('/api/twitter', controller.getTweets) //get tweets
+app.post('/api/searchedUser', controller.searchTweets) //search for tweets from other people
+app.get('/api/get-featured-books', controller.getBooks) //get books
+app.post('/api/create-book', controller.updateBooks) //update books
+app.post('/api/addtocart', controller.addToCart) //add to cart
+>>>>>>> master
 
 
+//Stripe Endpoint
+app.post('/api/payment', paymentController.payment); //payment
 
 //port
-
 const port = process.env.SERVER_PORT || 4321
 app.listen(port, () => console.log(`Lots of heavy petting on port ${port}`))

@@ -22,13 +22,11 @@ export default class Home extends Component {
     }
     async componentDidMount() {
         await axios.get('/api/get-featured-books').then(res => {
-            console.log(res.data)
             this.setState({
                 fearturedBooks: res.data
             })
         })
         await axios.get('/api/twitter').then(res => {
-            console.log(res)
             this.setState({
                 tweets: res.data.data
             })
@@ -44,7 +42,6 @@ export default class Home extends Component {
             screenName: this.state.searchInput
         }
         axios.post("/api/searchedUser", screenName).then(res => {
-            console.log(res)
             this.setState({
                 searchedTweets: res.data.data,
                 yourTweets: false

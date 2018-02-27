@@ -7,7 +7,7 @@ export default function Step5(props) {
         <div>
             <h1>Price: {price}</h1>
             <div className="field" id="quantityfield">
-                <input id="quantity" placeholder="Qty." type="number" disabled="disabled" value={props.quantity}></input>
+                <input id="quantity" placeholder="Qty." min="0" type="number" disabled="disabled" value={props.quantity}></input>
                 <div className="quantityControl">
                     <button onClick={props.increase}>+</button>
                     <button onClick={props.decrease}>-</button>
