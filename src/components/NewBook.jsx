@@ -65,7 +65,6 @@ class NewBook extends Component {
         }
         if (this.state.position > 1) {
             axios.post('/api/create-book', book).then(res => {
-                console.log(res.data)
                 this.setState({
                     book_id: res.data[0].book_id,
                     size: res.data[0].book_size,
@@ -135,7 +134,7 @@ class NewBook extends Component {
             book_price: this.state.book_price,
             user_id: this.props.user.data.auth_id
         }).then(res => {
-            console.log(res);
+            return res
         })
     }
     increaseQuantity() {
@@ -151,8 +150,6 @@ class NewBook extends Component {
         })
     }
     handleChange(color, event) {
-        console.log(color)
-        console.log(color.hex)
         this.setState({
             book_color: color.hex
         })
