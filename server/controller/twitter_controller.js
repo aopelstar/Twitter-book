@@ -48,6 +48,15 @@ module.exports = {
         })
     },
 
+    updateTweets: (req,res) => {
+        const {img, userName, userScreenName, text, mediaOne, mediaTwo, mediaThree, mediaFour} = req.body
+        const user = req.user.auth_id;
+        const db = req.app.get('db')
+        db.add_tweets([img, userName, userScreenName, text, mediaOne, mediaTwo, mediaThree, mediaFour, user]).then(resp => {
+            res.status(200).send(resp)
+        })
+    },
+
     updateBooks: (req, res) => {
         const db = req.app.get('db');
         let { user_id, book_id, size, title, subtitle, color, backText, pages_format, featured, book_price, draft } = req.body
@@ -60,5 +69,16 @@ module.exports = {
                 res.status(200).send(resp)
             })
         }
+    },
+
+    getCart: (req, res) => {
+        const db = req.app.get('db');
+        let user = req.user.auth_id;
+
+        db.get_cart([user]).then(resp=>{
+            res.status(200).send(resp)
+        })
     }
+
+
 }
