@@ -27,7 +27,7 @@ class NewBook extends Component {
             pageLayout: 'standardTweetsList',
             featured: null,
             book_price: null,
-            draft: null,
+            draft: true,
             blocked: false,
             quantity: null
         }
@@ -132,6 +132,9 @@ class NewBook extends Component {
         })
     }
     addToCart() {
+        this.setState({
+            draft: false
+        })
         axios.post('/api/addtocart', {
             book_id: this.state.book_id,
             quantity: this.state.quantity,
