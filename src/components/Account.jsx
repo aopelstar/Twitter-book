@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getUserInfo } from '../ducks/reducer';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import logo from '../images/logo.svg'
 
 
 class Account extends Component {
@@ -10,7 +11,8 @@ class Account extends Component {
         super();
 
         this.state = {
-            user: {}
+            user: {},
+            bookCart: [],
         }
     }
 
@@ -21,6 +23,17 @@ class Account extends Component {
                 user: res.data.data[0].user
             })
         })
+
+        axios.get("/api/getcart").then(res => {
+            console.log(res.data)
+            this.setState({
+                bookCart: res.data
+            })
+        })
+    }
+
+    multiply(num1, num2){
+        return num1 * num2
     }
 
 
@@ -28,7 +41,17 @@ class Account extends Component {
 
         let user = this.state.user;
         let image = this.state.user.profile_image_url ? this.state.user.profile_image_url.replace('normal', '400x400') : null
-        console.log(user);
+        let cart = this.state.bookCart.map((cartLine, i) => {
+            return <div className="cartLine" key={i}>
+            <div className="accountBookImage"><img src = {logo} alt='logo' className='accountLogo'/></div>
+                        <div className="accountBookTitle">{cartLine.book_title}</div>
+                        <div className="accountBookPrice">{cartLine.book_price}</div>
+                        <div className="accountBookQuantity">{cartLine.quantity}</div>
+                        <div className="accountBookTotal">{this.multiply(cartLine.book_price, cartLine.quantity)}</div>
+
+           
+           </div>
+        })
 
         return (
             <div>
@@ -44,6 +67,9 @@ class Account extends Component {
                                 <div className="accountStats">Followers <div>{user.followers_count}</div></div>
                             </div>
                         </div>
+                    </div>
+                    <div className="accountCart">
+                        {cart}
                     </div>
                     <div className="accountLinks">
                         <div><Link to="/account/update">Timeline<div className="line"></div></Link></div>
