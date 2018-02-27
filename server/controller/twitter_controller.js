@@ -49,10 +49,10 @@ module.exports = {
     },
 
     updateTweets: (req,res) => {
-        const {img, userName, userScreenName, text, mediaOne, mediaTwo, mediaThree, mediaFour} = req.body
+        const {img, userName, userScreenName, text, mediaOne, mediaTwo, mediaThree, mediaFour, tweet_date} = req.body
         const user = req.user.auth_id;
         const db = req.app.get('db')
-        db.add_tweets([img, userName, userScreenName, text, mediaOne, mediaTwo, mediaThree, mediaFour, user]).then(resp => {
+        db.add_tweets([img, userName, userScreenName, text, mediaOne, mediaTwo, mediaThree, mediaFour, user, tweet_date]).then(resp => {
             res.status(200).send(resp)
         })
     },

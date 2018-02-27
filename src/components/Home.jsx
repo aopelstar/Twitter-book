@@ -56,16 +56,24 @@ export default class Home extends Component {
     handleAddTweet(i){
         let tweet = this.state.tweets[i]
         let tweetImg = this.state.tweets[i].user.profile_image_url.replace("normal", "400x400")
+        var text = tweet.text;
+        var text1 = text.replace(/https.*$/g, '')
+        var text2 = text1.replace(/^(.*?): /g, '')
         var tweetBody = {
             img: tweetImg,
             userName: tweet.user.name,
             userScreenName: tweet.user.screen_name,
-            text: tweet.text,
+            text: text2,
+            tweet_date: tweet.created_at,
             mediaOne: tweet.extended_entities ? tweet.extended_entities.media[0] ? tweet.extended_entities.media[0].media_url : null : null,
             mediaTwo: tweet.extended_entities ? tweet.extended_entities.media[1] ? tweet.extended_entities.media[1].media_url : null : null,
             mediaThree: tweet.extended_entities ? tweet.extended_entities.media[2] ? tweet.extended_entities.media[2].media_url : null : null,
             mediaFour: tweet.extended_entities ? tweet.extended_entities.media[3] ? tweet.extended_entities.media[3].media_url : null : null,
         }
+        console.log(tweet)
+        axios.post('/api/updatetweets', tweetBody).then(res => {
+            console.log(res)
+        })
     }
     render() {
         let featuredBooks = this.state.fearturedBooks.map((e, i) => {
