@@ -28,12 +28,16 @@ class NewBook extends Component {
             featured: null,
             book_price: null,
             draft: null,
-            blocked: false
+            blocked: false,
+            quantity: null
         }
         this.selectBookSize = this.selectBookSize.bind(this)
         this.handleTitleInput = this.handleTitleInput.bind(this)
         this.handleSubtitleInput = this.handleSubtitleInput.bind(this)
         this.handleBackInput = this.handleBackInput.bind(this)
+        this.increaseQuantity = this.increaseQuantity.bind(this)
+        this.decreaseQuantity = this.decreaseQuantity.bind(this)
+        this.addToCart = this.addToCart.bind(this)
         this.handlePageLayout = this.handlePageLayout.bind(this)
         this.handleChange = this.handleChange.bind(this)
     }
@@ -90,17 +94,20 @@ class NewBook extends Component {
     selectBookSize(p) {
         if (p === 's') {
             this.setState({
-                size: 'small'
+                size: 'small',
+                book_price: 19.99
             })
         }
         if (p === 'm') {
             this.setState({
-                size: 'medium'
+                size: 'medium',
+                book_price: 29.99
             })
         }
         if (p === 'l') {
             this.setState({
-                size: 'large'
+                size: 'large',
+                book_price: 39.99
             })
         }
     }
@@ -124,7 +131,30 @@ class NewBook extends Component {
             pageLayout: p
         })
     }
+    addToCart() {
+        axios.post('/api/addtocart', {
+            book_id: this.state.book_id,
+            quantity: this.state.quantity,
+            book_price: this.state.book_price
+        }).then(res => {
+            console.log(res);
+        })
+    }
+    increaseQuantity() {
+        var increment = this.state.quantity + 1
+        this.setState({
+            quantity: increment
+        })
+    }
+    decreaseQuantity() {
+        var decrement = this.state.quantity - 1
+        this.setState({
+            quantity: decrement
+        })
+    }
     handleChange(color, event) {
+        console.log(color)
+        console.log(color.hex)
         this.setState({
             book_color: color.hex
         })
@@ -140,7 +170,13 @@ class NewBook extends Component {
                     handleTitleInput={this.handleTitleInput}
                 /> : null}
                 {this.state.position === 4 ? <Step4 handlePageLayout={this.handlePageLayout} listOfTweets={this.state.listOfTweets} /> : null}
-                {this.state.position === 5 ? <Step5 /> : null}
+                {this.state.position === 5 ? <Step5
+                    quantity={this.state.quantity}
+                    increase={this.increaseQuantity}
+                    decrease={this.decreaseQuantity}
+                    addToCart={this.addToCart}
+                    book_price={this.state.book_price}
+                /> : null}
                 <button onClick={() => this.prev()}>Prev</button>
                 <button onClick={() => this.next()}>Next</button>
                 <Prompt
