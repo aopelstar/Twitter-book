@@ -60,7 +60,7 @@ class NewBook extends Component {
             color: this.state.book_color,
             size: this.state.size,
             title: this.state.title,
-            subtitle: this.state.title,
+            subtitle: this.state.subtitle,
             backText: this.state.backText,
             pages_format: this.state.pageLayout,
             featured: this.state.featured,

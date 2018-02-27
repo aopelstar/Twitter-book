@@ -53,6 +53,20 @@ export default class Home extends Component {
             yourTweets: true
         })
     }
+    handleAddTweet(i){
+        let tweet = this.state.tweets[i]
+        let tweetImg = this.state.tweets[i].user.profile_image_url.replace("normal", "400x400")
+        var tweetBody = {
+            img: tweetImg,
+            userName: tweet.user.name,
+            userScreenName: tweet.user.screen_name,
+            text: tweet.text,
+            mediaOne: tweet.extended_entities ? tweet.extended_entities.media[0] ? tweet.extended_entities.media[0].media_url : null : null,
+            mediaTwo: tweet.extended_entities ? tweet.extended_entities.media[1] ? tweet.extended_entities.media[1].media_url : null : null,
+            mediaThree: tweet.extended_entities ? tweet.extended_entities.media[2] ? tweet.extended_entities.media[2].media_url : null : null,
+            mediaFour: tweet.extended_entities ? tweet.extended_entities.media[3] ? tweet.extended_entities.media[3].media_url : null : null,
+        }
+    }
     render() {
         let featuredBooks = this.state.fearturedBooks.map((e, i) => {
             return (
@@ -75,6 +89,7 @@ export default class Home extends Component {
                     <img src={e.extended_entities ? e.extended_entities.media[1] ? e.extended_entities.media[1].media_url : null : null} alt="" className="tweetImg"/>
                     <img src={e.extended_entities ? e.extended_entities.media[2] ? e.extended_entities.media[2].media_url : null : null} alt="" className="tweetImg"/>
                     <img src={e.extended_entities ? e.extended_entities.media[3] ? e.extended_entities.media[3].media_url : null : null} alt="" className="tweetImg"/>
+                    <button onClick={() => this.handleAddTweet(i)}>Add Tweet</button>
                     <br />
                 </div>
             )
