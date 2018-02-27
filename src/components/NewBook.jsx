@@ -133,7 +133,7 @@ class NewBook extends Component {
             book_id: this.state.book_id,
             quantity: this.state.quantity,
             book_price: this.state.book_price,
-            user_id: props.user.data.auth_id
+            user_id: this.props.user.data.auth_id
         }).then(res => {
             console.log(res);
         })
