@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUserInfo } from '../ducks/reducer'
 import axios from 'axios';
+import logo from '../images/logo.svg'
 
 class Header extends Component {
     constructor() {
@@ -28,22 +29,26 @@ class Header extends Component {
     }
     render() {
 
-        let image = this.state.user.profile_image_url?this.state.user.profile_image_url.replace('normal', '400x400'):null
+        let image = this.state.user.profile_image_url ? this.state.user.profile_image_url.replace('normal', '400x400') : null
 
         return (
             <div>
                 <div className="header">
-                    <Link to="/home"><img src="" alt="logo" /></Link>
-                    <Link to="/account"><img src={image} className="headerProfileImg" alt="profile pic" /></Link>
-                    <div className="hamMenuContainer">
-                        <div className={this.state.HamAnimation ? "hamMenu" : "hamMenu HamSlide"} onClick={() => this.hamMenuSlide()}>
-                            <div className="hamLine one"></div>
-                            <div className="hamLine two"></div>
-                            <div className="hamLine three"></div>
+                    <Link to="/home"><img src={logo} alt="logo" className="logo" /></Link>
+                    <div className="headerProfileImgContainer">
+                        <Link to="/account"><img src={image} className="headerProfileImg" alt="profile pic" /></Link>
+                    </div>
+                    <div className="hamMenuContainerDiv">
+                        <div className="hamMenuContainer">
+                            <div className={this.state.HamAnimation ? "hamMenu" : "hamMenu HamSlide"} onClick={() => this.hamMenuSlide()}>
+                                <div className="hamLine one"></div>
+                                <div className="hamLine two"></div>
+                                <div className="hamLine three"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className={this.state.HamAnimation ? "menuLinks" : "menuLinks slideLeft" }>
+                <div className={this.state.HamAnimation ? "menuLinks" : "menuLinks slideLeft"}>
                     <Link to="/home" style={{ textDecoration: 'none' }} className="link H"><div>Home</div></Link>
                     <Link to="/newbook" style={{ textDecoration: 'none' }} className="link"><div>Add New Book</div></Link>
                     <Link to="/account" style={{ textDecoration: 'none' }} className="link"><div>Account</div></Link>
