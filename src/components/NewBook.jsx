@@ -5,6 +5,7 @@ import ColorPicker from './ColorPicker';
 import Step3 from './steps/Step3';
 import Step4 from './steps/Step4';
 import Step5 from './steps/Step5';
+import Step6 from './steps/Step6';
 import axios from 'axios'
 import { connect } from 'react-redux';
 import { getUserInfo } from '../ducks/reducer';
@@ -180,6 +181,7 @@ class NewBook extends Component {
                     addToCart={this.addToCart}
                     book_price={this.state.book_price}
                 /> : null}
+                {this.state.position === 6? <Step6/>:null }
                 <button onClick={() => this.prev()}>Prev</button>
                 <button onClick={() => this.next()}>Next</button>
                 <Prompt
