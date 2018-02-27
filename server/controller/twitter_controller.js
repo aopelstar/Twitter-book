@@ -49,7 +49,6 @@ module.exports = {
     },
 
     updateBooks: (req, res) => {
-        console.log(req.body)
         const db = req.app.get('db');
         let { user_id, book_id, size, title, subtitle, color, backText, pages_format, featured, book_price, draft } = req.body
         if (book_id === 0) {
