@@ -28,7 +28,8 @@ class NewBook extends Component {
             book_price: null,
             draft: true,
             blocked: false,
-            quantity: 1
+            quantity: 1,
+            listOfTweets: [],
         }
         this.selectBookSize = this.selectBookSize.bind(this)
         this.handleTitleInput = this.handleTitleInput.bind(this)
@@ -40,6 +41,7 @@ class NewBook extends Component {
         this.addToCart = this.addToCart.bind(this)
         this.handlePageLayout = this.handlePageLayout.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.addTweetToBook = this.addTweetToBook.bind(this)
     }
     async componentDidMount() {
         await this.props.getUserInfo()
@@ -64,7 +66,8 @@ class NewBook extends Component {
             pages_format: this.state.pageLayout,
             featured: this.state.featured,
             book_price: this.state.book_price,
-            draft: this.state.draft
+            draft: this.state.draft,
+            booktweets: this.state.listOfTweets
         }
         if (this.state.position > 1) {
             axios.post('/api/create-book', book).then(res => {
@@ -78,7 +81,8 @@ class NewBook extends Component {
                     pageLayout: res.data[0].pages_format,
                     featured: res.data[0].featured,
                     book_price: res.data[0].book_price,
-                    draft: res.data[0].draft
+                    draft: res.data[0].draft,
+                    booktweets: res.data[0].booktweets
                 })
             })
         } else {
@@ -160,7 +164,15 @@ class NewBook extends Component {
             book_color: color.hex
         })
     }
+    addTweetToBook(e){
+        console.log('hello')
+        console.log(e)
+        this.setState({
+            listOfTweets: [...this.state.listOfTweets, e]
+        })
+    }
     render() {
+        console.log(this.state.listOfTweets)
         return (
             <div>
                 {this.state.position === 1 ? <Step1 size={this.selectBookSize} /> : null}
@@ -170,7 +182,10 @@ class NewBook extends Component {
                     handleSubtitleInput={this.handleSubtitleInput}
                     handleTitleInput={this.handleTitleInput}
                 /> : null}
-                {this.state.position === 4 ? <Step4 handlePageLayout={this.handlePageLayout} /> : null}
+                {this.state.position === 4 ? <Step4 
+                handlePageLayout={this.handlePageLayout}
+                addTweetToBook={this.addTweetToBook}
+                 /> : null}
                 {this.state.position === 5 ? <Step5
                     quantity={this.state.quantity}
                     increase={this.increaseQuantity}
