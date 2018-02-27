@@ -1,6 +1,12 @@
 let axios = require('axios');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
+const T = new Twit({
+    consumer_key: process.env.CONSUMER_KEY,
+    consumer_secret: process.env.CONSUMER_SECRET,
+    access_token: process.env.ACCESS_TOKEN,
+    access_token_secret: process.env.ACCESS_TOKEN_SECRET
+});
 
 
 module.exports ={
@@ -37,6 +43,15 @@ module.exports ={
                 return res.sendStatus(500)
             } 
             return res.sendStatus(200)
+       })
+   },
+
+   addToCart: (req,res,next)=>{
+       const {book_id, quantity, book_price, user_id} = req.body
+       const db = req.app.get('db');
+
+       db.addToCart([book_id, quantity, book_price, user_id]).then(cart=>{
+           res.status(200).send(cart)
        })
    }
 }

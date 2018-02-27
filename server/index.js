@@ -9,7 +9,6 @@ const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
 const cors = require('cors');
 const controller = require('./controller/twitter_controller');
-const b_controller = require('./controller/book_controller');
 const axios = require('axios');
 const Twit = require('twit');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
@@ -37,7 +36,6 @@ app.use(session({
     saveUninitialized: true
 }))
 
-//app.use( checkforSession );
 
 //authentication
 
@@ -207,6 +205,9 @@ app.post('/api/payment', function(req, res, next){
   });
   });
 
+
+//Endpoints
+app.post('/api/addtocart', controller.addToCart)
 
 
 //port
