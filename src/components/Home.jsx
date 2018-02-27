@@ -53,6 +53,28 @@ export default class Home extends Component {
             yourTweets: true
         })
     }
+    handleAddTweet(i){
+        let tweet = this.state.tweets[i]
+        let tweetImg = this.state.tweets[i].user.profile_image_url.replace("normal", "400x400")
+        var text = tweet.text;
+        var text1 = text.replace(/https.*$/g, '')
+        var text2 = text1.replace(/^(.*?): /g, '')
+        var tweetBody = {
+            img: tweetImg,
+            userName: tweet.user.name,
+            userScreenName: tweet.user.screen_name,
+            text: text2,
+            tweet_date: tweet.created_at,
+            mediaOne: tweet.extended_entities ? tweet.extended_entities.media[0] ? tweet.extended_entities.media[0].media_url : null : null,
+            mediaTwo: tweet.extended_entities ? tweet.extended_entities.media[1] ? tweet.extended_entities.media[1].media_url : null : null,
+            mediaThree: tweet.extended_entities ? tweet.extended_entities.media[2] ? tweet.extended_entities.media[2].media_url : null : null,
+            mediaFour: tweet.extended_entities ? tweet.extended_entities.media[3] ? tweet.extended_entities.media[3].media_url : null : null,
+        }
+        console.log(tweet)
+        axios.post('/api/updatetweets', tweetBody).then(res => {
+            console.log(res)
+        })
+    }
     render() {
         let featuredBooks = this.state.fearturedBooks.map((e, i) => {
             return (
@@ -74,7 +96,8 @@ export default class Home extends Component {
                     <img src={e.extended_entities ? e.extended_entities.media[0] ? e.extended_entities.media[0].media_url : null : null} alt="" className="tweetImg"/>
                     <img src={e.extended_entities ? e.extended_entities.media[1] ? e.extended_entities.media[1].media_url : null : null} alt="" className="tweetImg"/>
                     <img src={e.extended_entities ? e.extended_entities.media[2] ? e.extended_entities.media[2].media_url : null : null} alt="" className="tweetImg"/>
-                    <img src={e.extended_entities ? e.extended_entities.media[3] ? e.extended_entities.media[3].media_url : null : null} alt="" className="tweetImg"/>
+                    <img src={e.extended_entities ? e.extended_entities.media[3] ? e.extended_entities.media[3].media_url : null : null} alt="" className="tweetImg"/> <br/>
+                    <button onClick={() => this.handleAddTweet(i)}>Add Tweet</button>
                     <br />
                 </div>
             )
