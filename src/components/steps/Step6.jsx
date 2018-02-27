@@ -11,7 +11,7 @@ export default class Step6 extends Component {
           alert('we are in business')
         });
       }
-
+      
     render(){
         return(
             <div>
