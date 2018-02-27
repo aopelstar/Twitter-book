@@ -87,7 +87,7 @@ module.exports = {
     selectedTweets: (req,res) => {
         const db = req.app.get('db');
         let user = req.user.auth_id;
-
+        console.log(user)
         db.get_booktweets([user]).then(resp=>{
             res.status(200).send(resp)
         })

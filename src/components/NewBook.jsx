@@ -23,13 +23,12 @@ class NewBook extends Component {
             title: '',
             subtitle: '',
             backText: '',
-            listOfTweets: [],
             pageLayout: 'standardTweetsList',
             featured: null,
             book_price: null,
             draft: true,
             blocked: false,
-            quantity: null
+            quantity: 1
         }
         this.selectBookSize = this.selectBookSize.bind(this)
         this.handleTitleInput = this.handleTitleInput.bind(this)
@@ -171,7 +170,7 @@ class NewBook extends Component {
                     handleSubtitleInput={this.handleSubtitleInput}
                     handleTitleInput={this.handleTitleInput}
                 /> : null}
-                {this.state.position === 4 ? <Step4 handlePageLayout={this.handlePageLayout} listOfTweets={this.state.listOfTweets} /> : null}
+                {this.state.position === 4 ? <Step4 handlePageLayout={this.handlePageLayout} /> : null}
                 {this.state.position === 5 ? <Step5
                     quantity={this.state.quantity}
                     increase={this.increaseQuantity}
