@@ -48,8 +48,8 @@ module.exports = {
         })
     },
 
-    updateTweets: (req,res) => {
-        const {img, userName, userScreenName, text, mediaOne, mediaTwo, mediaThree, mediaFour, tweet_date} = req.body
+    updateTweets: (req, res) => {
+        const { img, userName, userScreenName, text, mediaOne, mediaTwo, mediaThree, mediaFour, tweet_date } = req.body
         const user = req.user.auth_id;
         const db = req.app.get('db')
         db.add_tweets([img, userName, userScreenName, text, mediaOne, mediaTwo, mediaThree, mediaFour, user, tweet_date]).then(resp => {
@@ -68,10 +68,11 @@ module.exports = {
             db.update_book([book_id, title, subtitle, req.user.auth_id, size, color, backText, pages_format, featured, book_price, draft]).then(resp => {
                 res.status(200).send(resp)
             })
-            // for(let i = 0; i<)
-            // db.update_tweets([book_id, tweet_id]).then(resp=>{
-            //     res.status(200).send(resp)
-            // })
+            for (let i = 0; i < booktweets.length; i++) {
+                db.update_tweets([book_id, booktweets[i].tweet_id]).then(resp => {
+                    res.status(200).send(resp)
+                })
+            }
         }
     },
 
@@ -79,16 +80,16 @@ module.exports = {
         const db = req.app.get('db');
         let user = req.user.auth_id;
 
-        db.get_cart([user]).then(resp=>{
+        db.get_cart([user]).then(resp => {
             res.status(200).send(resp)
         })
     },
 
-    selectedTweets: (req,res) => {
+    selectedTweets: (req, res) => {
         const db = req.app.get('db');
         let user = req.user.auth_id;
 
-        db.get_booktweets([user]).then(resp=>{
+        db.get_booktweets([user]).then(resp => {
             res.status(200).send(resp)
         })
     }
