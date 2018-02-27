@@ -1,42 +1,65 @@
-let axios = require('axios');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+const Twit = require('twit');
+
+const T = new Twit({
+    consumer_key: process.env.CONSUMER_KEY,
+    consumer_secret: process.env.CONSUMER_SECRET,
+    access_token: process.env.ACCESS_TOKEN,
+    access_token_secret: process.env.ACCESS_TOKEN_SECRET
+});
 
 
+module.exports = {
+    addToCart: (req, res, next) => {
+        const { book_id, quantity, book_price, user_id } = req.body
+        const db = req.app.get('db');
 
-module.exports ={
-   payment: (req, res, next) =>{
-       const amountArray = req.body.amount.toString().split('')
-       const pennies = [];
-       const { amount } = req.body
-       const db = req.app.get('db');
-       for(i=0; i<amountArray.length; i++){
-           if(amountArray[i] === "."){
-               if(typeof amountArray[i+1]==="string"){
-                   pennies.push(amountArray[i+1])
-               } else {
-                   pennies.push("0");
-               }
-               if(typeof amountArray[i+2]==="string"){
-                pennies.push(amountArray[i+2])
-             } else {
-                pennies.push("0");
-            } break;
+        db.addToCart([book_id, quantity, book_price, user_id]).then(cart => {
+            res.status(200).send(cart)
+        })
+    },
 
-           }else {
-               pennies.push(amountArray[i])
-           }
-       }
-       const convertedAmt = parseInt(pennies.join(''))
-       const charge = stripe.charges.create({
-           amount:convertedAmt,
-           currency: "usd",
-           source: req.body.token.id,
-           description: "test charge from react app"
-       }, function(error, charge){
-            if(error){
-                return res.sendStatus(500)
-            } 
-            return res.sendStatus(200)
-       })
-   }
+    getTweets: (req, res) => {
+        // Get twitter handle from API user request
+        let tid = req.user.auth_id.replace("twitter|", "");
+
+
+        // Make call to Twitter API to get user's timeline
+        T.get('statuses/user_timeline', { user_id: tid, count: 30 }, function (err, data, response) {
+        }).then(resp => {
+            res.status(200).send(resp)
+        })
+    },
+
+    searchTweets: (req, res) => {
+        T.get('users/lookup', { screen_name: req.body.screenName, count: 10 }, function (err, data, response) {
+        }).then(resp => {
+            var id = resp.data[0].id_str
+            T.get('statuses/user_timeline', { user_id: id, count: 30 }, function (err, data, response) {
+            }).then(respo => {
+                res.status(200).send(respo)
+            })
+        })
+    },
+
+    getBooks: (req, res) => {
+        const db = req.app.get('db');
+        db.books_test().then(resp => {
+            res.status(200).send(resp)
+        })
+    },
+
+    updateBooks: (req, res) => {
+        console.log(req.body)
+        const db = app.get('db');
+        let { user_id, book_id, size, title, subtitle, color, backText, pages_format, featured, book_price, draft } = req.body
+        if (book_id === 0) {
+            db.create_book([size]).then(resp => {
+                res.status(200).send(resp)
+            })
+        } else {
+            db.update_book([book_id, title, subtitle, req.user.auth_id, size, color, backText, pages_format, featured, book_price, draft]).then(resp => {
+                res.status(200).send(resp)
+            })
+        }
+    }
 }
