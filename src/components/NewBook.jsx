@@ -26,20 +26,24 @@ class NewBook extends Component {
             pageLayout: 'standardTweetsList',
             featured: null,
             book_price: null,
-            draft: null
+            draft: null,
+            quantity: null
         }
         this.selectBookSize = this.selectBookSize.bind(this)
         this.handleTitleInput = this.handleTitleInput.bind(this)
         this.handleSubtitleInput = this.handleSubtitleInput.bind(this)
         this.handleBackInput = this.handleBackInput.bind(this)
         this.handlePageLayout = this.handlePageLayout.bind(this)
+        this.increaseQuantity = this.increaseQuantity.bind(this)
+        this.decreaseQuantity = this.decreaseQuantity.bind(this)
+        this.addToCart = this.addToCart.bind(this)
         this.handleChange = this.handleChange.bind(this)
     }
-    async componentDidMount(){
+    async componentDidMount() {
         await this.props.getUserInfo()
         const { user } = this.props
         await this.setState({
-            user:  user
+            user: user
         })
     }
     async next() {
@@ -59,7 +63,7 @@ class NewBook extends Component {
             book_price: this.state.book_price,
             draft: this.state.draft
         }
-        if(this.state.position > 1){
+        if (this.state.position > 1) {
             axios.post('/api/create-book', book).then(res => {
                 console.log(res.data)
                 this.setState({
@@ -75,7 +79,7 @@ class NewBook extends Component {
                     draft: res.data[0].draft
                 })
             })
-        }else{
+        } else {
             null
         }
     }
@@ -87,17 +91,20 @@ class NewBook extends Component {
     selectBookSize(p) {
         if (p === 's') {
             this.setState({
-                size: 'small'
+                size: 'small',
+                book_price: 19.99
             })
         }
         if (p === 'm') {
             this.setState({
-                size: 'medium'
+                size: 'medium',
+                book_price: 29.99
             })
         }
         if (p === 'l') {
             this.setState({
-                size: 'large'
+                size: 'large',
+                book_price: 39.99
             })
         }
     }
@@ -121,7 +128,28 @@ class NewBook extends Component {
             pageLayout: p
         })
     }
-    handleChange(color, event){
+    addToCart() {
+        axios.post('/api/addtocart', {
+            book_id: this.state.book_id,
+            quantity: this.state.quantity,
+            book_price: this.state.book_price
+        }).then(res => {
+            console.log(res);
+        })
+    }
+    increaseQuantity() {
+        var increment = this.state.quantity + 1
+        this.setState({
+            quantity: increment
+        })
+    }
+    decreaseQuantity() {
+        var decrement = this.state.quantity - 1
+        this.setState({
+            quantity: decrement
+        })
+    }
+    handleChange(color, event) {
         console.log(color)
         console.log(color.hex)
         this.setState({
@@ -138,8 +166,14 @@ class NewBook extends Component {
                     handleSubtitleInput={this.handleSubtitleInput}
                     handleTitleInput={this.handleTitleInput}
                 /> : null}
-                {this.state.position === 4 ? <Step4 handlePageLayout={this.handlePageLayout} listOfTweets={this.state.listOfTweets}/> : null}
-                {this.state.position === 5 ? <Step5 /> : null}
+                {this.state.position === 4 ? <Step4 handlePageLayout={this.handlePageLayout} listOfTweets={this.state.listOfTweets} /> : null}
+                {this.state.position === 5 ? <Step5
+                    quantity={this.state.quantity}
+                    increase={this.increaseQuantity}
+                    decrease={this.decreaseQuantity}
+                    addToCart={this.addToCart}
+                    book_price={this.state.book_price}
+                /> : null}
                 <button onClick={() => this.prev()}>Prev</button>
                 <button onClick={() => this.next()}>Next</button>
             </div>
