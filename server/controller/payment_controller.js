@@ -5,6 +5,11 @@ module.exports = {
         //convert amount to pennies
         const amountArray = req.body.amount.toString().split('');
         const pennies = [];
+        const user = req.user.user_id
+        const { address, city, state, zipCode, total, email, phone, cart } = req.body;
+        const date = new Date();
+        var invoice;
+        const db = req.app.get('db');
         for (var i = 0; i < amountArray.length; i++) {
             if (amountArray[i] === ".") {
                 if (typeof amountArray[i + 1] === "string") {
@@ -31,7 +36,20 @@ module.exports = {
             description: 'Test charge from react app'
         }, function (err, charge) {
             if (err) return res.sendStatus(500)
-            return res.sendStatus(200);
+            db.create_order([user, date, address, city, state, zipCode, total, email, phone]).then(order=>{
+                let orderId = order[0].order_id
+                for(var i = 0;i<cart.length;i++){
+                    let bookId = cart[i].book_id;
+                    let qty = cart[i].quantity;
+                    db.create_orderline([orderId, bookId, qty]).then(line=>{})
+                }
+                db.clear_cart([user]).then(emptyCart=>{
+                    var cart = []
+                    db.get_cart([user]).then(resp=>{
+                        cart.push(resp)
+                    })
+                })
+            })
         });
     }
 }
