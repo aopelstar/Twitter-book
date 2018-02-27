@@ -1,8 +1,11 @@
 import React from 'react';
-
+import axios from 'axios';
 
 export default function Step4(props) {
     const tweets = props.listOfTweets
+    axios.get('/api/selecetedtweets').then( res => {
+        console.log(res)
+    })  
     return (
         <div>
             {tweets}
