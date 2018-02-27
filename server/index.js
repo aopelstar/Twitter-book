@@ -9,7 +9,6 @@ const Auth0Strategy = require('passport-auth0');
 const cors = require('cors');
 const controller = require('./controller/twitter_controller');
 const axios = require('axios');
-const authController = require('./controller/auth_controller');
 const paymentController = require('./controller/payment_controller');
 
 //app set up

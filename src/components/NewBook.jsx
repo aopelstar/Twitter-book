@@ -63,25 +63,25 @@ class NewBook extends Component {
             book_price: this.state.book_price,
             draft: this.state.draft
         }
-        // if (this.state.position > 1) {
-        //     axios.post('/api/create-book', book).then(res => {
-        //         console.log(res.data)
-        //         this.setState({
-        //             book_id: res.data[0].book_id,
-        //             size: res.data[0].book_size,
-        //             color: res.data[0].book_color,
-        //             title: res.data[0].book_title,
-        //             subtitle: res.data[0].book_subtitle,
-        //             backText: res.data[0].back_text,
-        //             pageLayout: res.data[0].pages_format,
-        //             featured: res.data[0].featured,
-        //             book_price: res.data[0].book_price,
-        //             draft: res.data[0].draft
-        //         })
-        //     })
-        // } else {
-        //     null
-        // }
+        if (this.state.position > 1) {
+            axios.post('/api/create-book', book).then(res => {
+                console.log(res.data)
+                this.setState({
+                    book_id: res.data[0].book_id,
+                    size: res.data[0].book_size,
+                    color: res.data[0].book_color,
+                    title: res.data[0].book_title,
+                    subtitle: res.data[0].book_subtitle,
+                    backText: res.data[0].back_text,
+                    pageLayout: res.data[0].pages_format,
+                    featured: res.data[0].featured,
+                    book_price: res.data[0].book_price,
+                    draft: res.data[0].draft
+                })
+            })
+        } else {
+            null
+        }
     }
     prev() {
         this.setState({
