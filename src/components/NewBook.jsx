@@ -164,6 +164,11 @@ class NewBook extends Component {
             book_color: color.hex
         })
     }
+    handleTextChange(color, event) {
+        this.setState({
+            book_text_color: color.hex
+        })
+    }
     addTweetToBook(e) {
         console.log('hello')
         console.log(e)

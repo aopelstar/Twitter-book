@@ -367,22 +367,22 @@
   justify-content: space-around;
   position: absolute;
   z-index: 2;
-  top: 40px;
+  top: 30px;
 }
 .frontContext{
   height: 100%;
-  width: 40%;
+  width: 60%;
   transform: rotate(-7deg);
-  margin-left: 30px;
+  margin-left: 22px;
   padding: 30px;
   text-align: center;
   line-height: 20px;
 }
 .selectedBack{
   height: 100%;
-  width: 40%;
+  width: 60%;
   transform: rotate(7deg);
-  margin-right: 30px;
+  margin-right: 22px;
   text-align: center;
   padding: 30px;
 }
