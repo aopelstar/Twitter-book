@@ -27,14 +27,14 @@ export default class Step4 extends Component {
                     <img src={e.tweet_img1 ? e.tweet_img1 : null } alt="" className="tweetImg"/>
                     <img src={e.tweet_img2 ? e.tweet_img2 : null } alt="" className="tweetImg"/>
                     <img src={e.tweet_img3 ? e.tweet_img3 : null } alt="" className="tweetImg"/>
-                    <img src={e.tweet_img4 ? e.tweet_img4 : null } alt="" className="tweetImg"/> <br/>
+                    <img src={e.tweet_img4 ? e.tweet_img4 : null } alt="" className="tweetImg"/>
                     <button onClick={() => this.props.addTweetToBook(e)}>Add Tweet to book</button>
                     <br />
                 </div>
             )
         })
         return (
-            <div>
+            <div className="stepOneContainer">
                 <button onClick={() => this.props.handlePageLayout('standardTweetsList')}>Standard Layout</button>
                 <button onClick={() => this.props.handlePageLayout('masonryTweetsList')}>Masonry Layout</button>
                 {mappedTweets}

@@ -39,7 +39,7 @@ class Header extends Component {
                         <Link to="/account"><img src={image} className="headerProfileImg" alt="profile pic" /></Link>
                     </div>
                     <div className="hamMenuContainerDiv">
-                        <div className="hamMenuContainer">
+                        <div className={ this.state.HamAnimation ? "hamMenuContainer" : "hamMenuContainer HamSlide"}>
                             <div className={this.state.HamAnimation ? "hamMenu" : "hamMenu HamSlide"} onClick={() => this.hamMenuSlide()}>
                                 <div className="hamLine one"></div>
                                 <div className="hamLine two"></div>

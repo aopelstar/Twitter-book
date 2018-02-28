@@ -256,3 +256,136 @@
 .tweetProfileImg{
   height: 50px;
 }
+.stepsContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.stepNavigation{
+  height: 10vh;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-top: 20px;
+}
+.stepIdicator{
+  height: 10vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navButton{
+  height: 50px;
+  width: 100px;
+  border-radius: 5px;
+  background-color: var(--twitter-veri);
+  border: none;
+  font-size: 24px;
+  outline: none;
+}
+.stepOneContainer{
+  height: 65vh;
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--twitter-backgr);
+  border-radius: 5px;
+}
+.bookSize{
+  text-align: center;
+  line-height: 40px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+.booksContainer{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.sizeTitle{
+  font-size: 24px;
+}
+.selectedBookSize{
+  background-color: var(--twitter-logo)
+}
+.eightBook{
+  height: 100px;
+}
+.eightBook:hover{
+  background-color: var(--twitter-veri)
+}
+.tenBook{
+  height: 120px;
+}
+.tenBook:hover{
+  background-color: var(--twitter-veri)
+}
+.fourtBook{
+  height: 130px;
+}
+.fourtBook:hover{
+  background-color: var(--twitter-veri)
+}
+.stepTwoColor{
+  width: 65vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+.stepThreeText{
+  width: 75vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+}
+.inputStack{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.inputStack > input{
+  font-size: 24px;
+}
+.bookOutside{
+  position: relative;
+}
+.outsideBookContext{
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  position: absolute;
+  z-index: 2;
+  top: 40px;
+}
+.frontContext{
+  height: 100%;
+  width: 40%;
+  transform: rotate(-7deg);
+  margin-left: 30px;
+  padding: 30px;
+  text-align: center;
+  line-height: 20px;
+}
+.selectedBack{
+  height: 100%;
+  width: 40%;
+  transform: rotate(7deg);
+  margin-right: 30px;
+  text-align: center;
+  padding: 30px;
+}
+.selectedSubtitle{
+  font-size: 12px;
+}

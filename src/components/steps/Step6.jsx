@@ -14,7 +14,7 @@ export default class Step6 extends Component {
       
     render(){
         return(
-            <div>
+            <div className="stepOneContainer">
                 <StripeCheckout
           token={this.onToken}
           stripeKey={ stripe.pub_key }
