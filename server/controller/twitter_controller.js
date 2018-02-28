@@ -114,25 +114,26 @@ module.exports = {
 
         db.get_cart([user]).then(cart => {
             for (let i = 0; i < cart.length; i++) {
-                
+
                 if (cart[i].user_id == user && cart[i].book_id == bookId) {
                     change = Number(cart[i].quantity) + Number(diff)
-                    
+
                 }
-            } 
-            if(change <= 0){
-                db.removeFromCart([user, bookId]).then( newCart =>{
+            }
+            if (change <= 0) {
+                db.removeFromCart([user, bookId]).then(newCart => {
                     db.get_cart([user]).then(cart => {
                         res.status(200).send(cart)
                     })
                 })
-            } else{
-            db.changeQuantity([user, bookId, +change]).then(newCart => {
-                db.get_cart([user]).then( cart => {
-                    res.status(200).send(cart)})
-                
-            })
-        }
+            } else {
+                db.changeQuantity([user, bookId, +change]).then(newCart => {
+                    db.get_cart([user]).then(cart => {
+                        res.status(200).send(cart)
+                    })
+
+                })
+            }
         })
 
     },
@@ -142,7 +143,49 @@ module.exports = {
         let user = req.user.auth_id;
 
         db.get_orderHistory([user]).then(orders => {
-            res.status(200).send(orders)
+            var results = [];
+            for (var i = 0, obj = {}; i < orders.length; i++) {
+                var { order_id
+                    , order_date
+                    , order_total
+                    , line_id
+                    , book_id
+                    , book_price
+                    , quantity
+                    , book_title
+                    , book_subtitle
+                    , book_size
+                    , book_color
+                    , pages_format
+                    , featured
+                    , back_text
+                } = orders[i];
+
+                if (order_id != obj.orderNumber) {
+                    obj = {
+                        orderNumber: order_id,
+                        orderDate: order_date,
+                        orderTotal: order_total,
+                        orderLines: []
+                    }
+                    results.push(obj);
+                }
+
+                obj.orderLines.push({
+                    orderLine: line_id,
+                    bookId: book_id,
+                    bookPrice: book_price,
+                    quantity: quantity,
+                    bookTitle: book_title,
+                    bookSubTitle: book_subtitle,
+                    bookSize: book_size,
+                    bookColor: book_color,
+                    pagesFormat: pages_format,
+                    backText: back_text
+                })
+            }
+
+            res.status(200).send(results)
         })
     },
 
