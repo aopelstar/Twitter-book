@@ -20,6 +20,7 @@ class NewBook extends Component {
             user: {},
             size: '',
             book_color: '',
+            book_text_color: '',
             title: '',
             subtitle: '',
             backText: '',
