@@ -106,13 +106,31 @@ module.exports = {
         })
     },
 
-    changeQuantity: (req,res) => {
+    changeQuantity: (req, res) => {
         const db = req.app.get('db');
         let user = req.user.auth_id;
-        const {bookId, diff} = req.params;
+        const { bookId, diff } = req.params;
+        var change
 
-        db.changeQuantity([user, bookId, +diff]).then(newCart=>{
-            res.status(200).send(newCart);
+        db.get_cart([user]).then(cart => {
+            for (let i = 0; i < cart.length; i++) {
+                if (cart[i].user_id === user && cart[i].book_id === bookId) {
+                    change = +cart[i].quantity + +diff
+                }
+            }
+            db.changeQuantity([user, bookId, +change]).then(newCart => {
+                res.status(200).send(newCart);
+            })
+        })
+
+    },
+
+    getOrderHistory: (req, res) => {
+        const db = req.app.get('db');
+        let user = req.user.auth_id;
+
+        db.get_orderHistory([user]).then(orders => {
+            res.status(200).send(orders)
         })
     }
 
