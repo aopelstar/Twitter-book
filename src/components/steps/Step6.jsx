@@ -19,7 +19,14 @@ export default class Step6 extends Component {
         super();
 
         this.state = {
-            bookCart: []
+            bookCart: [],
+            address: "",
+            city: "",
+            state: "",
+            zipCode: "",
+            email: "",
+            phone: "",
+            total: 0
         }
 
         this.openModal=this.openModal.bind(this)
@@ -30,21 +37,23 @@ export default class Step6 extends Component {
     //axios call to get cart
     componentDidMount(){
         axios.get("/api/getcart").then(res => {
+            this.totalState(res.data)
             this.setState({
-                bookCart: res.data
+                bookCart: res.data,
             })
         })
     }
      increment(key, id){
          if(key==="up"){
              axios.put(`/api/changequantity/${id}/${1}`).then(res => {
+                 this.totalState(res.data);
                  this.setState({
                      bookCart: res.data
                  })
              })
          } else {
              axios.put(`/api/changequantity/${id}/${-1}`).then(res => {
-                 console.log(res);
+                 this.totalState(res.data)
                  this.setState({
                      bookCart: res.data
                  })
@@ -63,6 +72,24 @@ export default class Step6 extends Component {
              modalIsOpen: false
          })
      }
+
+     update(key, val){
+         this.setState({
+             [key]: val
+             
+         })
+     }
+
+     totalState(res){
+        var total =0
+        var mapped= res.map((element) => {
+            var subtotal = element.book_price * element.quantity
+            total += subtotal
+        })
+        this.setState({
+            total: total
+        })
+     }
     
 
     
@@ -77,10 +104,10 @@ export default class Step6 extends Component {
       }
 
     render(){
-        let total = 0
+        let total = this.state.total
         let cart = this.state.bookCart.map((cartLine, i) => {
             let subTotal = cartLine.book_price * cartLine.quantity;
-            total += subTotal;
+            
             return <div className="step6CartLine" key={i}>
             {/* <div className="step6BookImage"><img src = {logo} alt='logo' className='step6Logo'/></div> */}
                         <div className="step6BookTitle">{cartLine.book_title}</div>
@@ -104,38 +131,38 @@ export default class Step6 extends Component {
 
         <div className="modalAddress">Address: 
             <div className='addressInput'>
-                <input/>
+                <input type="text" onChange={(e) => this.update("address", e.target.value)}/>
             </div>
         </div>
         <div className="modalcity">city: 
-            <div className='cityInput'>
-                <input/>
+            <div className='cityInput' >
+                <input type="text" onChange={(e) => this.update("city", e.target.value)}/>
             </div>
         </div>
         <div className="modalState">State: 
             <div className='stateInput'>
-                <input/>
+                <input type="text" onChange={(e) => this.update("state", e.target.value)}/>
             </div>
         </div>
         <div className="modalZipcode">Zipcode: 
             <div className='zipInput'>
-                <input/>
+                <input type="text" onChange={(e) => this.update("zipCode", e.target.value)}/>
             </div>
         </div>
         <div className="modalEmail">Email: 
             <div className='emailInput'>
-                <input/>
+                <input type="text" onChange={(e) => this.update("email", e.target.value)}/>
             </div>
         </div>
         <div className="modalPhone">Phone: 
             <div className='phoneInput'>
-                <input/>
+                <input type="text" onChange={(e) => this.update("phone", e.target.value)}/>
             </div>
         </div>
         <StripeCheckout
           token={this.onToken}
           stripeKey={ stripe.pub_key }
-          amount={total}
+          amount={total*100}
           name="your order"
           description="literally  begging that you confirm this order"
         />
