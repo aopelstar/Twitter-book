@@ -22,13 +22,13 @@ export default class Step6 extends Component {
     }
      increment(key, id){
          if(key==="up"){
-             axios.put('/api/changequantity/'+id+'/1').then(res => {
+             axios.put(`/api/changequantity/${id}/${1}`).then(res => {
                  this.setState({
                      bookCart: res.data
                  })
              })
          } else {
-             axios.put('/api/changequantity/'+id+'/-1').then(res => {
+             axios.put(`/api/changequantity/${id}/${-1}`).then(res => {
                  console.log(res);
                  this.setState({
                      bookCart: res.data
@@ -57,10 +57,11 @@ export default class Step6 extends Component {
             return <div className="step6CartLine" key={i}>
             {/* <div className="step6BookImage"><img src = {logo} alt='logo' className='step6Logo'/></div> */}
                         <div className="step6BookTitle">{cartLine.book_title}</div>
+                        <div className="step6BookSub">{cartLine.book_subtitle}</div>
                         <div className="step6BookPrice">{cartLine.book_price}</div>
                         <div className="step6BookQuantity">{cartLine.quantity}
-                        <div className="incrementUp" onClick={() => this.increment("up", cartLine.book_id)}>+</div>
-                        <div className="incrementDown" onClick={(e) => this.increment("down", cartLine.book_id)}>-</div></div>
+                        <button className="incrementUp" onClick={() => this.increment("up", cartLine.book_id)}>+</button>
+                        <button className="incrementDown" onClick={() => this.increment("down", cartLine.book_id)}>-</button></div>
                         <div className="step6BookTotal">{subTotal}</div>
                         
            </div>
@@ -69,13 +70,14 @@ export default class Step6 extends Component {
             <div>
                 {cart}
                 <div className="step6BookTotal">{total}</div>
-                <StripeCheckout
+                {/* <StripeCheckout
           token={this.onToken}
           stripeKey={ stripe.pub_key }
-          amount={1000}
+          amount={total}
           name="your order"
           description="literally  begging that you confirm this order"
-        />
+        /> */}
+        <button className="checkout">Check it out</button>
             </div>
         )
     }
