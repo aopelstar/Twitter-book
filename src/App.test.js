@@ -57,3 +57,36 @@ describe('just some tests for my functions', ()=>{
 })
 
 //Dan's test
+describe('currency conversion tests', () =>{
+
+  test('is returned result a number', () => {
+    let currency = fns.currencyConversion(1900.00);
+    expect(typeof currency).toBe('number');
+  })
+
+  test('is returned result the correct result', ()=>{
+    let currency = fns.currencyConversion(115.55);
+    expect(currency).toBe(11555)
+  })
+
+  test('is returned result set to the correct precision of decimal points', ()=>{
+    let currency = fns.currencyConversion(1.645);
+    expect(currency).toBe(164)
+  })
+
+})
+
+describe('changing quantities in cart function in backend', ()=>{
+
+  test('is function only changing the quantity for a certain user and book', ()=>{
+    let result = fns.changeQty(1, 2, -1);
+    expect(result[0].quantity).toBe(2)
+    expect(result[1].quantity).toBe(2)
+    expect(result[2].quantity).toBe(3)
+  })
+
+  test('is function result a number', ()=>{
+    let result = fns.changeQty(1,2,'1');
+    expect(typeof result[0].quantity).toBe('number');
+  })
+})

@@ -26,5 +26,41 @@ module.exports = {
     imageSize: () => {
         image = 'profilepic+normal'
         return image.replace('normal', '400x400')
+    },
+
+    currencyConversion: (amount) => {
+        const amountArray = amount.toString().split('');
+        const pennies = [];
+        for (var i = 0; i < amountArray.length; i++) {
+            if (amountArray[i] === ".") {
+                if (typeof amountArray[i + 1] === "string") {
+                    pennies.push(amountArray[i + 1]);
+                } else {
+                    pennies.push("0");
+                }
+                if (typeof amountArray[i + 2] === "string") {
+                    pennies.push(amountArray[i + 2]);
+                } else {
+                    pennies.push("0");
+                }
+                break;
+            } else {
+                pennies.push(amountArray[i])
+            }
+        }
+        const convertedAmt = parseInt(pennies.join(''));
+        return convertedAmt
+    },
+
+    changeQty: (user, bookId, diff) => {
+        var cart = [{user_id:1, book_id:2, quantity:3}, {user_id:1, book_id:3, quantity:2}, {user_id:2, book_id:2, quantity:3}];
+
+        for (let i = 0; i < cart.length; i++) {
+            if (cart[i].user_id === user && cart[i].book_id === bookId) {
+                cart[i].quantity += Number(diff)
+            }
+        }
+
+        return cart
     }
 }

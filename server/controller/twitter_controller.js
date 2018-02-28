@@ -92,6 +92,67 @@ module.exports = {
         db.get_booktweets([user]).then(resp => {
             res.status(200).send(resp)
         })
+    },
+
+    removeFromCart: (req, res) => {
+        const db = req.app.get('db');
+        let user = req.user.auth_id;
+        let book_id = req.params.bookId;
+
+        db.removeFromCart([user, book_id]).then(resp => {
+            db.get_cart([user]).then(updatedCart => {
+                res.status(200).send(updatedCart);
+            })
+        })
+    },
+
+    changeQuantity: (req, res) => {
+        const db = req.app.get('db');
+        let user = req.user.auth_id;
+        const { bookId, diff } = req.params;
+        var change
+
+        db.get_cart([user]).then(cart => {
+            for (let i = 0; i < cart.length; i++) {
+                
+                if (cart[i].user_id == user && cart[i].book_id == bookId) {
+                    change = Number(cart[i].quantity) + Number(diff)
+                    
+                }
+            } 
+            if(change <= 0){
+                db.removeFromCart([user, bookId]).then( newCart =>{
+                    db.get_cart([user]).then(cart => {
+                        res.status(200).send(cart)
+                    })
+                })
+            } else{
+            db.changeQuantity([user, bookId, +change]).then(newCart => {
+                db.get_cart([user]).then( cart => {
+                    res.status(200).send(cart)})
+                
+            })
+        }
+        })
+
+    },
+
+    getOrderHistory: (req, res) => {
+        const db = req.app.get('db');
+        let user = req.user.auth_id;
+
+        db.get_orderHistory([user]).then(orders => {
+            res.status(200).send(orders)
+        })
+    },
+
+    getDrafts: (req, res) => {
+        const db = req.app.get('db');
+        let user = req.user.auth_id;
+
+        db.get_drafts([user]).then(drafts => {
+            res.status(200).send(drafts)
+        })
     }
 
 
