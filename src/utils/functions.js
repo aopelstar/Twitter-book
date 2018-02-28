@@ -50,5 +50,17 @@ module.exports = {
         }
         const convertedAmt = parseInt(pennies.join(''));
         return convertedAmt
+    },
+
+    changeQty: (user, bookId, diff) => {
+        var cart = [{user_id:1, book_id:2, quantity:3}, {user_id:1, book_id:3, quantity:2}, {user_id:2, book_id:2, quantity:3}];
+
+        for (let i = 0; i < cart.length; i++) {
+            if (cart[i].user_id === user && cart[i].book_id === bookId) {
+                cart[i].quantity += Number(diff)
+            }
+        }
+
+        return cart
     }
 }
