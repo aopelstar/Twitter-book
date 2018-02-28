@@ -132,6 +132,15 @@ module.exports = {
         db.get_orderHistory([user]).then(orders => {
             res.status(200).send(orders)
         })
+    },
+
+    getDrafts: (req, res) => {
+        const db = req.app.get('db');
+        let user = req.user.auth_id;
+
+        db.get_drafts([user]).then(drafts => {
+            res.status(200).send(drafts)
+        })
     }
 
 
