@@ -20,6 +20,7 @@ class NewBook extends Component {
             user: {},
             size: '',
             book_color: '',
+            book_text_color: '',
             title: '',
             subtitle: '',
             backText: '',
@@ -69,25 +70,25 @@ class NewBook extends Component {
             draft: this.state.draft,
             booktweets: this.state.listOfTweets
         }
-        if (this.state.position > 1) {
-            axios.post('/api/create-book', book).then(res => {
-                this.setState({
-                    book_id: res.data[0].book_id,
-                    size: res.data[0].book_size,
-                    color: res.data[0].book_color,
-                    title: res.data[0].book_title,
-                    subtitle: res.data[0].book_subtitle,
-                    backText: res.data[0].back_text,
-                    pageLayout: res.data[0].pages_format,
-                    featured: res.data[0].featured,
-                    book_price: res.data[0].book_price,
-                    draft: res.data[0].draft,
-                    booktweets: res.data[0].booktweets
-                })
-            })
-        } else {
-            null
-        }
+        // if (this.state.position > 1) {
+        //     axios.post('/api/create-book', book).then(res => {
+        //         this.setState({
+        //             book_id: res.data[0].book_id,
+        //             size: res.data[0].book_size,
+        //             color: res.data[0].book_color,
+        //             title: res.data[0].book_title,
+        //             subtitle: res.data[0].book_subtitle,
+        //             backText: res.data[0].back_text,
+        //             pageLayout: res.data[0].pages_format,
+        //             featured: res.data[0].featured,
+        //             book_price: res.data[0].book_price,
+        //             draft: res.data[0].draft,
+        //             booktweets: res.data[0].booktweets
+        //         })
+        //     })
+        // } else {
+        //     null
+        // }
     }
     prev() {
         this.setState({
@@ -129,7 +130,7 @@ class NewBook extends Component {
             backText: val
         })
     }
-    handlePageLayout(p){
+    handlePageLayout(p) {
         this.setState({
             pageLayout: p
         })
@@ -164,7 +165,12 @@ class NewBook extends Component {
             book_color: color.hex
         })
     }
-    addTweetToBook(e){
+    handleTextChange(color, event) {
+        this.setState({
+            book_text_color: color.hex
+        })
+    }
+    addTweetToBook(e) {
         console.log('hello')
         console.log(e)
         this.setState({
@@ -174,18 +180,28 @@ class NewBook extends Component {
     render() {
         console.log(this.state.listOfTweets)
         return (
-            <div>
-                {this.state.position === 1 ? <Step1 size={this.selectBookSize} /> : null}
-                {this.state.position === 2 ? <Step2 handleChange={this.handleChange} /> : null}
+            <div className='stepsContainer'>
+                <div className="stepIdicator">Step {this.state.position}</div>
+                {this.state.position === 1 ? <Step1 size={this.selectBookSize} selectedSize={this.state.size} /> : null}
+                {this.state.position === 2 ? <Step2
+                    handleChange={this.handleChange}
+                    selectedColor={this.state.book_color}
+                    selectedSize={this.state.size}
+                /> : null}
                 {this.state.position === 3 ? <Step3
                     handleBackInput={this.handleBackInput}
                     handleSubtitleInput={this.handleSubtitleInput}
                     handleTitleInput={this.handleTitleInput}
+                    selectedColor={this.state.book_color}
+                    selectedSize={this.state.size}
+                    title={this.state.title}
+                    backText={this.state.backText}
+                    subtitle={this.state.subtitle}
                 /> : null}
-                {this.state.position === 4 ? <Step4 
-                handlePageLayout={this.handlePageLayout}
-                addTweetToBook={this.addTweetToBook}
-                 /> : null}
+                {this.state.position === 4 ? <Step4
+                    handlePageLayout={this.handlePageLayout}
+                    addTweetToBook={this.addTweetToBook}
+                /> : null}
                 {this.state.position === 5 ? <Step5
                     quantity={this.state.quantity}
                     increase={this.increaseQuantity}
@@ -193,13 +209,15 @@ class NewBook extends Component {
                     addToCart={this.addToCart}
                     book_price={this.state.book_price}
                 /> : null}
-                {this.state.position === 6? <Step6/>:null }
-                <button onClick={() => this.prev()}>Prev</button>
-                <button onClick={() => this.next()}>Next</button>
+                {this.state.position === 6 ? <Step6 /> : null}
+                <div className="stepNavigation">
+                    <button onClick={() => this.prev()} className="navButton">Prev</button>
+                    <button onClick={() => this.next()} className='navButton'>Next</button>
+                </div>
                 <Prompt
                     when={this.state.blocked}
                     message={() =>
-                        `Select save changes before leaving this page.`
+                        `When leaving this page your current book will be saved to drafts`
                     }
                 />
             </div>

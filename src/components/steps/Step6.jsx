@@ -155,7 +155,7 @@ export default class Step6 extends Component {
             </div>
         })
         return (
-            <div>
+            <div className="stepOneContainer">
                 {cart}
                 <div className="step6BookTotal">{total}</div>
 
