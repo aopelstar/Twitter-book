@@ -2,7 +2,17 @@ import React, { Component } from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
 import stripe from '../../stripeKey';
-import logo from '../../images/logo.svg'
+import logo from '../../images/logo.svg';
+import Modal from 'react-modal';
+
+const customStyles = {
+    content: {
+        width: "50%",
+        height: "300px",
+        background: "lightblue"
+
+    }
+}
 
 export default class Step6 extends Component {
     constructor() {
@@ -11,7 +21,12 @@ export default class Step6 extends Component {
         this.state = {
             bookCart: []
         }
+
+        this.openModal=this.openModal.bind(this)
+        this.closeModal=this.closeModal.bind(this)
     }
+
+
     //axios call to get cart
     componentDidMount(){
         axios.get("/api/getcart").then(res => {
@@ -35,6 +50,18 @@ export default class Step6 extends Component {
                  })
              })
          }
+     }
+
+     openModal(){
+         this.setState({
+             modalIsOpen: true
+         })
+     }
+
+     closeModal(){
+         this.setState({
+             modalIsOpen: false
+         })
      }
     
 
@@ -70,14 +97,49 @@ export default class Step6 extends Component {
             <div>
                 {cart}
                 <div className="step6BookTotal">{total}</div>
-                {/* <StripeCheckout
+                
+        <button className="checkout" onClick={this.openModal}>Check it out</button>
+
+        < Modal isOpen= {this.state.modalIsOpen} onRequestClose= {this.closeModal} style={customStyles}>
+
+        <div className="modalAddress">Address: 
+            <div className='addressInput'>
+                <input/>
+            </div>
+        </div>
+        <div className="modalcity">city: 
+            <div className='cityInput'>
+                <input/>
+            </div>
+        </div>
+        <div className="modalState">State: 
+            <div className='stateInput'>
+                <input/>
+            </div>
+        </div>
+        <div className="modalZipcode">Zipcode: 
+            <div className='zipInput'>
+                <input/>
+            </div>
+        </div>
+        <div className="modalEmail">Email: 
+            <div className='emailInput'>
+                <input/>
+            </div>
+        </div>
+        <div className="modalPhone">Phone: 
+            <div className='phoneInput'>
+                <input/>
+            </div>
+        </div>
+        <StripeCheckout
           token={this.onToken}
           stripeKey={ stripe.pub_key }
           amount={total}
           name="your order"
           description="literally  begging that you confirm this order"
-        /> */}
-        <button className="checkout">Check it out</button>
+        />
+         </Modal>
             </div>
         )
     }
