@@ -3,12 +3,12 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 module.exports = {
     payment: (req, res, next) => {
         //convert amount to pennies
+
         const amountArray = req.body.amount.toString().split('');
         const pennies = [];
-        const user = req.user.user_id
-        const { address, city, state, zipCode, total, email, phone, cart } = req.body;
+        const { address, city, state, zipCode, amount, email, phone, cart } = req.body;
+        const user = cart[0].user_id;
         const date = new Date();
-        var invoice;
         const db = req.app.get('db');
         for (var i = 0; i < amountArray.length; i++) {
             if (amountArray[i] === ".") {
@@ -35,8 +35,8 @@ module.exports = {
             source: req.body.token.id,
             description: 'Test charge from react app'
         }, function (err, charge) {
-            if (err) return res.sendStatus(500)
-            db.create_order([user, date, address, city, state, zipCode, total, email, phone]).then(order=>{
+            if (err) return res.sendStatus(500, "back up offa me")
+            db.create_order([user, date, address, city, state, zipCode, amount, email, phone]).then(order=>{
                 let orderId = order[0].order_id
                 for(var i = 0;i<cart.length;i++){
                     let bookId = cart[i].book_id;
