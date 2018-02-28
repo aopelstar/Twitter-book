@@ -25,7 +25,6 @@ class Account extends Component {
         })
 
         axios.get("/api/getcart").then(res => {
-            console.log(res.data)
             this.setState({
                 bookCart: res.data
             })

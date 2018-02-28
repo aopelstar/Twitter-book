@@ -114,13 +114,25 @@ module.exports = {
 
         db.get_cart([user]).then(cart => {
             for (let i = 0; i < cart.length; i++) {
-                if (cart[i].user_id === user && cart[i].book_id === bookId) {
-                    change = +cart[i].quantity + +diff
+                
+                if (cart[i].user_id == user && cart[i].book_id == bookId) {
+                    change = Number(cart[i].quantity) + Number(diff)
+                    
                 }
-            }
+            } 
+            if(change <= 0){
+                db.removeFromCart([user, bookId]).then( newCart =>{
+                    db.get_cart([user]).then(cart => {
+                        res.status(200).send(cart)
+                    })
+                })
+            } else{
             db.changeQuantity([user, bookId, +change]).then(newCart => {
-                res.status(200).send(newCart);
+                db.get_cart([user]).then( cart => {
+                    res.status(200).send(cart)})
+                
             })
+        }
         })
 
     },
