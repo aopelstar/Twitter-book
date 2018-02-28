@@ -20,7 +20,22 @@ export default class Step6 extends Component {
             })
         })
     }
-
+     increment(key, id){
+         if(key==="up"){
+             axios.put('/api/changequantity/'+id+'/1').then(res => {
+                 this.setState({
+                     bookCart: res.data
+                 })
+             })
+         } else {
+             axios.put('/api/changequantity/'+id+'/-1').then(res => {
+                 console.log(res);
+                 this.setState({
+                     bookCart: res.data
+                 })
+             })
+         }
+     }
     
 
     
@@ -39,13 +54,13 @@ export default class Step6 extends Component {
         let cart = this.state.bookCart.map((cartLine, i) => {
             let subTotal = cartLine.book_price * cartLine.quantity;
             total += subTotal;
-            return <div className="cartLine" key={i}>
-            <div className="step6BookImage"><img src = {logo} alt='logo' className='step6Logo'/></div>
+            return <div className="step6CartLine" key={i}>
+            {/* <div className="step6BookImage"><img src = {logo} alt='logo' className='step6Logo'/></div> */}
                         <div className="step6BookTitle">{cartLine.book_title}</div>
                         <div className="step6BookPrice">{cartLine.book_price}</div>
                         <div className="step6BookQuantity">{cartLine.quantity}
-                        <div className="incrementUp" onClick={this.props.increase}>+</div>
-                        <div className="incrementDown" onClick={this.props.decrease}>-</div></div>
+                        <div className="incrementUp" onClick={() => this.increment("up", cartLine.book_id)}>+</div>
+                        <div className="incrementDown" onClick={(e) => this.increment("down", cartLine.book_id)}>-</div></div>
                         <div className="step6BookTotal">{subTotal}</div>
                         
            </div>

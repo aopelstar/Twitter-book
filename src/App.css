@@ -251,6 +251,13 @@
   height: 75px;
   width: 75px;
 }
+.step6CartLine{
+  display: flex;
+  margin-bottom: 15px;
+}
+.step6BookQuantity{
+  display: flex;
+}
 .tweets{
   font-size: 12px;
 }
