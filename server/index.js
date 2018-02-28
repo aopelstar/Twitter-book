@@ -104,7 +104,8 @@ app.post('/api/addtocart', controller.addToCart) //add to cart
 app.get('/api/getcart', controller.getCart) //get cart for specified user
 app.post('/api/updatetweets', controller.updateTweets) //adds tweets to booktweets table prior to customizing the book
 app.get('/api/selectedtweets', controller.selectedTweets) //gets selected tweets for book creation step 4
-
+app.delete('/api/removefromcart/:bookId', controller.removeFromCart) //remove book from cart
+app.put('/api/changequantity/:bookId/:diff', controller.changeQuantity) //change quantity in cart for specific book in cart
 
 
 //Stripe Endpoint

@@ -92,6 +92,28 @@ module.exports = {
         db.get_booktweets([user]).then(resp => {
             res.status(200).send(resp)
         })
+    },
+
+    removeFromCart: (req, res) => {
+        const db = req.app.get('db');
+        let user = req.user.auth_id;
+        let book_id = req.params.bookId;
+
+        db.removeFromCart([user, book_id]).then(resp => {
+            db.get_cart([user]).then(updatedCart => {
+                res.status(200).send(updatedCart);
+            })
+        })
+    },
+
+    changeQuantity: (req,res) => {
+        const db = req.app.get('db');
+        let user = req.user.auth_id;
+        const {bookId, diff} = req.params;
+
+        db.changeQuantity([user, bookId, +diff]).then(newCart=>{
+            res.status(200).send(newCart);
+        })
     }
 
 
