@@ -78,7 +78,15 @@ describe('currency conversion tests', () =>{
 
 describe('changing quantities in cart function in backend', ()=>{
 
-  test('is returned result the correct result', ()=>{
-    var cart = [{user_id:1, book_id:2, quantity:3}, {user_id:1, book_id:3, quantity:2}, {user_id:2, book_id:2, quantity:3}]
+  test('is function only changing the quantity for a certain user and book', ()=>{
+    let result = fns.changeQty(1, 2, -1);
+    expect(result[0].quantity).toBe(2)
+    expect(result[1].quantity).toBe(2)
+    expect(result[2].quantity).toBe(3)
+  })
+
+  test('is function result a number', ()=>{
+    let result = fns.changeQty(1,2,'1');
+    expect(typeof result[0].quantity).toBe('number');
   })
 })
