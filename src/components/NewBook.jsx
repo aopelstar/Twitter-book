@@ -25,7 +25,7 @@ class NewBook extends Component {
             subtitle: '',
             backText: '',
             pageLayout: 'standardTweetsList',
-            featured: null,
+            featured: false,
             book_price: null,
             draft: true,
             blocked: false,
@@ -43,6 +43,7 @@ class NewBook extends Component {
         this.handlePageLayout = this.handlePageLayout.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.addTweetToBook = this.addTweetToBook.bind(this)
+        this.handleTextChange = this.handleTextChange.bind(this)
     }
     async componentDidMount() {
         await this.props.getUserInfo()
@@ -64,31 +65,32 @@ class NewBook extends Component {
             title: this.state.title,
             subtitle: this.state.subtitle,
             backText: this.state.backText,
+            book_text_color: this.state.book_text_color,
             pages_format: this.state.pageLayout,
             featured: this.state.featured,
             book_price: this.state.book_price,
             draft: this.state.draft,
             booktweets: this.state.listOfTweets
         }
-        // if (this.state.position > 1) {
-        //     axios.post('/api/create-book', book).then(res => {
-        //         this.setState({
-        //             book_id: res.data[0].book_id,
-        //             size: res.data[0].book_size,
-        //             color: res.data[0].book_color,
-        //             title: res.data[0].book_title,
-        //             subtitle: res.data[0].book_subtitle,
-        //             backText: res.data[0].back_text,
-        //             pageLayout: res.data[0].pages_format,
-        //             featured: res.data[0].featured,
-        //             book_price: res.data[0].book_price,
-        //             draft: res.data[0].draft,
-        //             booktweets: res.data[0].booktweets
-        //         })
-        //     })
-        // } else {
-        //     null
-        // }
+        if (this.state.position > 1) {
+            axios.post('/api/create-book', book).then(res => {
+                this.setState({
+                    book_id: res.data[0].book_id,
+                    size: res.data[0].book_size,
+                    color: res.data[0].book_color,
+                    title: res.data[0].book_title,
+                    subtitle: res.data[0].book_subtitle,
+                    backText: res.data[0].back_text,
+                    pageLayout: res.data[0].pages_format,
+                    featured: res.data[0].featured,
+                    book_price: res.data[0].book_price,
+                    draft: res.data[0].draft,
+                    booktweets: res.data[0].booktweets
+                })
+            })
+        } else {
+            null
+        }
     }
     prev() {
         this.setState({
@@ -197,6 +199,8 @@ class NewBook extends Component {
                     title={this.state.title}
                     backText={this.state.backText}
                     subtitle={this.state.subtitle}
+                    textColor={this.state.book_text_color}
+                    handleTextChange={this.handleTextChange}
                 /> : null}
                 {this.state.position === 4 ? <Step4
                     handlePageLayout={this.handlePageLayout}
@@ -211,8 +215,8 @@ class NewBook extends Component {
                 /> : null}
                 {this.state.position === 6 ? <Step6 /> : null}
                 <div className="stepNavigation">
-                    <button onClick={() => this.prev()} className="navButton">Prev</button>
-                    <button onClick={() => this.next()} className='navButton'>Next</button>
+                    {this.state.position === 1 ? <div className="navButton none"></div> : <button onClick={() => this.prev()} className="navButton">Prev</button>}
+                    {this.state.position === 6 ? <div className="navButton none"></div> : <button onClick={() => this.next()} className='navButton'>Next</button>}
                 </div>
                 <Prompt
                     when={this.state.blocked}
