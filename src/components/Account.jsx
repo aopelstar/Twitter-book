@@ -4,7 +4,8 @@ import { getUserInfo } from '../ducks/reducer';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import logo from '../images/logo.svg'
-import { Drafts, Cart, OrderHistory } from './AccountTabs';
+import { Drafts, OrderHistory } from './AccountTabs';
+import Cart from './Cart';
 
 
 class Account extends Component {
@@ -56,7 +57,7 @@ class Account extends Component {
         
         let accountDisplay;
         if (this.state.accountDisplay == "drafts") {
-            accountDisplay = <Drafts />
+            accountDisplay = <Drafts drafts={this.state.drafts} />
         }
         else if (this.state.accountDisplay == "cart") {
             accountDisplay = <Cart />
