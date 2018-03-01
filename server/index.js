@@ -94,7 +94,6 @@ app.get('/auth/logout', (req, res) => {
     res.redirect(process.env.LOGOUT_REDIRECT)
 })
 
-
 //TwitterBook Endpoints
 app.get('/api/twitter', controller.getTweets) //get tweets
 app.post('/api/searchedUser', controller.searchTweets) //search for tweets from other people
