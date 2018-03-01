@@ -29,7 +29,6 @@ export function getUserInfo() {
     }
 }
 export function setBook(book){
-    // window.location = "http://localhost:3000/#/newbook"
     return{
         type: GET_SETBOOK,
         payload: book

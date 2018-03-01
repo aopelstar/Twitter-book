@@ -48,10 +48,25 @@ class NewBook extends Component {
     async componentDidMount() {
         await this.props.getUserInfo()
         const { user, setBook } = this.props
-        console.log(this.props.setBook)
+        console.log(setBook)
         this.setState({
-            user: user
+            user: user,
         })
+        if( setBook.book_id !== 0){
+            this.setState({
+                backText: setBook.back_text,
+                book_color: setBook.book_color,
+                book_id: setBook.book_id,
+                book_price: setBook.book_price,
+                size: setBook.book_size,
+                subtitle: setBook.book_subtitle,
+                book_text_color: setBook.book_text_color,
+                title: setBook.book_title,
+                draft: setBook.draft,
+                featured: setBook.featured,
+                pageLayout: setBook.pages_format,
+            })
+        }
 
     }
     async next() {
