@@ -102,6 +102,28 @@ module.exports = {
         })
     },
 
+    bookTweets: (req, res) => {
+        const db = req.app.get('db');
+        let user = req.user.auth_id;
+        let book = req.params.bookId
+
+        db.get_booktweetsbybook([user, book]).then(tweets => {
+            res.status(200).send(tweets)
+        })
+    },
+
+    removeTweet: (req,res) => {
+        const db = req.app.get('db');
+        let user = req.user.auth_id;
+        let tweet = req.params.tweetId;
+
+        db.remove_tweet([user, tweet]).then(deleted => {
+        })
+        db.get_booktweets([user]).then(tweets => {
+            res.status(200).send(tweets)
+        })
+    },
+
     removeFromCart: (req, res) => {
         const db = req.app.get('db');
         let user = req.user.auth_id;
