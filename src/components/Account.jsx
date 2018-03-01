@@ -4,6 +4,7 @@ import { getUserInfo } from '../ducks/reducer';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import logo from '../images/logo.svg'
+import { Drafts, Cart, OrderHistory } from './AccountTabs';
 
 
 class Account extends Component {
@@ -12,27 +13,32 @@ class Account extends Component {
 
         this.state = {
             user: {},
-            bookCart: [],
+            accountDisplay: 'drafts',
+            accountInfo: []
         }
     }
 
     async componentDidMount() {
         await this.props.getUserInfo()
-        axios.get("/api/twitter").then(res => {
-            this.setState({
-                user: res.data.data[0].user
-            })
-        })
+        let drafts = axios.get('/api/getdrafts')
+        let cart = axios.get("/api/getcart")
+        let orders = axios.get('/api/orderhistory')
 
-        axios.get("/api/getcart").then(res => {
+        axios.all([drafts, cart, orders]).then(info => {
             this.setState({
-                bookCart: res.data
+                accountInfo: info
             })
         })
     }
 
-    multiply(num1, num2){
+    multiply(num1, num2) {
         return num1 * num2
+    }
+
+    handleAccountDisplay(e) {
+        this.setState({
+            accountDisplay: e
+        })
     }
 
 
@@ -40,20 +46,20 @@ class Account extends Component {
 
         let user = this.state.user;
         let image = this.state.user.profile_image_url ? this.state.user.profile_image_url.replace('normal', '400x400') : null
-        let cart = this.state.bookCart.map((cartLine, i) => {
-            return <div className="cartLine" key={i}>
-            <div className="accountBookImage"><img src = {logo} alt='logo' className='accountLogo'/></div>
-                        <div className="accountBookTitle">{cartLine.book_title}</div>
-                        <div className="accountBookPrice">{cartLine.book_price}</div>
-                        <div className="accountBookQuantity">{cartLine.quantity}</div>
-                        <div className="accountBookTotal">{this.multiply(cartLine.book_price, cartLine.quantity)}</div>
-
-           
-           </div>
-        })
+        
+        let accountDisplay;
+        if (this.state.accountDisplay == "drafts") {
+            accountDisplay = <Drafts />
+        }
+        else if (this.state.accountDisplay == "cart") {
+            accountDisplay = <Cart />
+        }
+        else if (this.state.accountDisplay == "orders") {
+            accountDisplay = <OrderHistory />
+        }
 
         return (
-            <div>
+            <div className="accountContainer">
                 <div className="accountBody">
                     <div className="accountAvatar">
                         <img className="accountImage" src={image} alt="You" />
@@ -67,15 +73,16 @@ class Account extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="accountCart">
-                        {cart}
-                    </div>
                     <div className="accountLinks">
-                        <div><Link to="/account/update">Timeline<div className="line"></div></Link></div>
-                        <div><Link to="/account/update">Update Acount Info<div className="line"></div></Link></div>
-                        <div><Link to="/account/order-history">Order History<div className="line"></div></Link></div>
-                        <div><Link to="/account/drafts">Draft Books<div className="line"></div></Link></div>
+                        <div onClick={() => this.handleAccountDisplay("drafts")}>Draft Books</div>
+                        <div onClick={() => this.handleAccountDisplay('cart')}>View Cart</div>
+                        <div onClick={() => this.handleAccountDisplay('orders')}>Order History</div>
                         <div><a href={process.env.REACT_APP_LOGOUT}>Logout<div className="line"></div></a></div>
+                    </div>
+                </div>
+                <div className="accountSide">
+                    <div className="accountCart">
+                        {accountDisplay}
                     </div>
                 </div>
             </div>
