@@ -48,12 +48,12 @@ export default class Home extends Component {
             })
         })
     }
-    changeTweets(){
+    changeTweets() {
         this.setState({
             yourTweets: true
         })
     }
-    handleAddTweet(i){
+    handleAddTweet(i) {
         let tweet = this.state.tweets[i]
         let tweetImg = this.state.tweets[i].user.profile_image_url.replace("normal", "400x400")
         var text = tweet.text;
@@ -89,14 +89,24 @@ export default class Home extends Component {
             var text2 = text1.replace(/^(.*?): /g, '')
             return (
                 <div key={i} className='tweets'>
-                    <img src={e.user.profile_image_url} alt="" />
-                    <h1>{e.user.name}</h1>
-                    <h2>{e.user.screen_name}</h2>
-                    <p>{text2}</p>
-                    <img src={e.extended_entities ? e.extended_entities.media[0] ? e.extended_entities.media[0].media_url : null : null} alt="" className="tweetImg"/>
-                    <img src={e.extended_entities ? e.extended_entities.media[1] ? e.extended_entities.media[1].media_url : null : null} alt="" className="tweetImg"/>
-                    <img src={e.extended_entities ? e.extended_entities.media[2] ? e.extended_entities.media[2].media_url : null : null} alt="" className="tweetImg"/>
-                    <img src={e.extended_entities ? e.extended_entities.media[3] ? e.extended_entities.media[3].media_url : null : null} alt="" className="tweetImg"/> <br/>
+                    <div className="tweetHead">
+                        <img src={e.user.profile_image_url} alt="" className='tweetUserImg' />
+                        <div className="tweetTextContainer">
+                            <div className="usernameAndScreenname">
+                                <h1>{e.user.name}</h1>
+                                <h2>@{e.user.screen_name}</h2>
+                            </div>
+                            <p className='tweetText'>{text2}</p>
+                        </div>
+                    </div>
+                    <div className="media">
+                        {e.extended_entities ? e.extended_entities.media[0] ? <img src={e.extended_entities.media[0].media_url} alt="" className="tweetImg" /> : null : null}
+                        {e.extended_entities ? e.extended_entities.media[1] ? <img src={e.extended_entities.media[1].media_url} alt="" className="tweetImg" /> : null : null}
+                    </div>
+                    <div className="media">
+                        {e.extended_entities ? e.extended_entities.media[2] ? <img src={e.extended_entities.media[2].media_url} alt="" className="tweetImg" /> : null : null}
+                        {e.extended_entities ? e.extended_entities.media[3] ? <img src={e.extended_entities.media[3].media_url} alt="" className="tweetImg" /> : null : null}
+                    </div>
                     <button onClick={() => this.handleAddTweet(i)}>Add Tweet</button>
                     <br />
                 </div>
@@ -107,17 +117,33 @@ export default class Home extends Component {
             var text1 = text.replace(/https.*$/g, '')
             var text2 = text1.replace(/^(.*?): /g, '')
             return (
-                <div key={i} className="tweets">
-                    <img src={e.user.profile_image_url} alt="" />
-                    <h1>{e.user.name}</h1>
-                    <h2>{e.user.screen_name}</h2>
-                    <p>{text2}</p>
-                    <br/>
+                <div key={i} className='tweets'>
+                    <div className="tweetHead">
+                        <img src={e.user.profile_image_url} alt="" className='tweetUserImg' />
+                        <div className="tweetTextContainer">
+                            <div className="usernameAndScreenname">
+                                <h1>{e.user.name}</h1>
+                                <h2>@{e.user.screen_name}</h2>
+                            </div>
+                            <p className='tweetText'>{text2}</p>
+                        </div>
+                    </div>
+                    <div className="media">
+                        {e.extended_entities ? e.extended_entities.media[0] ? <img src={e.extended_entities.media[0].media_url} alt="" className="tweetImg" /> : null : null}
+                        {e.extended_entities ? e.extended_entities.media[1] ? <img src={e.extended_entities.media[1].media_url} alt="" className="tweetImg" /> : null : null}
+                    </div>
+                    <div className="media">
+                        {e.extended_entities ? e.extended_entities.media[2] ? <img src={e.extended_entities.media[2].media_url} alt="" className="tweetImg" /> : null : null}
+                        {e.extended_entities ? e.extended_entities.media[3] ? <img src={e.extended_entities.media[3].media_url} alt="" className="tweetImg" /> : null : null}
+                    </div>
+                    <button onClick={() => this.handleAddTweet(i)}>Add Tweet</button>
+                    <br />
                 </div>
             )
         })
+        console.log(featuredBooks)
         return (
-            <div>
+            <div className='homeContainer'>
                 <div className="searchContainer">
                     <div className="tweetSearch">
                         <h1>Search Tweets</h1>

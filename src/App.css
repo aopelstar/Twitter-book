@@ -261,6 +261,29 @@
 .tweets{
   font-size: 12px;
 }
+.tweetUserImg{
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+}
+.tweetHead{
+  display: flex;
+  flex-direction: row;
+}
+.usernameAndScreenname{
+  display: flex;
+  flex-direction: row;
+  line-height: 20px;
+}
+.usernameAndScreenname > h1{
+  margin-right: 10px;
+  font-weight: 600;
+  font-size: 14px;
+}
+.usernameAndScreenname > h2{
+  color: gray;
+  font-size: 14px;
+}
 .tweetImg{
   height: 120px;
 }
@@ -399,4 +422,31 @@
 }
 .selectedSubtitle{
   font-size: 12px;
+}
+.none{
+  background-color: white;
+}
+.media{
+  margin-left: 60px;
+}
+.tweetTextContainer{
+  margin-left: 10px;
+}
+.tweetText{
+  width: 70vw;
+  line-height: 20px;
+}
+.homeContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.searchContainer{
+  height: 50vh;
+  overflow-y: scroll;
+}
+.featuredContainer{
+  height: 40vh;
+  overflow-y: scroll;
 }

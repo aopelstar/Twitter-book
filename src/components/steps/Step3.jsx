@@ -13,8 +13,8 @@ export default function Step3(props) {
                     {props.selectedSize === 'medium' ? <div style={{ textAlign: 'center' }}><h1>10x10</h1><img src={EightbyEight} alt="" style={{ backgroundColor: `${props.selectedColor}`, height: '170px' }} /></div> : null}
                     {props.selectedSize === 'large' ? <div style={{ textAlign: 'center' }}><h1>14x11</h1><img src={FourtbyTen} alt="" style={{ backgroundColor: `${props.selectedColor}`, height: '200px' }} /></div> : null}
                     <div className='outsideBookContext'>
-                        <div className='selectedBack'>{props.backText}</div>
-                        <div className='frontContext'>
+                        <div className='selectedBack' style={{color: `${props.textColor}`}}>{props.backText}</div>
+                        <div className='frontContext' style={{color: `${props.textColor}`}}>
                             <div className='selectedTitle'>{props.title}</div>
                             <div className='selectedSubtitle'>{props.subtitle}</div>
                         </div>

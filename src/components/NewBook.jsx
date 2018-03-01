@@ -20,12 +20,12 @@ class NewBook extends Component {
             user: {},
             size: '',
             book_color: '',
-            book_text_color: '',
+            book_text_color: '#000000',
             title: '',
             subtitle: '',
             backText: '',
             pageLayout: 'standardTweetsList',
-            featured: null,
+            featured: false,
             book_price: null,
             draft: true,
             blocked: false,
@@ -43,6 +43,7 @@ class NewBook extends Component {
         this.handlePageLayout = this.handlePageLayout.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.addTweetToBook = this.addTweetToBook.bind(this)
+        this.handleTextChange = this.handleTextChange.bind(this)
     }
     async componentDidMount() {
         await this.props.getUserInfo()
@@ -64,6 +65,7 @@ class NewBook extends Component {
             title: this.state.title,
             subtitle: this.state.subtitle,
             backText: this.state.backText,
+            book_text_color: this.state.book_text_color,
             pages_format: this.state.pageLayout,
             featured: this.state.featured,
             book_price: this.state.book_price,
@@ -75,7 +77,8 @@ class NewBook extends Component {
                 this.setState({
                     book_id: res.data[0].book_id,
                     size: res.data[0].book_size,
-                    color: res.data[0].book_color,
+                    color: res.data[0].book_color,  
+                    book_text_color: res.data[0].book_text_color,
                     title: res.data[0].book_title,
                     subtitle: res.data[0].book_subtitle,
                     backText: res.data[0].back_text,
@@ -171,14 +174,11 @@ class NewBook extends Component {
         })
     }
     addTweetToBook(e) {
-        console.log('hello')
-        console.log(e)
         this.setState({
             listOfTweets: [...this.state.listOfTweets, e]
         })
     }
     render() {
-        console.log(this.state.listOfTweets)
         return (
             <div className='stepsContainer'>
                 <div className="stepIdicator">Step {this.state.position}</div>
@@ -197,6 +197,8 @@ class NewBook extends Component {
                     title={this.state.title}
                     backText={this.state.backText}
                     subtitle={this.state.subtitle}
+                    textColor={this.state.book_text_color}
+                    handleTextChange={this.handleTextChange}
                 /> : null}
                 {this.state.position === 4 ? <Step4
                     handlePageLayout={this.handlePageLayout}
@@ -211,8 +213,8 @@ class NewBook extends Component {
                 /> : null}
                 {this.state.position === 6 ? <Step6 /> : null}
                 <div className="stepNavigation">
-                    <button onClick={() => this.prev()} className="navButton">Prev</button>
-                    <button onClick={() => this.next()} className='navButton'>Next</button>
+                    {this.state.position === 1 ? <div className="navButton none"></div> : <button onClick={() => this.prev()} className="navButton">Prev</button>}
+                    {this.state.position === 6 ? <div className="navButton none"></div> : <button onClick={() => this.next()} className='navButton'>Next</button>}
                 </div>
                 <Prompt
                     when={this.state.blocked}
