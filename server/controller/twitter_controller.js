@@ -71,7 +71,7 @@ module.exports = {
                 res.status(200).send(resp)
             })
         } else {
-            db.update_book([book_id, title, subtitle, req.user.auth_id, size, color, backText, pages_format, featured, book_price, draft, book_text_color, featured]).then(resp => {
+            db.update_book([book_id, title, subtitle, req.user.auth_id, size, color, backText, pages_format, featured, book_price, draft, book_text_color]).then(resp => {
                 res.status(200).send(resp)
             })
             for (let i = 0; i < booktweets.length; i++) {
