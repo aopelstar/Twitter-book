@@ -72,10 +72,8 @@ class NewBook extends Component {
             draft: this.state.draft,
             booktweets: this.state.listOfTweets
         }
-        console.log(book)
         if (this.state.position > 1) {
             axios.post('/api/create-book', book).then(res => {
-                console.log(res)
                 this.setState({
                     book_id: res.data[0].book_id,
                     size: res.data[0].book_size,
@@ -176,14 +174,11 @@ class NewBook extends Component {
         })
     }
     addTweetToBook(e) {
-        console.log('hello')
-        console.log(e)
         this.setState({
             listOfTweets: [...this.state.listOfTweets, e]
         })
     }
     render() {
-        console.log(this.state.listOfTweets)
         return (
             <div className='stepsContainer'>
                 <div className="stepIdicator">Step {this.state.position}</div>
