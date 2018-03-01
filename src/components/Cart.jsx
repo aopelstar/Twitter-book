@@ -10,7 +10,6 @@ const customStyles = {
         width: "50%",
         height: "300px",
         background: "lightblue"
-
     }
 }
 
@@ -27,7 +26,7 @@ const successStyle = {
 
 }
 
-export default class Step6 extends Component {
+export default class Cart extends Component {
     constructor() {
         super();
 
@@ -165,54 +164,54 @@ export default class Step6 extends Component {
         let cart = this.state.bookCart.map((cartLine, i) => {
             let subTotal = cartLine.book_price * cartLine.quantity;
 
-            return <div className="step6CartLine" key={i}>
-                {/* <div className="step6BookImage"><img src = {logo} alt='logo' className='step6Logo'/></div> */}
-                <div className="step6BookTitle">{cartLine.book_title}</div>
-                <div className="step6BookSub">{cartLine.book_subtitle}</div>
-                <div className="step6BookPrice">{cartLine.book_price}</div>
-                <div className="step6BookQuantity">{cartLine.quantity}
+            return <div className="accountCartLine" key={i}>
+                {/* <div className="accountBookImage"><img src = {logo} alt='logo' className='accountLogo'/></div> */}
+                <div className="accountBookTitle">{cartLine.book_title}</div>
+                <div className="accountBookSub">{cartLine.book_subtitle}</div>
+                <div className="accountBookPrice">{cartLine.book_price}</div>
+                <div className="accountBookQuantity">{cartLine.quantity}
                     <button className="incrementUp" onClick={() => this.increment("up", cartLine.book_id)}>+</button>
                     <button className="incrementDown" onClick={() => this.increment("down", cartLine.book_id)}>-</button></div>
-                <div className="step6BookTotal">{subTotal}</div>
+                <div className="accountBookTotal">{subTotal}</div>
 
             </div>
         })
         return (
             <div className="accountCart">
                 {cart}
-                <div className="step6BookTotal">{total}</div>
+                <div className="accountBookTotal">{total}</div>
 
                 <button className="checkout" onClick={this.openModal}>Check it out</button>
 
                 < Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} style={customStyles}>
 
                     <div className="modalAddress">Address:
-            <div className='addressInput'>
+                        <div className='addressInput'>
                             <input type="text" onChange={(e) => this.update("address", e.target.value)} />
                         </div>
                     </div>
                     <div className="modalcity">city:
-            <div className='cityInput' >
+                        <div className='cityInput' >
                             <input type="text" onChange={(e) => this.update("city", e.target.value)} />
                         </div>
                     </div>
                     <div className="modalState">State:
-            <div className='stateInput'>
+                        <div className='stateInput'>
                             <input type="text" onChange={(e) => this.update("state", e.target.value)} />
                         </div>
                     </div>
                     <div className="modalZipcode">Zipcode:
-            <div className='zipInput'>
+                        <div className='zipInput'>
                             <input type="text" onChange={(e) => this.update("zipCode", e.target.value)} />
                         </div>
                     </div>
                     <div className="modalEmail">Email:
-            <div className='emailInput'>
+                        <div className='emailInput'>
                             <input type="text" onChange={(e) => this.update("email", e.target.value)} />
                         </div>
                     </div>
                     <div className="modalPhone">Phone:
-            <div className='phoneInput'>
+                        <div className='phoneInput'>
                             <input type="text" onChange={(e) => this.update("phone", e.target.value)} />
                         </div>
                     </div>

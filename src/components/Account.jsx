@@ -63,7 +63,7 @@ class Account extends Component {
             accountDisplay = <Cart />
         }
         else if (this.state.accountDisplay == "orders") {
-            accountDisplay = <OrderHistory />
+            accountDisplay = <OrderHistory orders={this.state.orders} />
         }
 
         return (
