@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUserInfo } from '../ducks/reducer';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
-import logo from '../images/logo.svg'
-import Drafts from './AccountTabs';
+import Drafts from './Drafts';
 import Cart from './Cart';
+import Orders from './Orders';
 
 
 class Account extends Component {
@@ -51,20 +50,19 @@ class Account extends Component {
 
 
     render() {
-
         let user = this.state.user;
         let image = user.profile_image_url ? user.profile_image_url.replace('normal', '400x400') : null
         
         let accountDisplay;
-        if (this.state.accountDisplay == "drafts") {
+        if (this.state.accountDisplay === "drafts") {
             accountDisplay = <Drafts drafts={this.state.drafts} />
         }
-        else if (this.state.accountDisplay == "cart") {
-            accountDisplay = <Cart />
+        else if (this.state.accountDisplay === "cart") {
+            accountDisplay = <Cart cart={this.state.cart}/>
         }
-        // else if (this.state.accountDisplay == "orders") {
-        //     accountDisplay = <OrderHistory orders={this.state.orders} />
-        // }
+        else if (this.state.accountDisplay === "orders") {
+            accountDisplay = <Orders orders={this.state.orders} />
+        }
 
         return (
             <div className="accountContainer">

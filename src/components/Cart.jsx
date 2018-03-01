@@ -46,19 +46,23 @@ export default class Cart extends Component {
         this.progressModal = this.progressModal.bind(this)
         this.closeProgressModal = this.closeProgressModal.bind(this)
         this.successModal = this.successModal.bind(this)
-        this.closeSucessModal = this.closeSucessModal.bind(this)
+        this.closeSuccessModal = this.closeSuccessModal.bind(this)
     }
 
 
     //axios call to get cart
-    componentDidMount() {
-        axios.get("/api/getcart").then(res => {
-            this.totalState(res.data)
-            this.setState({
-                bookCart: res.data,
-            })
+    componentDidMount(props) {
+        var total = 0
+        var mapped = this.props.cart.map((element) => {
+            var subtotal = element.book_price * element.quantity
+            total += subtotal
         })
+            this.setState({
+                bookCart: this.props.cart,
+                total: total
+            })
     }
+
     increment(key, id) {
         if (key === "up") {
             axios.put(`/api/changequantity/${id}/${1}`).then(res => {
@@ -107,7 +111,7 @@ export default class Cart extends Component {
         })
     }
 
-    closeSucessModal() {
+    closeSuccessModal() {
         this.setState({
             successModalIsOpen: false
         })
@@ -150,6 +154,8 @@ export default class Cart extends Component {
             cart: this.state.bookCart
         }).then(response => {
             this.closeModal()
+            this.closeProgressModal()
+            this.successModal()
             this.totalState(response.data)
             this.setState({
                 bookCart: response.data
@@ -223,10 +229,12 @@ export default class Cart extends Component {
                         description="literally  begging that you confirm this order"
                     />
                 </Modal>
-                <Modal isOpen={this.state.progressModalIsOpen} onRequestClose={this.closeProgressModal} style={progressStyle}>
+                <Modal isOpen={this.state.progressModalIsOpen} style={progressStyle}>
                     please wait while your order is submitted, you bitch.
                 </Modal>
-                <Modal isOpen={this.state.successModalIsOpen} onRequestClose={this.closeSucessModal} style={successStyle}>
+                <Modal isOpen={this.state.successModalIsOpen} onRequestClose={this.closeSuccessModal} style={successStyle}>
+                    <div onClick={this.closeSuccessModal}>x</div>
+                    Thank you for your order
                 </Modal>
 
             </div>
