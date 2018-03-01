@@ -5,6 +5,7 @@ const initialState = {
     twitterObj: {},
     user: {},
     book: {},
+    setBook: {}
 }
 
 
@@ -12,7 +13,7 @@ const initialState = {
 //types
 
 const GET_USER_INFO = "GET_USER_INFO";
-const GET_BOOK_INFO = "GET_BOOK_INFO";
+const GET_SETBOOK = "GET_SETBOOK";
 
 
 
@@ -27,14 +28,14 @@ export function getUserInfo() {
         payload: promise
     }
 }
-
-export function getBookInfo(book) {
-    let bookData = book
-    return {
-        type: GET_BOOK_INFO,
-        payload: bookData
+export function setBook(book){
+    // window.location = "http://localhost:3000/#/newbook"
+    return{
+        type: GET_SETBOOK,
+        payload: book
     }
 }
+
 
 
 
@@ -44,8 +45,8 @@ export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_USER_INFO + "_FULFILLED":
             return Object.assign({}, state, { user: action.payload })
-        case GET_BOOK_INFO + "_FULFILLED":
-            return Object.assign({}, state, { book: action.payload })
+        case GET_SETBOOK:
+            return Object.assign({}, state, { setBook: action.payload })
         default: return state
     }
 }

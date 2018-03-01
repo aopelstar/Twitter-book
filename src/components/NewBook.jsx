@@ -7,7 +7,7 @@ import Step5 from './steps/Step5';
 import Step6 from './steps/Step6';
 import axios from 'axios'
 import { connect } from 'react-redux';
-import { getUserInfo, getBookInfo } from '../ducks/reducer';
+import { getUserInfo} from '../ducks/reducer';
 import { Prompt } from 'react-router-dom';
 
 
@@ -47,9 +47,8 @@ class NewBook extends Component {
     }
     async componentDidMount() {
         await this.props.getUserInfo()
-        await this.props.getBookInfo()
-        const { user, book } = this.props
-        console.log(book)
+        const { user, setBook } = this.props
+        console.log(this.props.setBook)
         this.setState({
             user: user
         })
@@ -232,7 +231,7 @@ class NewBook extends Component {
 function mapStateToProps(state) {
     return {
         user: state.user,
-        book: state.book
+        setBook: state.setBook
     }
 }
-export default connect(mapStateToProps, { getUserInfo, getBookInfo })(NewBook);
+export default connect(mapStateToProps, { getUserInfo })(NewBook);
