@@ -14,6 +14,19 @@ const customStyles = {
     }
 }
 
+const progressStyle = {
+    width: "45%",
+    height: "25%",
+    background: "orange"
+}
+
+const successStyle = {
+    width: "50%",
+    height: "150px",
+    background: "hotpink"
+
+}
+
 export default class Step6 extends Component {
     constructor() {
         super();
@@ -31,6 +44,10 @@ export default class Step6 extends Component {
 
         this.openModal = this.openModal.bind(this)
         this.closeModal = this.closeModal.bind(this)
+        this.progressModal = this.progressModal.bind(this)
+        this.closeProgressModal = this.closeProgressModal.bind(this)
+        this.successModal = this.successModal.bind(this)
+        this.closeSucessModal = this.closeSucessModal.bind(this)
     }
 
 
@@ -120,6 +137,7 @@ export default class Step6 extends Component {
 
     //stripe axios call
     onToken = (token) => {
+        this.progressModal()
         token.card = void 0;
         axios.post('http://localhost:4321/api/payment', {
             token,
@@ -132,7 +150,12 @@ export default class Step6 extends Component {
             phone: this.state.phone,
             cart: this.state.bookCart
         }).then(response => {
-            this.closeModal;
+            this.closeModal()
+            this.totalState(response.data)
+            this.setState({
+                bookCart: response.data
+            })
+            
 
         });
     }
@@ -201,9 +224,10 @@ export default class Step6 extends Component {
                         description="literally  begging that you confirm this order"
                     />
                 </Modal>
-                <Modal>
+                <Modal isOpen={this.state.progressModalIsOpen} onRequestClose={this.closeProgressModal} style={progressStyle}>
+                please wait while your order is submitted, you bitch.
                 </Modal>
-                <Modal>
+                <Modal isOpen={this.state.successModalIsOpen} onRequestClose={this.closeSucessModal} style={successStyle}>
                 </Modal>
 
             </div>
