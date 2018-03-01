@@ -20,7 +20,7 @@ class NewBook extends Component {
             user: {},
             size: '',
             book_color: '',
-            book_text_color: '',
+            book_text_color: '#000000',
             title: '',
             subtitle: '',
             backText: '',
@@ -72,6 +72,7 @@ class NewBook extends Component {
             draft: this.state.draft,
             booktweets: this.state.listOfTweets
         }
+        console.log(book)
         if (this.state.position > 1) {
             axios.post('/api/create-book', book).then(res => {
                 console.log(res)
