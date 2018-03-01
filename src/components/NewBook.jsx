@@ -52,7 +52,7 @@ class NewBook extends Component {
         this.setState({
             user: user,
         })
-        if( setBook.book_id !== 0){
+        if(setBook.book_id){
             this.setState({
                 backText: setBook.back_text,
                 book_color: setBook.book_color,
@@ -90,7 +90,9 @@ class NewBook extends Component {
             booktweets: this.state.listOfTweets
         }
         if (this.state.position > 1) {
+            console.log(book)
             axios.post('/api/create-book', book).then(res => {
+                console.log(res)
                 this.setState({
                     book_id: res.data[0].book_id,
                     size: res.data[0].book_size,

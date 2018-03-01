@@ -4,7 +4,6 @@ import axios from 'axios';
 const initialState = {
     twitterObj: {},
     user: {},
-    book: {},
     setBook: {}
 }
 
