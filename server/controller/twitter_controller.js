@@ -59,13 +59,13 @@ module.exports = {
 
     updateBooks: (req, res) => {
         const db = req.app.get('db');
-        let { user_id, book_id, size, title, subtitle, color, backText, pages_format, featured, book_price, draft, booktweets } = req.body
+        let { user_id, book_id, size, title, subtitle, book_text_color, color, backText, pages_format, featured, book_price, draft, booktweets } = req.body
         if (book_id === 0) {
             db.create_book([size, book_price, draft, req.user.auth_id]).then(resp => {
                 res.status(200).send(resp)
             })
         } else {
-            db.update_book([book_id, title, subtitle, req.user.auth_id, size, color, backText, pages_format, featured, book_price, draft]).then(resp => {
+            db.update_book([book_id, title, subtitle, req.user.auth_id, size, color, backText, pages_format, featured, book_price, draft, book_text_color]).then(resp => {
                 res.status(200).send(resp)
             })
             for (let i = 0; i < booktweets.length; i++) {
