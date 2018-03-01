@@ -99,7 +99,7 @@ app.get('/auth/logout', (req, res) => {
 app.get('/api/twitter', controller.getTweets) //get tweets
 app.post('/api/searchedUser', controller.searchTweets) //search for tweets from other people
 app.get('/api/categoryfilter', controller.tweetsCategory) //gets tweets based on passed in category
-app.get('/api/get-featured-books', controller.getBooks) //get books
+app.get('/api/get-featured-books', controller.getFeaturedBooks) //get books
 app.post('/api/create-book', controller.updateBooks) //update books
 app.post('/api/addtocart', controller.addToCart) //add to cart
 app.get('/api/getcart', controller.getCart) //get cart for specified user
