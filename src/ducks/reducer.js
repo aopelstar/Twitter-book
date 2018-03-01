@@ -4,7 +4,7 @@ import axios from 'axios';
 const initialState = {
     twitterObj: {},
     user: {},
-    book: {}
+    book: {},
 }
 
 
@@ -28,10 +28,8 @@ export function getUserInfo() {
     }
 }
 
-export function getBookInfo(userId, bookId) {
-    let bookData = axios.get(`/api/book/${userId}/${bookId}`).then(book => {
-        return book.data
-    })
+export function getBookInfo(book) {
+    let bookData = book
     return {
         type: GET_BOOK_INFO,
         payload: bookData
