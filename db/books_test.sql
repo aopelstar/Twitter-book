@@ -1,1 +1,2 @@
-select * from bookstest
+select * from books
+where featured = true

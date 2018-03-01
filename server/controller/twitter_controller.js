@@ -41,7 +41,13 @@ module.exports = {
         })
     },
 
-    getBooks: (req, res) => {
+    tweetsCategory: (req, res) => {
+        var { slug } = req.body
+        T.get('users/suggestions/:slug', { slug: slug }, function (err, data, response) {
+        }).then(category => { res.status(200).send(resp) })
+    },
+
+    getFeaturedBooks: (req, res) => {
         const db = req.app.get('db');
         db.books_test().then(resp => {
             res.status(200).send(resp)
