@@ -6,12 +6,6 @@ export function Drafts(props) {
     </div>)
 }
 
-export function Cart(props) {
-    return (<div>
-
-    </div>)
-}
-
 export function OrderHistory(props) {
     return (<div>
 
