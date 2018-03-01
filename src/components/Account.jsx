@@ -14,19 +14,26 @@ class Account extends Component {
         this.state = {
             user: {},
             accountDisplay: 'drafts',
-            accountInfo: []
+            cart: [],
+            drafts: [],
+            orders: []
         }
     }
 
     async componentDidMount() {
         await this.props.getUserInfo()
+        let user = axios.get("/api/twitter")
         let drafts = axios.get('/api/getdrafts')
         let cart = axios.get("/api/getcart")
         let orders = axios.get('/api/orderhistory')
 
-        axios.all([drafts, cart, orders]).then(info => {
+        axios.all([user, drafts, cart, orders]).then(info => {
+            console.log(info);
             this.setState({
-                accountInfo: info
+                user: info[0].data.data[0].user,
+                drafts: info[1].data,
+                cart: info[2].data,
+                orders: info[3].data
             })
         })
     }
@@ -45,7 +52,7 @@ class Account extends Component {
     render() {
 
         let user = this.state.user;
-        let image = this.state.user.profile_image_url ? this.state.user.profile_image_url.replace('normal', '400x400') : null
+        let image = user.profile_image_url ? user.profile_image_url.replace('normal', '400x400') : null
         
         let accountDisplay;
         if (this.state.accountDisplay == "drafts") {
