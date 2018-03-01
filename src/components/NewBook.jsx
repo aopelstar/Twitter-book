@@ -47,6 +47,7 @@ class NewBook extends Component {
     }
     async componentDidMount() {
         await this.props.getUserInfo()
+        await this.props.getBookInfo()
         const { user, book } = this.props
         console.log(book)
         this.setState({
