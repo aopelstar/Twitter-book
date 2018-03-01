@@ -47,6 +47,7 @@ module.exports = {
                     var cart = []
                     db.get_cart([user]).then(resp=>{
                         cart.push(resp)
+                        res.status(200).send(resp)
                     })
                 })
             })
