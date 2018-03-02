@@ -10,7 +10,6 @@ export default class Step4 extends Component {
     }
     componentDidMount() {
         axios.get('/api/selectedtweets').then(res => {
-            console.log(res.data)
             this.setState({
                 tweets: res.data
             })
@@ -18,7 +17,6 @@ export default class Step4 extends Component {
     }
     render(props) {
         let mappedTweetsStandard = this.state.tweets.map((e, i) => {
-            console.log(this.state.tweets)
             return (
                 <div key={i} className='tweets'>
                     <div className="tweetHead">

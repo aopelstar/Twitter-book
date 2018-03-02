@@ -1,0 +1,161 @@
+.accountContainer {
+    display: flex;
+    justify-content: space-around;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.accountBody {
+    padding-top: 40px;
+    width: 48%;
+  }
+  
+  .accountAvatar {
+    display: flex;
+    justify-content: space-around;
+    border: solid;
+    border-width: 2px;
+    border-color: #00aced;
+    width: 80%;
+    height: 250px;
+    padding: 25px;
+  }
+  
+  .accountImage {
+    width: 45%;
+    border-radius: 50%;
+    border: solid;
+    border-width: 5px;
+    border-color: var(--dark-blue);
+  }
+  
+  .accountUser {
+    font-size: 25px;
+    font-weight: 700;
+  }
+  
+  .accountScreen {
+    color: gray;
+  }
+  
+  .tweetsFriendsFollowers {
+    display: flex;
+  }
+  
+  .accountStats {
+    color: gray;
+    font-weight: 700;
+    font-size: 12px;
+  }
+  
+  .accountStats div {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--twitter-logo)
+  }
+  
+  .line {
+    margin-top: -19px;
+    height: 20px;
+    border-bottom: solid;
+    border-width: 1px;
+    border-color: black;
+    width: 0%;
+    transition: width .3s;
+  }
+  
+  .accountName {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .accountLinks a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  .accountLinks div{
+      margin-top: 10px;
+  }
+  
+  .accountLogo{
+    height: 75px;
+    width: 75px;
+  }
+
+.accountDraft {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+    height: 80px;
+}
+
+.accountSideBody {
+    overflow-y: scroll;
+    height: 70vh;
+}
+
+.draftButtons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height:80%;
+}
+
+.draftButtons button {
+    background: #00aced;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    height: 25px;
+}
+
+.draftNames {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.draftTitle {
+    font-size: 20px;
+}
+
+.draftSubTitle {
+    font-size: 14px;
+}
+
+.draftSize {
+    font-size: 12px;
+}
+
+.draftImgContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 20%;
+    height: 100%;
+}
+
+.draftImg {
+    width: 100%;
+}
+
+.draftSeparator {
+    width: 90%;
+    height: 1px;
+    background: #00aced;
+}
+
+.draftContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 110px;
+}

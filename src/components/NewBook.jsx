@@ -48,7 +48,6 @@ class NewBook extends Component {
     async componentDidMount() {
         await this.props.getUserInfo()
         const { user, setBook } = this.props
-        console.log(setBook)
         this.setState({
             user: user,
         })
@@ -90,9 +89,7 @@ class NewBook extends Component {
             booktweets: this.state.listOfTweets
         }
         if (this.state.position > 1) {
-            console.log(book)
             axios.post('/api/create-book', book).then(res => {
-                console.log(res)
                 this.setState({
                     book_id: res.data[0].book_id,
                     size: res.data[0].book_size,

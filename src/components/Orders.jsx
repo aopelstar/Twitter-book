@@ -4,7 +4,6 @@ import { setBook } from '../ducks/reducer';
 
 function Orders(props) {
     let ordersMap = props.orders.map((e, i) => {
-        console.log(e);
         let linesMap = e.orderLines.map((x, y) => {
             return (
                 <div key={y}>
