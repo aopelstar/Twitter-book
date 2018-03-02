@@ -15,15 +15,19 @@ const customStyles = {
 }
 
 const progressStyle = {
+   content: {
     width: "45%",
     height: "25%",
     background: "orange"
+   }
 }
 
 const successStyle = {
-    width: "50%",
+    content: {
+        width: "50%",
     height: "150px",
     background: "hotpink"
+    }
 
 }
 
@@ -91,6 +95,7 @@ export default class Step6 extends Component {
     }
 
     progressModal(){
+        
         this.setState({
             progressModalIsOpen: true
         })
@@ -109,6 +114,7 @@ export default class Step6 extends Component {
     }
 
     closeSucessModal(){
+        window.location.assign('/home')
         this.setState({
             successModalIsOpen: false
         })
@@ -132,12 +138,14 @@ export default class Step6 extends Component {
         })
     }
 
+    
 
 
 
     //stripe axios call
     onToken = (token) => {
         this.progressModal()
+        this.closeModal()
         token.card = void 0;
         axios.post('http://localhost:4321/api/payment', {
             token,
@@ -150,11 +158,13 @@ export default class Step6 extends Component {
             phone: this.state.phone,
             cart: this.state.bookCart
         }).then(response => {
-            this.closeModal()
             this.totalState(response.data)
             this.setState({
-                bookCart: response.data
+                bookCart: response.data,
+                progressModalIsOpen: false,
+                successModalIsOpen: true
             })
+            
             
 
         });
@@ -225,9 +235,14 @@ export default class Step6 extends Component {
                     />
                 </Modal>
                 <Modal isOpen={this.state.progressModalIsOpen} onRequestClose={this.closeProgressModal} style={progressStyle}>
-                please wait while your order is submitted, you bitch.
+                <div className="progress-modal">
+                please wait while your order is processed
+                </div>
                 </Modal>
                 <Modal isOpen={this.state.successModalIsOpen} onRequestClose={this.closeSucessModal} style={successStyle}>
+                <div className="success-modal">
+                that's a damn fine succesful order and I'm rock hard because of it.
+                </div>
                 </Modal>
 
             </div>
