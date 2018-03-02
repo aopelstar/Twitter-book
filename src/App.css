@@ -316,8 +316,9 @@
   height: 50px;
   width: 100px;
   border-radius: 5px;
-  background-color: var(--twitter-veri);
+  background-color: var(--dark-blue);
   border: none;
+  color: whitesmoke;
   font-size: 24px;
   outline: none;
 }
@@ -328,7 +329,8 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  background-color: var(--twitter-backgr);
+  /* background-color: var(--twitter-backgr); */
+  box-shadow: inset 0px 0px 20px 1px silver;
   border-radius: 5px;
 }
 .bookSize{
@@ -449,4 +451,15 @@
 .featuredContainer{
   height: 40vh;
   overflow-y: scroll;
+}
+.containerLayout{
+  width: 50%;
+}
+.chosenTweetsContaniner{
+  width: 50%;
+}
+.stepFourLayout{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
