@@ -29,7 +29,6 @@ class Account extends Component {
         let orders = axios.get('/api/orderhistory')
 
         axios.all([user, drafts, cart, orders]).then(info => {
-            console.log(info);
             this.setState({
                 user: info[0].data.data[0].user,
                 drafts: info[1].data,

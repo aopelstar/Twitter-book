@@ -70,9 +70,7 @@ export default class Home extends Component {
             mediaThree: tweet.extended_entities ? tweet.extended_entities.media[2] ? tweet.extended_entities.media[2].media_url : null : null,
             mediaFour: tweet.extended_entities ? tweet.extended_entities.media[3] ? tweet.extended_entities.media[3].media_url : null : null,
         }
-        console.log(tweet)
         axios.post('/api/updatetweets', tweetBody).then(res => {
-            console.log(res)
         })
     }
     render() {
@@ -141,7 +139,6 @@ export default class Home extends Component {
                 </div>
             )
         })
-        console.log(featuredBooks)
         return (
             <div className='homeContainer'>
                 <div className="searchContainer">
