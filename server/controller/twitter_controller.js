@@ -226,6 +226,18 @@ module.exports = {
         db.get_drafts([user]).then(drafts => {
             res.status(200).send(drafts)
         })
+    },
+
+    deleteDraft: (req, res) => {
+        const db = req.app.get('db');
+        let user = req.user.auth_id;
+        let id = req.params.id;
+
+        db.delete_draft([id]).then(drafts => {})
+        db.delete_drafttweets([id]).then(newDrafts => {})
+        db.get_drafts([user]).then(update => {
+            res.status(200).send(update)
+        })
     }
 
 
