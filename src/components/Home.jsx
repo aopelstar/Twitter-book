@@ -54,7 +54,6 @@ export default class Home extends Component {
         })
     }
     handleAddTweet(i) {
-        console.log(i)
         let tweet = i
         let tweetImg = i.user.profile_image_url.replace("normal", "400x400")
         var text = tweet.text;

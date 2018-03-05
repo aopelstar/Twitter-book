@@ -47,6 +47,7 @@ export default class Step4 extends Component {
                         {e.tweet_img4 ? <img src={e.tweet_img4} alt="" className="tweetImg" /> : null}
                     </div>
                     <button onClick={() => this.props.addTweetToBook(e)}>Add Tweet to book</button>
+                    <button onClick={() => this.props.deleteTweetFromBook(e)} >Delete from book</button>
                     <br />
                 </div>
             )
@@ -67,7 +68,8 @@ export default class Step4 extends Component {
                     <div className="chosenTweetsContaniner">
                         <button onClick={() => this.yourTweets()}>Your tweets</button>
                         <input type="text" placeholder='Search a users handle' />
-                        <h1>Tweets for this book.</h1>
+                        <button> Review books tweets</button>
+                        <h1 className='tweetsTitle'>Tweets for this book.</h1>
                         {yourTweets}
                     </div>
                 </div>
