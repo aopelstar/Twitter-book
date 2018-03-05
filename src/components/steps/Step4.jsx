@@ -7,7 +7,9 @@ export default class Step4 extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tweets: []
+            tweets: [],
+            bookTweets: [],
+            yourTweets: false,
         }
     }
     componentDidMount() {
@@ -17,8 +19,13 @@ export default class Step4 extends Component {
             })
         })
     }
+    yourTweets(){
+        this.setState({
+            yourTweets: true,
+        })
+    }
     render(props) {
-        let mappedTweetsStandard = this.state.tweets.map((e, i) => {
+        let yourTweets = this.state.tweets.map((e, i) => {
             return (
                 <div key={i} className='tweets'>
                     <div className="tweetHead">
@@ -58,7 +65,10 @@ export default class Step4 extends Component {
                         </div>
                     </div>
                     <div className="chosenTweetsContaniner">
-                        {mappedTweetsStandard}
+                        <button onClick={() => this.yourTweets()}>Your tweets</button>
+                        <input type="text" placeholder='Search a users handle' />
+                        <h1>Tweets for this book.</h1>
+                        {yourTweets}
                     </div>
                 </div>
             </div>

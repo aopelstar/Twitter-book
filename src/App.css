@@ -202,6 +202,7 @@
   /* background-color: var(--twitter-backgr); */
   box-shadow: inset 0px 0px 20px 1px silver;
   border-radius: 5px;
+  background-color: var(--white);
 }
 .bookSize{
   text-align: center;
@@ -296,7 +297,7 @@
   font-size: 12px;
 }
 .none{
-  background-color: white;
+  background: rgb(224,231,236);
 }
 .media{
   margin-left: 60px;
@@ -334,6 +335,8 @@
 }
 .chosenTweetsContaniner{
   width: 50%;
+  overflow-y: scroll;
+  padding: 20px 0px 20px 0px;
 }
 .stepFourLayout{
   width: 110%;
