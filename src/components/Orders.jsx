@@ -6,7 +6,7 @@ import large from '../images/14x11book.svg';
 import { Link } from 'react-router-dom';
 
 function Orders(props) {
-    let ordersMap = props.orders.map((e, i) => {
+    let ordersMap = props.orders.length>0? props.orders.map((e, i) => {
         let shortDate = e.orderDate.slice(0, 10)
         let month = shortDate[5] + shortDate[6];
         let day = shortDate[8] + shortDate[9];
@@ -45,7 +45,9 @@ function Orders(props) {
                 {linesMap}
             </div>
         )
-    })
+    }) : <div>
+        <div className="draftsPrompt">No orders yet...</div>
+    </div>
     return (<div className="accountSideContainer">
         <h1 className="accountHeading">Your Orders:</h1>
         <div className="accountSideBody">

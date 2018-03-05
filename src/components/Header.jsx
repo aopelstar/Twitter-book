@@ -49,10 +49,9 @@ class Header extends Component {
                     </div>
                 </div>
                 <div className={this.state.HamAnimation ? "menuLinks" : "menuLinks slideLeft"}>
-                    <Link to="/home" style={{ textDecoration: 'none' }} className="link H"><div>Home</div></Link>
-                    <Link to="/newbook" style={{ textDecoration: 'none' }} className="link"><div>Add New Book</div></Link>
-                    <Link to="/account" style={{ textDecoration: 'none' }} className="link"><div>Account</div></Link>
-                    <Link to="/drafts" style={{ textDecoration: 'none' }} className="link"><div>Drafts</div></Link>
+                    <Link to="/home" style={{ textDecoration: 'none' }} className="link H"><div onClick={() => this.hamMenuSlide()}>Home</div></Link>
+                    <Link to="/newbook" style={{ textDecoration: 'none' }} className="link"><div onClick={() => this.hamMenuSlide()}>Create a Book</div></Link>
+                    <Link to="/account" style={{ textDecoration: 'none' }} className="link"><div onClick={() => this.hamMenuSlide()}>Account</div></Link>
                 </div>
 
             </div>

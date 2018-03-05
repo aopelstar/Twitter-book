@@ -52,7 +52,7 @@ class Account extends Component {
     deleteDraft(id) {
         axios.delete('/api/deletedraft/' + id).then(newdrafts => {
             this.setState({
-                drafts: newdrafts
+                drafts: newdrafts.data
             })
         })
     }
