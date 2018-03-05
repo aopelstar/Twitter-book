@@ -259,6 +259,7 @@
   display: flex;
 }
 .tweets{
+  width: 70vw;
   font-size: 12px;
 }
 .tweetUserImg{
@@ -307,10 +308,20 @@
 }
 .stepIdicator{
   height: 10vh;
-  width: 100vw;
+  width: 60vw;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+}
+.step{
+  padding: 10px 20px 10px 20px;
+  border-radius: 5px;
+  background-color: silver;
+  cursor: pointer;
+}
+.selectedStep{
+  background-color: var(--dark-blue);
+  color: white;
 }
 .navButton{
   height: 50px;
@@ -435,8 +446,9 @@
   margin-left: 10px;
 }
 .tweetText{
-  width: 70vw;
+  width: 30vw;
   line-height: 20px;
+  flex-wrap: wrap;
 }
 .homeContainer{
   display: flex;
@@ -453,13 +465,27 @@
   overflow-y: scroll;
 }
 .containerLayout{
-  width: 50%;
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 .chosenTweetsContaniner{
   width: 50%;
 }
 .stepFourLayout{
+  width: 110%;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+}
+.standardLayout{
+  width: 10vw;
+  text-align: center;
+}
+.masonryLayout{
+  width: 20vw;
+  text-align: center;
 }
