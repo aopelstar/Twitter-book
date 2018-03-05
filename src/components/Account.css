@@ -19,6 +19,7 @@
     width: 90%;
     height: 250px;
     padding: 25px;
+    background-image: linear-gradient(to bottom, #00aced, #00aced 49%, white 49%);
   }
   
   .accountImage {
@@ -26,7 +27,7 @@
     border-radius: 50%;
     border: solid;
     border-width: 5px;
-    border-color: var(--dark-blue);
+    border-color: white;
   }
   
   .accountUser {
@@ -47,13 +48,14 @@
   .accountStats {
     color: gray;
     font-weight: 700;
-    font-size: 12px;
+    font-size: 14px;
   }
   
   .accountStats div {
-    font-size: 15px;
+    font-size: 22px;
     font-weight: 700;
-    color: var(--twitter-logo)
+    color: var(--twitter-logo);
+    margin-top: 8px;
   }
   
   .line {
@@ -65,14 +67,19 @@
     width: 0%;
     transition: width .3s;
   }
+
+  .accountUserDetails {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 45%;
+  }
   
   .accountName {
-    width: 45%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: space-around;
-    height: 80%;
+    height: 50%;
   }
   
   .accountLinks a {
