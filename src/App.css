@@ -7,6 +7,12 @@
   --white: #ffffff;
 }
 
+.mainBody {
+  background: rgb(224,231,236);
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
 .landing {
   display: flex;
   flex-direction: column;

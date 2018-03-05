@@ -69,7 +69,7 @@
 }
 
 .link div {
-    background: var(--twitter-veri);
+    background: var(--twitter-logo);
     color: white;
     padding: 5px;
     border-radius: 15px;
@@ -81,5 +81,5 @@
 }
 
 .link div:hover {
-    background: var(--twitter-logo);
+    background: var(--twitter-veri);
 }
