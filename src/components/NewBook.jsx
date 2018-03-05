@@ -7,7 +7,7 @@ import Step5 from './steps/Step5';
 import Step6 from './steps/Step6';
 import axios from 'axios'
 import { connect } from 'react-redux';
-import { getUserInfo} from '../ducks/reducer';
+import { getUserInfo } from '../ducks/reducer';
 import { Prompt } from 'react-router-dom';
 
 
@@ -51,7 +51,7 @@ class NewBook extends Component {
         this.setState({
             user: user,
         })
-        if(setBook.book_id){
+        if (setBook.book_id) {
             this.setState({
                 backText: setBook.back_text,
                 book_color: setBook.book_color,
@@ -93,7 +93,7 @@ class NewBook extends Component {
                 this.setState({
                     book_id: res.data[0].book_id,
                     size: res.data[0].book_size,
-                    color: res.data[0].book_color,  
+                    color: res.data[0].book_color,
                     book_text_color: res.data[0].book_text_color,
                     title: res.data[0].book_title,
                     subtitle: res.data[0].book_subtitle,
@@ -194,10 +194,22 @@ class NewBook extends Component {
             listOfTweets: [...this.state.listOfTweets, e]
         })
     }
+    moveToPosition(position){
+        this.setState({
+            position: position
+        })
+    }
     render() {
         return (
             <div className='stepsContainer'>
-                <div className="stepIdicator">Step {this.state.position}</div>
+                <div className="stepIdicator">
+                    <div onClick={() => this.moveToPosition(1)} className={this.state.position === 1 ? "step selectedStep" : 'step'}>Step 1</div>
+                    <div onClick={() => this.moveToPosition(2)} className={this.state.position === 2 ? "step selectedStep" : 'step'}>Step 2</div>
+                    <div onClick={() => this.moveToPosition(3)} className={this.state.position === 3 ? "step selectedStep" : 'step'}>Step 3</div>
+                    <div onClick={() => this.moveToPosition(4)} className={this.state.position === 4 ? "step selectedStep" : 'step'}>Step 4</div>
+                    <div onClick={() => this.moveToPosition(5)} className={this.state.position === 5 ? "step selectedStep" : 'step'}>Step 5</div>
+                    <div onClick={() => this.moveToPosition(6)} className={this.state.position === 6 ? "step selectedStep" : 'step'}>Step 6</div>
+                </div>
                 {this.state.position === 1 ? <Step1 size={this.selectBookSize} selectedSize={this.state.size} /> : null}
                 {this.state.position === 2 ? <Step2
                     handleChange={this.handleChange}
@@ -238,7 +250,7 @@ class NewBook extends Component {
                         `When leaving this page your current book will be saved to drafts`
                     }
                 />
-            </div>
+            </div >
         )
     }
 }

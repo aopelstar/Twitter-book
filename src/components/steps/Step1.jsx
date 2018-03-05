@@ -17,7 +17,7 @@ export default function Step1(props) {
                         <img src={EightbyEight} alt="" className={props.selectedSize === 'medium' ? 'tenBook selectedBookSize' : 'tenBook'} />
                     </div>
                     <div className="bookSize" onClick={() => props.size('l')}>
-                        <div>11 X 14</div>
+                        <div>14 X 11</div>
                         <img src={FourtbyTen} alt="" className={props.selectedSize === 'large' ? 'fourtBook selectedBookSize' : 'fourtBook'} />
                     </div>
                 </div>

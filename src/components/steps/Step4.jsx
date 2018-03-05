@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import masonryLayout from '../../images/masonryLayout.svg'
+import standardLayout from '../../images/standardLayout.svg'
 
 export default class Step4 extends Component {
     constructor(props) {
@@ -44,11 +46,21 @@ export default class Step4 extends Component {
         })
         return (
             <div className="stepOneContainer">
-                <div className="containerLayout">
-                    <button onClick={() => this.props.handlePageLayout('standardTweetsList')}>Standard Layout</button>
-                    <button onClick={() => this.props.handlePageLayout('masonryTweetsList')}>Masonry Layout</button>
+                <div className="stepFourLayout">
+                    <div className="containerLayout">
+                        <div className='standardLayout' onClick={() => this.props.handlePageLayout('standardTweetsList')}>
+                            <button>Standard Layout</button>
+                            <img src={standardLayout} alt=""/>
+                        </div>
+                        <div className='masonryLayout' onClick={() => this.props.handlePageLayout('masonryTweetsList')}>
+                            <button>Masonry Layout</button>
+                            <img src={masonryLayout} alt=""/>
+                        </div>
+                    </div>
+                    <div className="chosenTweetsContaniner">
+                        {mappedTweetsStandard}
+                    </div>
                 </div>
-                {mappedTweetsStandard}
             </div>
         )
     }
