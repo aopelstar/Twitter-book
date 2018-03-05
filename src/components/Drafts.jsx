@@ -33,7 +33,12 @@ function Drafts(props) {
             <div className="draftSeparator" />
         </div>
         )
-    }) : null;
+    }) : <div className="emptyDrafts">
+        <div className="draftsPrompt">
+            You don't have any drafts right now...
+        </div>
+        <Link to="/newbook" className="newBookAccLink"><div >Create a book</div></Link>
+    </div>;
     return (<div className="accountSideContainer">
         <h1 className="accountHeading">Your Drafts:</h1>
         <div className="accountSideBody">

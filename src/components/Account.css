@@ -19,6 +19,7 @@
     width: 90%;
     height: 250px;
     padding: 25px;
+    background-image: linear-gradient(to bottom, #00aced, #00aced 49%, white 49%);
   }
   
   .accountImage {
@@ -26,7 +27,7 @@
     border-radius: 50%;
     border: solid;
     border-width: 5px;
-    border-color: var(--dark-blue);
+    border-color: white;
   }
   
   .accountUser {
@@ -40,39 +41,35 @@
   
   .tweetsFriendsFollowers {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 100%;
   }
   
   .accountStats {
     color: gray;
     font-weight: 700;
-    font-size: 12px;
+    font-size: 14px;
   }
   
   .accountStats div {
-    font-size: 15px;
+    font-size: 22px;
     font-weight: 700;
-    color: var(--twitter-logo)
+    color: var(--twitter-logo);
+    margin-top: 8px;
   }
-  
-  .line {
-    margin-top: -19px;
-    height: 20px;
-    border-bottom: solid;
-    border-width: 1px;
-    border-color: black;
-    width: 0%;
-    transition: width .3s;
+
+  .accountUserDetails {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 45%;
   }
   
   .accountName {
-    width: 45%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: space-around;
-    height: 80%;
+    height: 50%;
   }
   
   .accountLinks a {
@@ -82,7 +79,20 @@
   
   .accountLinks div{
       margin-top: 10px;
+      padding: 5px;
+      border-radius: 15px;
+      width: 120px;
   }
+
+  .accountLinks div:hover {
+      background: var(--twitter-logo);
+      color: white;
+  }
+
+  .accountLinks div:hover > a{
+    background: var(--twitter-logo);
+    color: white;
+}
   
   .accountLogo{
     height: 75px;
@@ -175,5 +185,30 @@
     align-items: center;
     border-radius: 5px;
     color: white;
+}
 
+.draftsPrompt {
+    margin-top: 20px;
+}
+
+.newBookAccLink div {
+    background: var(--twitter-veri);
+    color: white;
+    padding: 5px;
+    border-radius: 15px;
+    border: solid;
+    border-width: 2px;
+    border-color: white;
+    width: 120px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.newBookAccLink div:hover {
+    background: var(--twitter-logo);
+}
+
+.emptyDrafts a{
+    text-decoration: none;
+    color: white;
 }
