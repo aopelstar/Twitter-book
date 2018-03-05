@@ -19,6 +19,7 @@ class Account extends Component {
             drafts: [],
             orders: []
         }
+        this.deleteDraft=this.deleteDraft.bind(this);
     }
 
     async componentDidMount() {
@@ -49,9 +50,9 @@ class Account extends Component {
     }
 
     deleteDraft(id) {
-        axios.delete('/api/deletedraft/' + id).then(drafts => {
+        axios.delete('/api/deletedraft/' + id).then(newdrafts => {
             this.setState({
-                drafts: drafts
+                drafts: newdrafts
             })
         })
     }

@@ -6,7 +6,7 @@ import small from '../images/8x8book.svg';
 import large from '../images/14x11book.svg'
 
 function Drafts(props) {
-    let draftsMap = props.drafts.map((e, i) => {
+    let draftsMap = props.drafts.length>0?props.drafts.map((e, i) => {
         let backText = e.back_text ? e.back_text : "No back text chosen yet."
         let bookColor = e.book_color ? e.book_color : "No book color chosen yet."
         let bookSize = e.book_size === "small" ? "8 x 8" : e.book_size === "medium" ? "10 x 10" : e.book_size === "large" ? "14 x 11" : "No book size chosen yet."
@@ -33,9 +33,9 @@ function Drafts(props) {
             <div className="draftSeparator" />
         </div>
         )
-    })
+    }) : null;
     return (<div className="accountSideContainer">
-        <h1 className="accountHeading">Drafts:</h1>
+        <h1 className="accountHeading">Your Drafts:</h1>
         <div className="accountSideBody">
             {draftsMap}
         </div>

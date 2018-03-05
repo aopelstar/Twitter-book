@@ -153,12 +153,12 @@ export default class Cart extends Component {
             phone: this.state.phone,
             cart: this.state.bookCart
         }).then(response => {
-            this.closeModal()
-            this.closeProgressModal()
-            this.successModal()
             this.totalState(response.data)
             this.setState({
-                bookCart: response.data
+                bookCart: response.data,
+                modalIsOpen: false,
+                progressModalIsOpen: false,
+                successModalIsOpen: true
             })
 
 
@@ -229,7 +229,7 @@ export default class Cart extends Component {
                         description="literally  begging that you confirm this order"
                     />
                 </Modal>
-                <Modal isOpen={this.state.progressModalIsOpen} style={progressStyle}>
+                <Modal isOpen={this.state.progressModalIsOpen} onRequestClose={this.closeProgressModal} style={progressStyle}>
                     please wait while your order is submitted, you bitch.
                 </Modal>
                 <Modal isOpen={this.state.successModalIsOpen} onRequestClose={this.closeSuccessModal} style={successStyle}>
