@@ -1,0 +1,85 @@
+.header{
+  box-shadow: 0px 0px 14px 3px gray;
+  margin-bottom: 15px;
+  width: 100vw;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 80px;
+  padding-right: 80px;
+  align-items: center;
+  background-color: var(--twitter-veri);
+}
+
+.hamMenu{
+  display: flex;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 1s;
+}
+
+.hamLine{
+  height: 5px;
+  width: 35px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  border-radius: 5px;
+  background-color: var(--white)
+}
+
+.headerProfileImg{
+  height: 40px;
+  width: 40px;
+  border: 2px solid var(--dark-blue);
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.headerProfileImgContainer{
+  width: 110px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.hamMenuContainerDiv{
+  width: 110px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.menuLinks{
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  top: 50px;
+  right: -200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  transition: .8s;
+}
+
+.slideLeft{
+    right: 0px;
+}
+
+.link div {
+    background: var(--twitter-logo);
+    color: white;
+    padding: 5px;
+    border-radius: 15px;
+    border: solid;
+    border-width: 2px;
+    border-color: white;
+    box-shadow: 0px 5px 5px -3px gray;
+    margin-bottom: 10px;
+}
+
+.link div:hover {
+    background: var(--twitter-veri);
+}

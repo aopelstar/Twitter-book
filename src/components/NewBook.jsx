@@ -71,7 +71,7 @@ class NewBook extends Component {
     async next() {
         await this.setState({
             position: this.state.position + 1,
-            blocked: true
+            blocked: this.state.position=== 5 ? false: true
         })
         var book = {
             user_id: this.state.user.auth_id,
@@ -156,7 +156,8 @@ class NewBook extends Component {
     }
     addToCart(props) {
         this.setState({
-            draft: false
+            draft: false,
+            blocked: false
         })
         axios.post('/api/addtocart', {
             book_id: this.state.book_id,

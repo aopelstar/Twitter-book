@@ -19,7 +19,7 @@ class Account extends Component {
             drafts: [],
             orders: []
         }
-        this.deleteDraft=this.deleteDraft.bind(this);
+        this.deleteDraft = this.deleteDraft.bind(this);
     }
 
     async componentDidMount() {
@@ -78,14 +78,19 @@ class Account extends Component {
                 <div className="accountBody">
                     <div className="accountAvatar">
                         <img className="accountImage" src={image} alt="You" />
+                        <div className="accountUserDetails">
+                        <div></div>
                         <div className="accountName">
-                            <div className="accountUser">{user.name}</div>
-                            <div className="accountScreen">@{user.screen_name}</div>
+                            <div>
+                                <div className="accountUser">{user.name}</div>
+                                <div className="accountScreen">@{user.screen_name}</div>
+                            </div>
                             <div className="tweetsFriendsFollowers">
                                 <div className="accountStats">Tweets <div>{user.statuses_count}</div></div>
                                 <div className="accountStats">Following <div>{user.friends_count}</div></div>
                                 <div className="accountStats">Followers <div>{user.followers_count}</div></div>
                             </div>
+                        </div>
                         </div>
                     </div>
                     <div className="accountLinks">
@@ -95,7 +100,7 @@ class Account extends Component {
                         <div><a href={process.env.REACT_APP_LOGOUT}>Logout</a></div>
                     </div>
                 </div>
-                <div className="accountBody">
+                <div className="accountBody accountRight">
                     {accountDisplay}
                 </div>
             </div>
