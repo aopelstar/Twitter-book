@@ -1,0 +1,44 @@
+.step6CartLine{
+    border-style: solid;
+    border-width: 1px;
+}
+
+.title-main-6, .price-main-6, .total-main-6{
+    width: auto;
+    margin: 1% 2%;
+}
+.step6BookTotal{
+    width: auto;
+    margin: 1% 0;
+    padding: 0 2%;
+}
+
+.title-main-6>div, .price-main-6>div, .total-main-6>div{
+    display: inline-block;
+    margin-top: 2%;
+}
+
+.step6BookTotalNumber{
+    margin: 0 auto;
+}
+
+.modal-checkout-container{
+    text-align: center;
+    margin: 0 25%;
+    
+}
+
+.modal-checkout-container>div{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4%;
+}
+
+.progress-modal{
+    text-align: center;
+}
+
+.success-modal{
+    text-align: center;
+}
+
