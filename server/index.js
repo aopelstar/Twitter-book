@@ -109,6 +109,7 @@ app.delete('/api/removetweet/:tweetId', controller.removeTweet) //remove tweet f
 app.delete('/api/removefromcart/:bookId', controller.removeFromCart) //remove book from cart
 app.put('/api/changequantity/:bookId/:diff', controller.changeQuantity) //change quantity in cart for specific book in cart
 app.get('/api/getdrafts/', controller.getDrafts) //get drafts of books for logged in user
+app.delete('/api/deletedraft/:id', controller.deleteDraft) //delete user's draft of created book
 app.get('/api/orderhistory', controller.getOrderHistory) //get order history for logged in user
 
 //Stripe Endpoint

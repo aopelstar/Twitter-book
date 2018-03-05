@@ -5,6 +5,7 @@ import axios from 'axios';
 import Drafts from './Drafts';
 import Cart from './Cart';
 import Orders from './Orders';
+import './Account.css';
 
 
 class Account extends Component {
@@ -18,6 +19,7 @@ class Account extends Component {
             drafts: [],
             orders: []
         }
+        this.deleteDraft=this.deleteDraft.bind(this);
     }
 
     async componentDidMount() {
@@ -28,7 +30,6 @@ class Account extends Component {
         let orders = axios.get('/api/orderhistory')
 
         axios.all([user, drafts, cart, orders]).then(info => {
-            console.log(info);
             this.setState({
                 user: info[0].data.data[0].user,
                 drafts: info[1].data,
@@ -48,17 +49,25 @@ class Account extends Component {
         })
     }
 
+    deleteDraft(id) {
+        axios.delete('/api/deletedraft/' + id).then(newdrafts => {
+            this.setState({
+                drafts: newdrafts
+            })
+        })
+    }
+
 
     render() {
         let user = this.state.user;
         let image = user.profile_image_url ? user.profile_image_url.replace('normal', '400x400') : null
-        
+
         let accountDisplay;
         if (this.state.accountDisplay === "drafts") {
-            accountDisplay = <Drafts drafts={this.state.drafts} />
+            accountDisplay = <Drafts drafts={this.state.drafts} deleteDraft={this.deleteDraft} />
         }
         else if (this.state.accountDisplay === "cart") {
-            accountDisplay = <Cart cart={this.state.cart}/>
+            accountDisplay = <Cart cart={this.state.cart} />
         }
         else if (this.state.accountDisplay === "orders") {
             accountDisplay = <Orders orders={this.state.orders} />
@@ -83,13 +92,11 @@ class Account extends Component {
                         <div onClick={() => this.handleAccountDisplay("drafts")}>Draft Books</div>
                         <div onClick={() => this.handleAccountDisplay('cart')}>View Cart</div>
                         <div onClick={() => this.handleAccountDisplay('orders')}>Order History</div>
-                        <div><a href={process.env.REACT_APP_LOGOUT}>Logout<div className="line"></div></a></div>
+                        <div><a href={process.env.REACT_APP_LOGOUT}>Logout</a></div>
                     </div>
                 </div>
-                <div className="accountSide">
-                    <div className="accountCart">
-                        {accountDisplay}
-                    </div>
+                <div className="accountBody">
+                    {accountDisplay}
                 </div>
             </div>
         )

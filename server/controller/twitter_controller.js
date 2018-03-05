@@ -66,10 +66,8 @@ module.exports = {
     updateBooks: (req, res) => {
         const db = req.app.get('db');
         let { user_id, book_id, size, title, subtitle, book_text_color, color, backText, pages_format, featured, book_price, draft, booktweets } = req.body
-        console.log(req.body)
         if (book_id === 0) {
             db.create_book([size, book_price, draft, req.user.auth_id, featured]).then(resp => {
-                console.log('hello', resp)
                 res.status(200).send(resp)
             })
         } else {
@@ -225,6 +223,18 @@ module.exports = {
 
         db.get_drafts([user]).then(drafts => {
             res.status(200).send(drafts)
+        })
+    },
+
+    deleteDraft: async (req, res) => {
+        const db = req.app.get('db');
+        let user = req.user.auth_id;
+        let id = req.params.id;
+
+       await db.delete_draft([id]).then(drafts => {})
+       await db.delete_drafttweets([id]).then(newDrafts => {})
+       await db.get_drafts([user]).then(update => {
+            res.status(200).send(update)
         })
     }
 
