@@ -100,7 +100,7 @@ class Account extends Component {
                         <div><a href={process.env.REACT_APP_LOGOUT}>Logout</a></div>
                     </div>
                 </div>
-                <div className="accountBody">
+                <div className="accountBody accountRight">
                     {accountDisplay}
                 </div>
             </div>
