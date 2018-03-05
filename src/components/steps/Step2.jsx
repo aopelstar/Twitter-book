@@ -6,12 +6,12 @@ import FourtbyTen from '../../images/14x11book.svg'
 export default function Step2(props) {
     return (
         <div className="stepOneContainer">
-            <h1>Choose book color</h1>
+                <h1>Choose book color</h1>
             <div className='stepTwoColor'>
-            { props.selectedSize === 'small' ? <div style={{textAlign: 'center'}}><h1>8x8</h1><img src={EightbyEight} alt="" style={{backgroundColor: `${props.selectedColor}`, height: '100px'}}/></div> : null }
-            { props.selectedSize === 'medium' ? <div style={{textAlign: 'center'}}><h1>10x10</h1><img src={EightbyEight} alt="" style={{backgroundColor: `${props.selectedColor}`, height: '120px'}}/></div> : null }
-            { props.selectedSize === 'large' ? <div style={{textAlign: 'center'}}><h1>14x11</h1><img src={FourtbyTen} alt="" style={{backgroundColor: `${props.selectedColor}`, height: '130px'}}/></div> : null }
-            <SwatchesPicker onChange={(color,event) => props.handleChange(color, event)} />
+                {props.selectedSize === 'small' ? <div style={{ textAlign: 'center', position: 'relative' }}><img src={EightbyEight} alt="" style={{ backgroundColor: `${props.selectedColor}`, height: '150px' }} /><h1 style={{ color: 'silver', marginTop: '30px' }}>8x8</h1></div> : null}
+                {props.selectedSize === 'medium' ? <div style={{ textAlign: 'center' }}><img src={EightbyEight} alt="" style={{ backgroundColor: `${props.selectedColor}`, height: '170px' }} /><h1 style={{ color: 'silver', marginTop: '30px' }}>10x10</h1></div> : null}
+                {props.selectedSize === 'large' ? <div style={{ textAlign: 'center' }}><img src={FourtbyTen} alt="" style={{ backgroundColor: `${props.selectedColor}`, height: '200px' }} /><h1 style={{ color: 'silver', marginTop: '30px' }}>14x11</h1></div> : null}
+                <SwatchesPicker onChange={(color, event) => props.handleChange(color, event)} />
             </div>
         </div>
     )

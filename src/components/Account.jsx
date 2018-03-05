@@ -52,7 +52,7 @@ class Account extends Component {
     deleteDraft(id) {
         axios.delete('/api/deletedraft/' + id).then(newdrafts => {
             this.setState({
-                drafts: newdrafts
+                drafts: newdrafts.data
             })
         })
     }
@@ -72,7 +72,7 @@ class Account extends Component {
         else if (this.state.accountDisplay === "orders") {
             accountDisplay = <Orders orders={this.state.orders} />
         }
-
+        console.log(this.state.drafts)
         return (
             <div className="accountContainer">
                 <div className="accountBody">
