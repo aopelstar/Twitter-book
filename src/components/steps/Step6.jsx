@@ -4,29 +4,42 @@ import axios from 'axios';
 import stripe from '../../stripeKey';
 import logo from '../../images/logo.svg';
 import Modal from 'react-modal';
+import './step6.css'
 
 const customStyles = {
     content: {
-        width: "50%",
-        height: "300px",
-        background: "lightblue"
+        minheight: "250px",
+        borderradius: "6px", 
+        position: "absolute",
+        top: "60px",
+        left: "35%",
+        width: "30%",
+        height: "30%"
 
     }
 }
 
 const progressStyle = {
    content: {
-    width: "45%",
-    height: "25%",
-    background: "orange"
+    minheight: "250px",
+    borderradius: "6px", 
+    position: "absolute",
+    top: "60px",
+    left: "35%",
+    width: "30%",
+    height: "30%"
    }
 }
 
 const successStyle = {
     content: {
-        width: "50%",
-    height: "150px",
-    background: "hotpink"
+        minheight: "250px",
+        borderradius: "6px", 
+        position: "absolute",
+        top: "60px",
+        left: "35%",
+        width: "30%",
+        height: "30%"
     }
 
 }
@@ -114,7 +127,7 @@ export default class Step6 extends Component {
     }
 
     closeSucessModal(){
-        window.location.assign('/home')
+        window.location.assign('http://localhost:3000/#/home')
         this.setState({
             successModalIsOpen: false
         })
@@ -176,26 +189,31 @@ export default class Step6 extends Component {
             let subTotal = cartLine.book_price * cartLine.quantity;
 
             return <div className="step6CartLine" key={i}>
-                {/* <div className="step6BookImage"><img src = {logo} alt='logo' className='step6Logo'/></div> */}
-                <div className="step6BookTitle">{cartLine.book_title}</div>
-                <div className="step6BookSub">{cartLine.book_subtitle}</div>
-                <div className="step6BookPrice">{cartLine.book_price}</div>
-                <div className="step6BookQuantity">{cartLine.quantity}
+                <div className="title-main-6">
+                    <div className="step6BookTitle">Title: {cartLine.book_title}</div>
+                    <div className="step6BookSub">Subtitle: {cartLine.book_subtitle}</div>
+                </div>
+                <div className="price-main-6">
+                    <div className="step6BookPrice">Price: ${cartLine.book_price}</div>
+                    <div className="step6BookQuantity">Quantity: {cartLine.quantity}</div>
+                </div>
                     <button className="incrementUp" onClick={() => this.increment("up", cartLine.book_id)}>+</button>
-                    <button className="incrementDown" onClick={() => this.increment("down", cartLine.book_id)}>-</button></div>
-                <div className="step6BookTotal">{subTotal}</div>
-
+                    <button className="incrementDown" onClick={() => this.increment("down", cartLine.book_id)}>-</button>
+                <div className="total-main-6"> 
+                    <div className="step6BookTotal">Subtotal: </div>
+                    <div className="step6BookTotalNumber">${Math.floor(subTotal, -1)}</div>
+                </div>
             </div>
         })
         return (
             <div className="stepOneContainer">
                 {cart}
-                <div className="step6BookTotal">{total}</div>
+                <div className="step6BookTotal">Total: ${Math.floor(total, -1)}</div>
 
                 <button className="checkout" onClick={this.openModal}>Check it out</button>
 
                 < Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} style={customStyles}>
-
+                <div className="modal-checkout-container">
                     <div className="modalAddress">Address:
             <div className='addressInput'>
                             <input type="text" onChange={(e) => this.update("address", e.target.value)} />
@@ -226,13 +244,14 @@ export default class Step6 extends Component {
                             <input type="text" onChange={(e) => this.update("phone", e.target.value)} />
                         </div>
                     </div>
+                
                     <StripeCheckout
                         token={this.onToken}
                         stripeKey={stripe.pub_key}
                         amount={total * 100}
                         name="your order"
                         description="literally  begging that you confirm this order"
-                    />
+                    /></div>
                 </Modal>
                 <Modal isOpen={this.state.progressModalIsOpen} onRequestClose={this.closeProgressModal} style={progressStyle}>
                 <div className="progress-modal">
