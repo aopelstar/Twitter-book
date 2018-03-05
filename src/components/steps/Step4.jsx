@@ -51,11 +51,11 @@ export default class Step4 extends Component {
                 <div className="stepFourLayout">
                     <div className="containerLayout">
                         <div className='standardLayout' onClick={() => this.props.handlePageLayout('standardTweetsList')}>
-                            <button>Standard Layout</button>
+                            <div>Standard Layout</div>
                             <img src={standardLayout} alt=""/>
                         </div>
                         <div className='masonryLayout' onClick={() => this.props.handlePageLayout('masonryTweetsList')}>
-                            <button>Masonry Layout</button>
+                            <div>Masonry Layout</div>
                             <img src={masonryLayout} alt=""/>
                         </div>
                     </div>
