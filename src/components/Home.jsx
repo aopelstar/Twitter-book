@@ -54,8 +54,9 @@ export default class Home extends Component {
         })
     }
     handleAddTweet(i) {
-        let tweet = this.state.tweets[i]
-        let tweetImg = this.state.tweets[i].user.profile_image_url.replace("normal", "400x400")
+        console.log(i)
+        let tweet = i
+        let tweetImg = i.user.profile_image_url.replace("normal", "400x400")
         var text = tweet.text;
         var text1 = text.replace(/https.*$/g, '')
         var text2 = text1.replace(/^(.*?): /g, '')
@@ -105,7 +106,7 @@ export default class Home extends Component {
                         {e.extended_entities ? e.extended_entities.media[2] ? <img src={e.extended_entities.media[2].media_url} alt="" className="tweetImg" /> : null : null}
                         {e.extended_entities ? e.extended_entities.media[3] ? <img src={e.extended_entities.media[3].media_url} alt="" className="tweetImg" /> : null : null}
                     </div>
-                    <button onClick={() => this.handleAddTweet(i)}>Add Tweet</button>
+                    <button onClick={() => this.handleAddTweet(e)}>Add Tweet</button>
                     <br />
                 </div>
             )
@@ -134,7 +135,7 @@ export default class Home extends Component {
                         {e.extended_entities ? e.extended_entities.media[2] ? <img src={e.extended_entities.media[2].media_url} alt="" className="tweetImg" /> : null : null}
                         {e.extended_entities ? e.extended_entities.media[3] ? <img src={e.extended_entities.media[3].media_url} alt="" className="tweetImg" /> : null : null}
                     </div>
-                    <button onClick={() => this.handleAddTweet(i)}>Add Tweet</button>
+                    <button onClick={() => this.handleAddTweet(e)}>Add Tweet</button>
                     <br />
                 </div>
             )
