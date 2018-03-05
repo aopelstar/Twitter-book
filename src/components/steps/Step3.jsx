@@ -8,7 +8,6 @@ export default function Step3(props) {
         <div className="stepOneContainer">
             <div className='stepThreeText'>
                 <div className='bookOutside'>
-                    <h1>Book title, subtitle, and back subtitle</h1>
                     {props.selectedSize === 'small' ? <div style={{ textAlign: 'center', position: 'relative' }}><img src={EightbyEight} alt="" style={{ backgroundColor: `${props.selectedColor}`, height: '150px' }} /><h1 style={{ color: 'silver', marginTop: '30px' }}>8x8</h1></div> : null}
                     {props.selectedSize === 'medium' ? <div style={{ textAlign: 'center' }}><img src={EightbyEight} alt="" style={{ backgroundColor: `${props.selectedColor}`, height: '170px' }} /><h1 style={{ color: 'silver', marginTop: '30px' }}>10x10</h1></div> : null}
                     {props.selectedSize === 'large' ? <div style={{ textAlign: 'center' }}><img src={FourtbyTen} alt="" style={{ backgroundColor: `${props.selectedColor}`, height: '200px' }} /><h1 style={{ color: 'silver', marginTop: '30px' }}>14x11</h1></div> : null}

@@ -6,7 +6,6 @@ import FourtbyTen from '../../images/14x11book.svg'
 export default function Step2(props) {
     return (
         <div className="stepOneContainer">
-                <h1>Choose book color</h1>
             <div className='stepTwoColor'>
                 {props.selectedSize === 'small' ? <div style={{ textAlign: 'center', position: 'relative' }}><img src={EightbyEight} alt="" style={{ backgroundColor: `${props.selectedColor}`, height: '150px' }} /><h1 style={{ color: 'silver', marginTop: '30px' }}>8x8</h1></div> : null}
                 {props.selectedSize === 'medium' ? <div style={{ textAlign: 'center' }}><img src={EightbyEight} alt="" style={{ backgroundColor: `${props.selectedColor}`, height: '170px' }} /><h1 style={{ color: 'silver', marginTop: '30px' }}>10x10</h1></div> : null}
