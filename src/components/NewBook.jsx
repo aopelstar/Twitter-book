@@ -240,7 +240,7 @@ class NewBook extends Component {
                     addToCart={this.addToCart}
                     book_price={this.state.book_price}
                 /> : null}
-                {this.state.position === 6 ? <Step6 /> : null}
+                {this.state.position === 6 ? <Step6 user={this.state.user}/> : null}
                 <div className="stepNavigation">
                     {this.state.position === 1 ? <div className="navButton none"></div> : <button onClick={() => this.prev()} className="navButton">Prev</button>}
                     {this.state.position === 6 ? <div className="navButton none"></div> : <button onClick={() => this.next()} className='navButton'>Next</button>}

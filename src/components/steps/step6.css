@@ -1,21 +1,29 @@
 .step6CartLine{
     border-style: solid;
     border-width: 1px;
+    background-color: var(--twitter-backgr);
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+
 }
 
 .title-main-6, .price-main-6, .total-main-6{
-    width: auto;
     margin: 1% 2%;
+    
+    
 }
 .step6BookTotal{
     width: auto;
     margin: 1% 0;
     padding: 0 2%;
+    
 }
 
 .title-main-6>div, .price-main-6>div, .total-main-6>div{
-    display: inline-block;
+    display:block;
     margin-top: 2%;
+    
 }
 
 .step6BookTotalNumber{
@@ -42,3 +50,29 @@
     text-align: center;
 }
 
+.step6Button{
+    height: 60px;
+    width: 100px;
+    border-radius: 5px;
+    background-color: var(--dark-blue);
+    border: none;
+    color: whitesmoke;
+    font-size: 24px;
+    outline: none;
+}
+
+.incrementUp, .incrementDown{
+    background-color: var(--dark-blue);
+    color: whitesmoke;
+    height: 100%;
+}
+
+.step6BookTotalComp{
+    font-weight: bold;
+    font-size: 2vw;
+}
+
+.stripeCheck{
+    margin: 10% 0 0 30%;
+    justify-content: center;
+}
