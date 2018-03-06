@@ -106,8 +106,7 @@ export default class Home extends Component {
                         {e.extended_entities ? e.extended_entities.media[2] ? <img src={e.extended_entities.media[2].media_url} alt="" className="tweetImg" /> : null : null}
                         {e.extended_entities ? e.extended_entities.media[3] ? <img src={e.extended_entities.media[3].media_url} alt="" className="tweetImg" /> : null : null}
                     </div>
-                    <button onClick={() => this.handleAddTweet(i)}>Add Tweet</button>
-                    <br />
+                    <button onClick={() => this.handleAddTweet(i)}>+Add</button>
                 </div>
             )
         })
@@ -117,52 +116,56 @@ export default class Home extends Component {
             var text2 = text1.replace(/^(.*?): /g, '')
             return (
                 <div key={i} className='tweets'>
-                    <div className="tweetHead">
-                        <img src={e.user.profile_image_url} alt="" className='tweetUserImg' />
-                        <div className="tweetTextContainer">
-                            <div className="usernameAndScreenname">
-                                <h1>{e.user.name}</h1>
-                                <h2>@{e.user.screen_name}</h2>
+                    <div className="tweetBody">
+                        <div className="tweetHead">
+                            <img src={e.user.profile_image_url} alt="" className='tweetUserImg' />
+                            <div className="tweetTextContainer">
+                                <div className="usernameAndScreenname">
+                                    <h1>{e.user.name}</h1>
+                                    <h2>@{e.user.screen_name}</h2>
+                                </div>
+                                <p className='tweetText'>{text2}</p>
                             </div>
-                            <p className='tweetText'>{text2}</p>
+                        </div>
+                        <div className="media">
+                            {e.extended_entities ? e.extended_entities.media[0] ? <img src={e.extended_entities.media[0].media_url} alt="" className="tweetImg" /> : null : null}
+                            {e.extended_entities ? e.extended_entities.media[1] ? <img src={e.extended_entities.media[1].media_url} alt="" className="tweetImg" /> : null : null}
+                        </div>
+                        <div className="media">
+                            {e.extended_entities ? e.extended_entities.media[2] ? <img src={e.extended_entities.media[2].media_url} alt="" className="tweetImg" /> : null : null}
+                            {e.extended_entities ? e.extended_entities.media[3] ? <img src={e.extended_entities.media[3].media_url} alt="" className="tweetImg" /> : null : null}
                         </div>
                     </div>
-                    <div className="media">
-                        {e.extended_entities ? e.extended_entities.media[0] ? <img src={e.extended_entities.media[0].media_url} alt="" className="tweetImg" /> : null : null}
-                        {e.extended_entities ? e.extended_entities.media[1] ? <img src={e.extended_entities.media[1].media_url} alt="" className="tweetImg" /> : null : null}
-                    </div>
-                    <div className="media">
-                        {e.extended_entities ? e.extended_entities.media[2] ? <img src={e.extended_entities.media[2].media_url} alt="" className="tweetImg" /> : null : null}
-                        {e.extended_entities ? e.extended_entities.media[3] ? <img src={e.extended_entities.media[3].media_url} alt="" className="tweetImg" /> : null : null}
-                    </div>
-                    <button onClick={() => this.handleAddTweet(i)}>Add Tweet</button>
-                    <br />
+                    <button onClick={() => this.handleAddTweet(i)}>+Add</button>
                 </div>
             )
         })
         return (
             <div className='homeContainer'>
                 <div className="searchContainer">
+                    <h1>Find and Add Tweets to Your Book</h1>
                     <div className="tweetSearch">
-                        <h1>Search Tweets</h1>
-                        <input type="text" onChange={e => this.updateTweetSearch(e.target.value)} />
-                        <button onClick={() => this.handleSearch()}>click this</button>
+                        <input type="text" placeholder="Search" onChange={e => this.updateTweetSearch(e.target.value)} />
+                        <button onClick={() => this.handleSearch()}>Find Tweets</button>
                         <button onClick={() => this.changeTweets()}>Your Tweets</button>
-                        {this.state.yourTweets ? yourTweets : searchedTweets}
                     </div>
+                    {this.state.yourTweets ? yourTweets : searchedTweets}
                 </div>
                 <div className="homeRight">
                     <div className="featuredContainer">
+                        <h1>Featured Books</h1>
                         <div className="featuredbooks">
                             {featuredBooks}
                         </div>
                     </div>
                     <div className="homeFiltersContainer">
+                        <h1>Popular Filters and Searches</h1>
+                        <div className="homeFilters">
+
+                        </div>
                     </div>
                 </div>
-                <Link to="/newbook"><div className="newBookButton">
-                    +
-                    </div></Link>
+                <Link to="/newbook"><div className="newBookButton">+</div></Link>
             </div>
         )
     }

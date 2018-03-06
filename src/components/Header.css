@@ -53,10 +53,10 @@
 
 .menuLinks{
   height: 200px;
-  width: 200px;
+  width: 150px;
   position: absolute;
   top: 50px;
-  right: -200px;
+  right: -150px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -84,10 +84,3 @@
     background: var(--twitter-veri);
 }
 
-.homeFiltersContainer {
-  width: 100%;
-  background: white;
-  height: 41.5vh;
-  margin-top: 10px;
-  margin-left: 10px;
-}
