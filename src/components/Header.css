@@ -6,8 +6,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding-left: 80px;
-  padding-right: 80px;
+  padding-left: 60px;
+  padding-right: 60px;
   align-items: center;
   background-color: var(--twitter-veri);
 }
@@ -82,4 +82,12 @@
 
 .link div:hover {
     background: var(--twitter-veri);
+}
+
+.homeFiltersContainer {
+  width: 100%;
+  background: white;
+  height: 41.5vh;
+  margin-top: 10px;
+  margin-left: 10px;
 }
