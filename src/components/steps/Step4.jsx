@@ -47,7 +47,7 @@ export default class Step4 extends Component {
                         {e.tweet_img4 ? <img src={e.tweet_img4} alt="" className="tweetImg" /> : null}
                     </div>
                     <button onClick={() => this.props.addTweetToBook(e)}>Add Tweet to book</button>
-                    <button onClick={() => this.props.deleteTweetFromBook(e)} >Delete from book</button>
+                    <button onClick={() => this.props.deleteTweetFromBook(e.tweet_id)} >Delete from book</button>
                     <br />
                 </div>
             )
