@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import './Home.css';
 
 export default class Home extends Component {
     // video tutorial modal
@@ -149,24 +150,19 @@ export default class Home extends Component {
                         <button onClick={() => this.changeTweets()}>Your Tweets</button>
                         {this.state.yourTweets ? yourTweets : searchedTweets}
                     </div>
-                    <div className="tweetCategories">
-                        <div className="categories">
-
+                </div>
+                <div className="homeRight">
+                    <div className="featuredContainer">
+                        <div className="featuredbooks">
+                            {featuredBooks}
                         </div>
-                        <div className="filter">
-
-                        </div>
+                    </div>
+                    <div className="homeFiltersContainer">
                     </div>
                 </div>
-                <div className="featuredContainer">
-                    <div className="featuredbooks">
-                        {featuredBooks}
-                    </div>
-                    <Link to="/newbook"><div className="newBookButton">
-                        <div className="newLine"></div>
-                        <div className="newLine hor"></div>
+                <Link to="/newbook"><div className="newBookButton">
+                    +
                     </div></Link>
-                </div>
             </div>
         )
     }
