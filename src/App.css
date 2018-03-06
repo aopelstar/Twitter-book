@@ -339,3 +339,14 @@
   font-size: 30px;
   padding: 20px;
 }
+.tweets > button{
+  margin: 10px;
+  margin-left: 60px;
+  background-color: var(--twitter-backgr);
+  border: none;
+  border-radius: 5px;
+}
+.noTweetsOption{
+  font-size: 22px;
+  margin-left: 20px;
+}

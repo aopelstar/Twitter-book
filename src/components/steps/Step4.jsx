@@ -19,12 +19,20 @@ export default class Step4 extends Component {
             })
         })
     }
+    componentWillReceiveProps(props){
+        console.log(props.bookTweets)
+        this.setState({
+            tweets: props.bookTweets
+        })
+    }
     yourTweets(){
         this.setState({
             yourTweets: true,
         })
     }
     render(props) {
+        console.log(this.props.bookTweets)
+        console.log(this.state.tweets)
         let yourTweets = this.state.tweets.map((e, i) => {
             return (
                 <div key={i} className='tweets'>
@@ -46,7 +54,7 @@ export default class Step4 extends Component {
                         {e.tweet_img3 ? <img src={e.tweet_img3} alt="" className="tweetImg" /> : null}
                         {e.tweet_img4 ? <img src={e.tweet_img4} alt="" className="tweetImg" /> : null}
                     </div>
-                    <button onClick={() => this.props.addTweetToBook(e)}>Add Tweet to book</button>
+                    {/* <button onClick={() => this.props.addTweetToBook(e)}>Add Tweet to book</button> */}
                     <button onClick={() => this.props.deleteTweetFromBook(e.tweet_id)} >Delete from book</button>
                     <br />
                 </div>
@@ -70,7 +78,7 @@ export default class Step4 extends Component {
                         <input type="text" placeholder='Search a users handle' />
                         <button> Review books tweets</button>
                         <h1 className='tweetsTitle'>Tweets for this book.</h1>
-                        {yourTweets}
+                        {this.state.tweets.length > 0 ? yourTweets : <div className='noTweetsOption'>Search for tweets above</div> }
                     </div>
                 </div>
             </div>

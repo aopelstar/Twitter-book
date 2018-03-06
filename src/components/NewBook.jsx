@@ -205,7 +205,7 @@ class NewBook extends Component {
     deleteTweetFromBook(e){
         console.log(e)
         var id = e
-        axios.delete(`/api/deleteTweetFromBook/${id}`).then( res => {
+         axios.delete(`/api/deleteTweetFromBook/${id}`).then( res => {
             this.setState({
                 tweets: res.data
             })
@@ -245,6 +245,7 @@ class NewBook extends Component {
                     addTweetToBook={this.addTweetToBook}
                     selectedLayout={this.state.pageLayout}
                     deleteTweetFromBook={this.deleteTweetFromBook}
+                    bookTweets={this.state.tweets}
                 /> : null}
                 {this.state.position === 5 ? <Step5
                     quantity={this.state.quantity}
