@@ -7,7 +7,9 @@ export default class Step4 extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tweets: []
+            tweets: [],
+            bookTweets: [],
+            yourTweets: false,
         }
     }
     componentDidMount() {
@@ -17,8 +19,13 @@ export default class Step4 extends Component {
             })
         })
     }
+    yourTweets(){
+        this.setState({
+            yourTweets: true,
+        })
+    }
     render(props) {
-        let mappedTweetsStandard = this.state.tweets.map((e, i) => {
+        let yourTweets = this.state.tweets.map((e, i) => {
             return (
                 <div key={i} className='tweets'>
                     <div className="tweetHead">
@@ -40,6 +47,7 @@ export default class Step4 extends Component {
                         {e.tweet_img4 ? <img src={e.tweet_img4} alt="" className="tweetImg" /> : null}
                     </div>
                     <button onClick={() => this.props.addTweetToBook(e)}>Add Tweet to book</button>
+                    <button onClick={() => this.props.deleteTweetFromBook(e)} >Delete from book</button>
                     <br />
                 </div>
             )
@@ -48,17 +56,21 @@ export default class Step4 extends Component {
             <div className="stepOneContainer">
                 <div className="stepFourLayout">
                     <div className="containerLayout">
-                        <div className='standardLayout' onClick={() => this.props.handlePageLayout('standardTweetsList')}>
-                            <button>Standard Layout</button>
+                        <div className={this.props.selectedLayout === 'standardTweetsList'? 'standardLayout selectedLayout' : 'standardLayout'} onClick={() => this.props.handlePageLayout('standardTweetsList')}>
+                            <div>Standard Layout</div>
                             <img src={standardLayout} alt=""/>
                         </div>
-                        <div className='masonryLayout' onClick={() => this.props.handlePageLayout('masonryTweetsList')}>
-                            <button>Masonry Layout</button>
+                        <div className={this.props.selectedLayout === 'masonryTweetsList' ? 'masonryLayout selectedLayout' : 'masonryLayout'} onClick={() => this.props.handlePageLayout('masonryTweetsList')}>
+                            <div>Masonry Layout</div>
                             <img src={masonryLayout} alt=""/>
                         </div>
                     </div>
                     <div className="chosenTweetsContaniner">
-                        {mappedTweetsStandard}
+                        <button onClick={() => this.yourTweets()}>Your tweets</button>
+                        <input type="text" placeholder='Search a users handle' />
+                        <button> Review books tweets</button>
+                        <h1 className='tweetsTitle'>Tweets for this book.</h1>
+                        {yourTweets}
                     </div>
                 </div>
             </div>
