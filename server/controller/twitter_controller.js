@@ -42,9 +42,9 @@ module.exports = {
     },
 
     tweetsCategory: (req, res) => {
-        var { slug } = req.body
-        T.get('users/suggestions/:slug', { slug: slug }, function (err, data, response) {
-        }).then(category => { res.status(200).send(resp) })
+        var { cat } = req.params
+        T.get('users/suggestions/:slug', {slug: cat}, function (err, data, response) {
+        }).then(category => { res.status(200).send(category) })
     },
 
     getFeaturedBooks: (req, res) => {
