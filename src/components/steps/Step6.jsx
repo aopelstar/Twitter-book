@@ -13,8 +13,9 @@ const customStyles = {
         position: "absolute",
         top: "60px",
         left: "35%",
-        width: "30%",
-        height: "30%"
+        width: "500px",
+        height: "40%",
+        background: "#c0deed"
 
     }
 }
@@ -27,7 +28,8 @@ const progressStyle = {
     top: "60px",
     left: "35%",
     width: "30%",
-    height: "30%"
+    height: "30%",
+    background: "#c0deed"
    }
 }
 
@@ -39,16 +41,18 @@ const successStyle = {
         top: "60px",
         left: "35%",
         width: "30%",
-        height: "30%"
+        height: "30%",
+        background: "#c0deed"
     }
 
 }
 
 export default class Step6 extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
+            user: props.user,
             bookCart: [],
             address: "",
             city: "",
@@ -197,8 +201,10 @@ export default class Step6 extends Component {
                     <div className="step6BookPrice">Price: ${cartLine.book_price}</div>
                     <div className="step6BookQuantity">Quantity: {cartLine.quantity}</div>
                 </div>
+                <div>
                     <button className="incrementUp" onClick={() => this.increment("up", cartLine.book_id)}>+</button>
                     <button className="incrementDown" onClick={() => this.increment("down", cartLine.book_id)}>-</button>
+                </div>
                 <div className="total-main-6"> 
                     <div className="step6BookTotal">Subtotal: </div>
                     <div className="step6BookTotalNumber">${Math.floor(subTotal, -1)}</div>
@@ -208,12 +214,13 @@ export default class Step6 extends Component {
         return (
             <div className="stepOneContainer">
                 {cart}
-                <div className="step6BookTotal">Total: ${Math.floor(total, -1)}</div>
+                <div className="step6BookTotalComp">Total: ${Math.floor(total, -1)}</div>
 
-                <button className="checkout" onClick={this.openModal}>Check it out</button>
+                <button className="step6Button" onClick={this.openModal}>Check Out</button>
 
                 < Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} style={customStyles}>
                 <div className="modal-checkout-container">
+                <div className="step6Name">Name: <div>{this.state.user.data.display_name}</div></div>
                     <div className="modalAddress">Address:
             <div className='addressInput'>
                             <input type="text" onChange={(e) => this.update("address", e.target.value)} />
@@ -244,14 +251,14 @@ export default class Step6 extends Component {
                             <input type="text" onChange={(e) => this.update("phone", e.target.value)} />
                         </div>
                     </div>
-                
+                <div className="stripeCheck">
                     <StripeCheckout
                         token={this.onToken}
                         stripeKey={stripe.pub_key}
                         amount={total * 100}
                         name="your order"
-                        description="literally  begging that you confirm this order"
-                    /></div>
+                        description="confirm your order"
+                    /></div></div>
                 </Modal>
                 <Modal isOpen={this.state.progressModalIsOpen} onRequestClose={this.closeProgressModal} style={progressStyle}>
                 <div className="progress-modal">
