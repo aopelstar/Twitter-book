@@ -262,12 +262,14 @@ export default class Step6 extends Component {
                 </Modal>
                 <Modal isOpen={this.state.progressModalIsOpen} onRequestClose={this.closeProgressModal} style={progressStyle}>
                 <div className="progress-modal">
-                please wait while your order is processed
+                <img src={logo} className="success-logo"/>
+                <div className="progress-tag">please wait while your order is processed</div>
                 </div>
                 </Modal>
                 <Modal isOpen={this.state.successModalIsOpen} onRequestClose={this.closeSucessModal} style={successStyle}>
                 <div className="success-modal">
-                that's a damn fine succesful order and I'm rock hard because of it.
+                <img src = {logo} className="success-logo"/>
+               <div className="success-tag"> Success! Thank you for your purchase.</div>
                 </div>
                 </Modal>
 

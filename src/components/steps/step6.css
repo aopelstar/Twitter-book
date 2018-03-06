@@ -45,11 +45,27 @@
 }
 
 .progress-modal{
+    margin-top: 5%;
     text-align: center;
+    color: whitesmoke;
+}
+
+.progress-tag{
+    font-size: 3vw;
 }
 
 .success-modal{
+    margin-top: 0%;
     text-align: center;
+    color: whitesmoke;
+}
+
+.success-logo{
+    height: 50px;
+}
+.success-tag{
+
+    font-size: 3vw;
 }
 
 .step6Button{
@@ -78,3 +94,4 @@
     margin: 10% 0 0 30%;
     justify-content: center;
 }
+
