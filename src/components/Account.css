@@ -124,6 +124,10 @@
     padding: 10px;
 }
 
+.accountSideContainer h1 {
+    font-weight: bold;
+}
+
 .accountSideBody {
     overflow-y: scroll;
     height: 70vh;
