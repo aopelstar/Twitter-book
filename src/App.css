@@ -77,31 +77,8 @@
   color: black;
 }
 
-.newBookButton{
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  height: 70px;
-  width: 70px;
-  border-radius: 50%;
-  background-color: var(--dark-blue);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 2px 2px 2px silver,
-  -2px 2px 2px silver;
-}
-.newLine{
-  position: absolute;
-  height: 50px;
-  width: 10px;
-  border-radius: 5px;
-  background-color: var(--twitter-veri);
-}
-.hor{
-  transform: rotate(90deg);
-}
+
+
 .right{
   position: absolute;
   left: 20px;
@@ -117,39 +94,6 @@
 }
 .step6BookQuantity{
   display: flex;
-}
-.tweets{
-  width: 70vw;
-  font-size: 12px;
-}
-.tweetUserImg{
-  border-radius: 50%;
-  height: 50px;
-  width: 50px;
-}
-.tweetHead{
-  display: flex;
-  flex-direction: row;
-}
-.usernameAndScreenname{
-  display: flex;
-  flex-direction: row;
-  line-height: 20px;
-}
-.usernameAndScreenname > h1{
-  margin-right: 10px;
-  font-weight: 600;
-  font-size: 14px;
-}
-.usernameAndScreenname > h2{
-  color: gray;
-  font-size: 14px;
-}
-.tweetImg{
-  height: 120px;
-}
-.tweetProfileImg{
-  height: 50px;
 }
 .stepsContainer{
   display: flex;
@@ -299,31 +243,8 @@
 .none{
   background-color: white;
 }
-.media{
-  margin-left: 60px;
-}
-.tweetTextContainer{
-  margin-left: 10px;
-}
-.tweetText{
-  width: 30vw;
-  line-height: 20px;
-  flex-wrap: wrap;
-}
-.homeContainer{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.searchContainer{
-  height: 50vh;
-  overflow-y: scroll;
-}
-.featuredContainer{
-  height: 40vh;
-  overflow-y: scroll;
-}
+
+
 .containerLayout{
   width: 40%;
   display: flex;
