@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import './Home.css';
 
 export default class Home extends Component {
     // video tutorial modal
@@ -54,8 +55,8 @@ export default class Home extends Component {
         })
     }
     handleAddTweet(i) {
-        let tweet = this.state.tweets[i]
-        let tweetImg = this.state.tweets[i].user.profile_image_url.replace("normal", "400x400")
+        let tweet = i
+        let tweetImg = i.user.profile_image_url.replace("normal", "400x400")
         var text = tweet.text;
         var text1 = text.replace(/https.*$/g, '')
         var text2 = text1.replace(/^(.*?): /g, '')
@@ -105,7 +106,7 @@ export default class Home extends Component {
                         {e.extended_entities ? e.extended_entities.media[2] ? <img src={e.extended_entities.media[2].media_url} alt="" className="tweetImg" /> : null : null}
                         {e.extended_entities ? e.extended_entities.media[3] ? <img src={e.extended_entities.media[3].media_url} alt="" className="tweetImg" /> : null : null}
                     </div>
-                    <button onClick={() => this.handleAddTweet(i)}>Add Tweet</button>
+                    <button onClick={() => this.handleAddTweet(e)}>Add Tweet</button>
                     <br />
                 </div>
             )
@@ -134,7 +135,7 @@ export default class Home extends Component {
                         {e.extended_entities ? e.extended_entities.media[2] ? <img src={e.extended_entities.media[2].media_url} alt="" className="tweetImg" /> : null : null}
                         {e.extended_entities ? e.extended_entities.media[3] ? <img src={e.extended_entities.media[3].media_url} alt="" className="tweetImg" /> : null : null}
                     </div>
-                    <button onClick={() => this.handleAddTweet(i)}>Add Tweet</button>
+                    <button onClick={() => this.handleAddTweet(e)}>Add Tweet</button>
                     <br />
                 </div>
             )
@@ -149,24 +150,19 @@ export default class Home extends Component {
                         <button onClick={() => this.changeTweets()}>Your Tweets</button>
                         {this.state.yourTweets ? yourTweets : searchedTweets}
                     </div>
-                    <div className="tweetCategories">
-                        <div className="categories">
-
+                </div>
+                <div className="homeRight">
+                    <div className="featuredContainer">
+                        <div className="featuredbooks">
+                            {featuredBooks}
                         </div>
-                        <div className="filter">
-
-                        </div>
+                    </div>
+                    <div className="homeFiltersContainer">
                     </div>
                 </div>
-                <div className="featuredContainer">
-                    <div className="featuredbooks">
-                        {featuredBooks}
-                    </div>
-                    <Link to="/newbook"><div className="newBookButton">
-                        <div className="newLine"></div>
-                        <div className="newLine hor"></div>
+                <Link to="/newbook"><div className="newBookButton">
+                    +
                     </div></Link>
-                </div>
             </div>
         )
     }

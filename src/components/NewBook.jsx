@@ -204,12 +204,12 @@ class NewBook extends Component {
         return (
             <div className='stepsContainer'>
                 <div className="stepIdicator">
-                    <div onClick={() => this.moveToPosition(1)} className={this.state.position === 1 ? "step selectedStep" : 'step'}>Step 1</div>
-                    <div onClick={() => this.moveToPosition(2)} className={this.state.position === 2 ? "step selectedStep" : 'step'}>Step 2</div>
-                    <div onClick={() => this.moveToPosition(3)} className={this.state.position === 3 ? "step selectedStep" : 'step'}>Step 3</div>
-                    <div onClick={() => this.moveToPosition(4)} className={this.state.position === 4 ? "step selectedStep" : 'step'}>Step 4</div>
-                    <div onClick={() => this.moveToPosition(5)} className={this.state.position === 5 ? "step selectedStep" : 'step'}>Step 5</div>
-                    <div onClick={() => this.moveToPosition(6)} className={this.state.position === 6 ? "step selectedStep" : 'step'}>Step 6</div>
+                    <div onClick={() => this.moveToPosition(1)} className={this.state.position === 1 ? "step selectedStep" : 'step'}>Size</div>
+                    <div onClick={() => this.moveToPosition(2)} className={this.state.position === 2 ? "step selectedStep" : 'step'}>Cover</div>
+                    <div onClick={() => this.moveToPosition(3)} className={this.state.position === 3 ? "step selectedStep" : 'step'}>Title</div>
+                    <div onClick={() => this.moveToPosition(4)} className={this.state.position === 4 ? "step selectedStep" : 'step'}>Tweet Layout</div>
+                    <div onClick={() => this.moveToPosition(5)} className={this.state.position === 5 ? "step selectedStep" : 'step'}>Review</div>
+                    <div onClick={() => this.moveToPosition(6)} className={this.state.position === 6 ? "step selectedStep" : 'step'}>Checkout</div>
                 </div>
                 {this.state.position === 1 ? <Step1 size={this.selectBookSize} selectedSize={this.state.size} /> : null}
                 {this.state.position === 2 ? <Step2
@@ -232,6 +232,7 @@ class NewBook extends Component {
                 {this.state.position === 4 ? <Step4
                     handlePageLayout={this.handlePageLayout}
                     addTweetToBook={this.addTweetToBook}
+                    selectedLayout={this.state.pageLayout}
                 /> : null}
                 {this.state.position === 5 ? <Step5
                     quantity={this.state.quantity}
@@ -239,6 +240,12 @@ class NewBook extends Component {
                     decrease={this.decreaseQuantity}
                     addToCart={this.addToCart}
                     book_price={this.state.book_price}
+                    selectedColor={this.state.book_color}
+                    selectedSize={this.state.size}
+                    title={this.state.title}
+                    backText={this.state.backText}
+                    subtitle={this.state.subtitle}
+                    textColor={this.state.book_text_color}
                 /> : null}
                 {this.state.position === 6 ? <Step6 user={this.state.user}/> : null}
                 <div className="stepNavigation">
