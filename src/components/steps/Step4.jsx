@@ -9,7 +9,8 @@ export default class Step4 extends Component {
         this.state = {
             tweets: [],
             bookTweets: [],
-            yourTweets: false,
+            yourTweets: true,
+            searchName: ''
         }
     }
     componentDidMount() {
@@ -19,20 +20,28 @@ export default class Step4 extends Component {
             })
         })
     }
-    componentWillReceiveProps(props){
-        console.log(props.bookTweets)
+    componentWillReceiveProps(props) {
         this.setState({
             tweets: props.bookTweets
         })
     }
-    yourTweets(){
+    yourTweets() {
         this.setState({
             yourTweets: true,
         })
     }
+    updateSearch(val){
+        this.setState({
+            searchName: val
+        })
+    }
+    Search(e) {
+        let screenName = { screenName: this.state.searchName}
+        axios.post("/api/searchedUser", screenName).then(res => {
+            console.log(res)
+        })
+    }
     render(props) {
-        console.log(this.props.bookTweets)
-        console.log(this.state.tweets)
         let yourTweets = this.state.tweets.map((e, i) => {
             return (
                 <div key={i} className='tweets'>
@@ -64,22 +73,23 @@ export default class Step4 extends Component {
             <div className="stepOneContainer">
                 <div className="stepFourLayout">
                     <div className="containerLayout">
-                        <div className={this.props.selectedLayout === 'standardTweetsList'? 'standardLayout selectedLayout' : 'standardLayout'} onClick={() => this.props.handlePageLayout('standardTweetsList')}>
+                        <div className={this.props.selectedLayout === 'standardTweetsList' ? 'standardLayout selectedLayout' : 'standardLayout'} onClick={() => this.props.handlePageLayout('standardTweetsList')}>
                             <div>Standard Layout</div>
-                            <img src={standardLayout} alt=""/>
+                            <img src={standardLayout} alt="" />
                         </div>
                         <div className={this.props.selectedLayout === 'masonryTweetsList' ? 'masonryLayout selectedLayout' : 'masonryLayout'} onClick={() => this.props.handlePageLayout('masonryTweetsList')}>
                             <div>Masonry Layout</div>
-                            <img src={masonryLayout} alt=""/>
+                            <img src={masonryLayout} alt="" />
                         </div>
                     </div>
                     <div className="chosenTweetsContaniner">
-                        <button onClick={() => this.yourTweets()}>Your tweets</button>
-                        <input type="text" placeholder='Search a users handle' />
-                        <button> Review books tweets</button>
-                        <h1 className='tweetsTitle'>Tweets for this book.</h1>
-                        {this.state.tweets.length > 0 ? yourTweets : <div className='noTweetsOption'>Search for tweets above</div> }
+                        <button onClick={() => this.yourTweets()}>Book tweets</button>
+                        <input type="text" placeholder='Search a users handle' onChange={e => this.updateSearch(e.target.value)} />
+                        <button onClick={() => this.Search()}>Search</button>
+                        {this.state.yourTweets === true ? <h1 className='tweetsTitle'>Tweets for this book.</h1> : null}
+                        {this.state.tweets.length > 0 && this.state.yourTweets === true ? yourTweets : <div className='noTweetsOption'>Search for tweets above</div>}
                     </div>
+                    <button className='submitTweets'>Submit tweets</button>
                 </div>
             </div>
         )

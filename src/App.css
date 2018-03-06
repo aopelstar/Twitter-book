@@ -345,8 +345,14 @@
   background-color: var(--twitter-backgr);
   border: none;
   border-radius: 5px;
+  outline: none;
 }
 .noTweetsOption{
   font-size: 22px;
   margin-left: 20px;
+}
+.submitTweets{
+  position: absolute;
+  right: 25vh;
+  bottom: 17vh;
 }
