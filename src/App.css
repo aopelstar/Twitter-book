@@ -120,7 +120,6 @@
 .step{
   padding: 10px 20px 10px 20px;
   border-radius: 5px;
-  background-color: silver;
   cursor: pointer;
 }
 .selectedStep{
@@ -147,6 +146,7 @@
   /* background-color: var(--twitter-backgr); */
   box-shadow: inset 0px 0px 20px 1px silver;
   border-radius: 5px;
+  background-color: var(--white);
 }
 .bookSize{
   text-align: center;
@@ -241,7 +241,7 @@
   font-size: 12px;
 }
 .none{
-  background-color: white;
+  background: rgb(224,231,236);
 }
 
 
@@ -256,6 +256,8 @@
 }
 .chosenTweetsContaniner{
   width: 50%;
+  overflow-y: scroll;
+  padding: 20px 0px 20px 0px;
 }
 .stepFourLayout{
   width: 110%;
@@ -265,8 +267,75 @@
 .standardLayout{
   width: 10vw;
   text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+}
+.standardLayout > div{
+  margin-bottom: 10px;
 }
 .masonryLayout{
   width: 20vw;
+  padding: 5px;
   text-align: center;
+  border-radius: 5px;
+}
+.masonryLayout > div{
+  margin-bottom: 10px;
+}
+.selectedLayout{
+  background-color: var(--twitter-backgr)
+}
+.stepFiveContainer{
+  width: 80vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.checkoutQuantity{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.checkoutQuantity > h1{
+  font-size: 22px;
+}
+.field{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.quantityDisplay{
+  display: flex;
+}
+.quantityDisplay > input{
+  font-size: 24px;
+  border: none;
+  width: 50px;
+}
+.quantityControl > button{
+  width: 34px;
+  border-radius: 5px;
+  margin-left: 10px;
+  font-size: 22px;
+  outline: none;
+}
+.addToCart{
+  font-size: 24px;
+  outline: none;
+  border: none;
+  background-color: var(--dark-blue);
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  box-shadow: 0px 0px 1px 1px silver;  
+}
+.addToCart:active{
+  box-shadow: 0px 0px 3px 3px silver;
+}
+.tweetsTitle{
+  text-align: left;
+  font-size: 30px;
+  padding: 20px;
 }
