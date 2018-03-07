@@ -43,7 +43,7 @@ module.exports = {
 
     tweetsCategory: (req, res) => {
         var { cat } = req.params
-         T.get('users/suggestions/:slug', {slug: cat}, function (err, data, response) {
+        T.get('users/suggestions/:slug', { slug: cat }, function (err, data, response) {
         }).then(category => { res.status(200).send(category) })
     },
 
@@ -55,10 +55,10 @@ module.exports = {
     },
 
     updateTweets: (req, res) => {
-        const { img, userName, userScreenName, text, mediaOne, mediaTwo, mediaThree, mediaFour, tweet_date } = req.body
+        const { img, userName, userScreenName, text, mediaOne, mediaTwo, mediaThree, mediaFour, tweet_date, tweet_id } = req.body
         const user = req.user.auth_id;
         const db = req.app.get('db')
-        db.add_tweets([img, userName, userScreenName, text, mediaOne, mediaTwo, mediaThree, mediaFour, user, tweet_date]).then(resp => {
+        db.add_tweets([img, userName, userScreenName, text, mediaOne, mediaTwo, mediaThree, mediaFour, user, tweet_date, +tweet_id]).then(resp => {
             res.status(200).send(resp)
         })
     },
@@ -110,7 +110,7 @@ module.exports = {
         })
     },
 
-    removeTweet: (req,res) => {
+    removeTweet: (req, res) => {
         const db = req.app.get('db');
         let user = req.user.auth_id;
         let tweet = req.params.tweetId;
@@ -130,6 +130,18 @@ module.exports = {
         db.removeFromCart([user, book_id]).then(resp => {
             db.get_cart([user]).then(updatedCart => {
                 res.status(200).send(updatedCart);
+            })
+        })
+    },
+
+    homeRemoveTweet: (req, res) => {
+        const db = req.app.get('db');
+        let user = req.user.auth_id;
+        let tweetId = req.params.tweet;
+        console.log(tweetId);
+        db.remove_tweetfromhome([+tweetId]).then(deleted => {
+            db.get_booktweets([user]).then(tweets => {
+                res.status(200).send(tweets)
             })
         })
     },
@@ -231,19 +243,19 @@ module.exports = {
         let user = req.user.auth_id;
         let id = req.params.id;
 
-       await db.delete_draft([id]).then(drafts => {})
-       await db.delete_drafttweets([id]).then(newDrafts => {})
-       await db.get_drafts([user]).then(update => {
+        await db.delete_draft([id]).then(drafts => { })
+        await db.delete_drafttweets([id]).then(newDrafts => { })
+        await db.get_drafts([user]).then(update => {
             res.status(200).send(update)
         })
     },
-    deleteTweetFromBook: async (req,res) => {
+    deleteTweetFromBook: async (req, res) => {
         const db = req.app.get('db');
         let id = req.params.id;
         let user = req.user.auth_id;
 
-        await db.delete_tweet_from_book([id]).then( deleted => {})
-        await db.get_booktweets([user]).then( resp => {
+        await db.delete_tweet_from_book([id]).then(deleted => { })
+        await db.get_booktweets([user]).then(resp => {
             res.status(200).send(resp)
         })
     }

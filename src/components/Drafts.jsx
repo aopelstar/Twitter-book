@@ -7,13 +7,10 @@ import large from '../images/14x11book.svg'
 
 function Drafts(props) {
     let draftsMap = props.drafts.length>0?props.drafts.map((e, i) => {
-        let backText = e.back_text ? e.back_text : "No back text chosen yet."
         let bookColor = e.book_color ? e.book_color : "No book color chosen yet."
         let bookSize = e.book_size === "small" ? "8 x 8" : e.book_size === "medium" ? "10 x 10" : e.book_size === "large" ? "14 x 11" : "No book size chosen yet."
         let bookSubTitle = e.book_subtitle ? e.book_subtitle : "No book subtitle chosen yet."
-        let bookTextColor = e.book_text_color ? e.book_text_color : "No book text color chosen yet."
         let bookTitle = e.book_title ? e.book_title : "No book title chosen yet."
-        let pagesFormat = e.pages_format ? e.pages_format : "No page format chosen yet."
         let image = e.book_size === "large" ? large : small
         return (<div className="draftContainer" key={i}>
             <div  className="accountDraft">

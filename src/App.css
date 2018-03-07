@@ -71,6 +71,11 @@
 
 .loginButton{
   outline: none;
+  cursor: pointer;
+}
+
+.loginButton:hover {
+  background: var(--twitter-veri)
 }
 
 .link{
@@ -338,14 +343,6 @@
   text-align: left;
   font-size: 30px;
   padding: 20px;
-}
-.tweets > button{
-  margin: 10px;
-  margin-left: 60px;
-  background-color: var(--twitter-backgr);
-  border: none;
-  border-radius: 5px;
-  outline: none;
 }
 .noTweetsOption{
   font-size: 22px;
