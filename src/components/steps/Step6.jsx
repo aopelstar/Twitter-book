@@ -213,7 +213,9 @@ export default class Step6 extends Component {
         })
         return (
             <div className="stepSixContainer">
+                <div className="stepSixCart">
                 {cart}
+                </div>
                 <div className="step6BookTotalComp">Total: ${Math.floor(total, -1)}</div>
 
                 <button className="step6Button" onClick={this.openModal}>Check Out</button>
