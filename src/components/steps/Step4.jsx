@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import masonryLayout from '../../images/masonryLayout.svg'
 import standardLayout from '../../images/standardLayout.svg'
+import trash from '../../images/image.png'
 
 export default class Step4 extends Component {
     constructor(props) {
@@ -30,21 +31,23 @@ export default class Step4 extends Component {
             yourTweets: true,
         })
     }
-    updateSearch(val){
+    updateSearch(val) {
         this.setState({
             searchName: val
         })
     }
     Search(e) {
-        let screenName = { screenName: this.state.searchName}
+        let screenName = { screenName: this.state.searchName }
         axios.post("/api/searchedUser", screenName).then(res => {
-            console.log(res)
+            this.setState({
+                tweets: res.data.data
+            })
         })
     }
     render(props) {
         let yourTweets = this.state.tweets.map((e, i) => {
             return (
-                <div key={i} className='tweets'>
+                <div key={i} className='SFtweets'>
                     <div className="tweetHead">
                         <img src={e.user_img} alt="" className='tweetUserImg' />
                         <div className="tweetTextContainer">
@@ -56,19 +59,17 @@ export default class Step4 extends Component {
                         </div>
                     </div>
                     <div className="media">
-                            {e.tweet_img1 ? <div style={
-                                { background: `${e.tweet_img1}` }} className="tweetImg"></div> : null}
-                            {e.tweet_img2 ?  <div style={
-                                { background: `${e.tweet_img2}` }} className="tweetImg"></div> : null}
-                        </div>
-                        <div className="media">
-                            {e.tweet_img3 ? <div style={
-                                { background: `${e.tweet_img3}` }} className="tweetImg"></div> : null}
-                            {e.tweet_img4 ? <div style={
-                                { background: `${e.tweet_img4}` }} className="tweetImg"></div> : null}
-                        </div>
+                        {e.tweet_img1 ? <div style={{ background: `${e.tweet_img1}` }} className="tweetImg"></div> : null}
+                        {e.tweet_img2 ? <div style={{ background: `${e.tweet_img2}` }} className="tweetImg"></div> : null}
+                    </div>
+                    <div className="media">
+                        {e.tweet_img3 ? <div style={{ background: `${e.tweet_img3}` }} className="tweetImg"></div> : null}
+                        {e.tweet_img4 ? <div style={{ background: `${e.tweet_img4}` }} className="tweetImg"></div> : null}
+                    </div>
                     {/* <button onClick={() => this.props.addTweetToBook(e)}>Add Tweet to book</button> */}
-                    <button onClick={() => this.props.deleteTweetFromBook(e.tweet_id)} >Delete from book</button>
+                    <button onClick={() => this.props.deleteTweetFromBook(e.tweet_id)} >
+                        <img src={trash} alt="" className='trashCan' />
+                    </button>
                     <br />
                 </div>
             )
