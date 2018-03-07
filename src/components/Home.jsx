@@ -4,15 +4,23 @@ import axios from 'axios';
 import './Home.css';
 import small from '../images/8x8book.svg';
 import large from '../images/14x11book.svg';
+import { connect } from 'react-redux';
+import { getBookTweets, getUserInfo } from '../ducks/reducer';
+import Modal from 'react-modal';
 
-export default class Home extends Component {
-    // video tutorial modal
-    // featured books
-    // influential people
-    // inspirational people
-    // categories filter
-    // add new book
-    // search users to save tweets ???
+const modalStyle = {
+    overlay: {
+        background: "rgba(0,0,0,.25)"
+    },
+    content: {
+        height: "400px",
+        width: "400px",
+        background: "white",
+        margin: "auto",
+    }
+}
+
+class Home extends Component {
     constructor() {
         super();
         this.state = {
@@ -21,10 +29,22 @@ export default class Home extends Component {
             tweets: [],
             searchedTweets: [],
             yourTweets: true,
+            user: {},
+            quantity: 0
         }
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+        this.increase = this.increase.bind(this);
+        this.decrease = this.decrease.bind(this);
+        this.addToCart = this.addToCart.bind(this);
     }
 
-    async componentDidMount() {
+    async componentDidMount(props) {
+        await this.props.getUserInfo().then(res => {
+            this.setState({
+                user: res.value.data
+            })
+        })
         await axios.get('/api/get-featured-books').then(res => {
             this.setState({
                 featuredBooks: res.data
@@ -35,6 +55,11 @@ export default class Home extends Component {
                 tweets: res.data.data
             })
         })
+        await this.props.getBookTweets()
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps.bookTweets)
     }
 
     updateTweetSearch(val) {
@@ -57,6 +82,7 @@ export default class Home extends Component {
 
     handleClickSearch(e) {
         axios.post('/api/searchedUser', { screenName: e }).then(res => {
+            console.log(res.data.data)
             this.setState({
                 searchedTweets: res.data.data,
                 yourTweets: false
@@ -71,13 +97,24 @@ export default class Home extends Component {
     }
 
     addToCart(e) {
-        axios.post('/api/addtocart', {book: e}).then(cart=>{
+        var cartBody = {
+            book_id: e.book_id
+            , quantity: this.state.quantity
+            , book_price: e.book_price
+            , user_id: this.state.user.auth_id
+        }
+
+        axios.post('/api/addtocart', cartBody ).then(cart => {
+            this.setState({
+                modalIsOpen: false,
+                quantity: 0
+            })
         })
     }
 
     handleAddTweet(i) {
         let tweet = i
-        let tweetImg = i.user.profile_image_url.replace("normal", "400x400")
+        let tweetImg = tweet.user.profile_image_url.replace("normal", "400x400")
         var text = tweet.text;
         var text1 = text.replace(/https.*$/g, '')
         var text2 = text1.replace(/^(.*?): /g, '')
@@ -91,20 +128,52 @@ export default class Home extends Component {
             mediaTwo: tweet.extended_entities ? tweet.extended_entities.media[1] ? tweet.extended_entities.media[1].media_url : null : null,
             mediaThree: tweet.extended_entities ? tweet.extended_entities.media[2] ? tweet.extended_entities.media[2].media_url : null : null,
             mediaFour: tweet.extended_entities ? tweet.extended_entities.media[3] ? tweet.extended_entities.media[3].media_url : null : null,
+            tweet_id: tweet.id
         }
         axios.post('/api/updatetweets', tweetBody).then(res => {
+        })
+        this.props.getBookTweets();
+    }
+
+    handleRemoveTweet(i) {
+        axios.delete('/api/homeremovetweet/' + i.id).then(res => {
+            this.props.getBookTweets();
+        })
+    }
+
+    openModal() {
+        this.setState({
+            modalIsOpen: true
+        })
+    }
+
+    closeModal() {
+        this.setState({
+            modalIsOpen: false
+        })
+    }
+
+    increase() {
+        var increment = this.state.quantity + 1
+        this.setState({
+            quantity: increment
+        })
+    }
+
+    decrease() {
+        var decrement = this.state.quantity - 1
+        this.setState({
+            quantity: decrement
         })
     }
 
     render() {
+
         let featuredBooks = this.state.featuredBooks.length > 0 ? this.state.featuredBooks.map((e, i) => {
-            let backText = e.back_text ? e.back_text : "No back text chosen yet."
             let bookColor = e.book_color ? e.book_color : "No book color chosen yet."
             let bookSize = e.book_size === "small" ? "8 x 8" : e.book_size === "medium" ? "10 x 10" : e.book_size === "large" ? "14 x 11" : "No book size chosen yet."
-            let bookSubTitle = e.book_subtitle ? e.book_subtitle : "No book subtitle chosen yet."
-            let bookTextColor = e.book_text_color ? e.book_text_color : "No book text color chosen yet."
+            let bookSubTitle = e.book_subtitle ? e.book_subtitle : null
             let bookTitle = e.book_title ? e.book_title : "No book title chosen yet."
-            let pagesFormat = e.pages_format ? e.pages_format : "No page format chosen yet."
             let image = e.book_size === "large" ? large : small
             return (<div className="draftContainer" key={i}>
                 <div className="accountDraft">
@@ -117,14 +186,43 @@ export default class Home extends Component {
                         <div className="draftSubTitle">{bookSubTitle}</div>
                     </div>
                     <div className="draftButtons">
-                        <button onClick={() => this.addToCart(e)}>Add to Cart</button>
+                        <button onClick={() => this.openModal()}>Purchase Now</button>
+                        <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} style={modalStyle} >
+                            <div className='checkoutQuantity'>
+                                <h1>Price: <strong>{e.book_price}</strong></h1>
+                                <div className="field" id="quantityfield">
+                                    <div className='quantityDisplay'>
+                                        <input id="quantity" placeholder="Qty." min="0" type="number" disabled="disabled" value={this.state.quantity}></input>
+                                        <div className="quantityControl">
+                                            <button onClick={this.increase}>+</button>
+                                            <button onClick={this.decrease}>-</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button className="addToCart" onClick={()=>this.addToCart(e)}>Add to cart</button>
+                            </div>
+                        </Modal>
                     </div>
                 </div>
             </div>
             )
         }) : null
-
+        console.log(this.state.tweets);
         let yourTweets = this.state.tweets.length > 0 ? this.state.tweets.map((e, i) => {
+            console.log(this.props.bookTweets)
+            var homeTweetButton = this.props.bookTweets.length > 0 ? this.props.bookTweets.map((x, y) => {
+                if (x.twitter_tweet_id && e.id == x.twitter_tweet_id) {
+                    return (
+                        <button className="homeTweetButton" id='remove' onClick={() => this.handleRemoveTweet(e)}></button>
+                    )
+                }
+                else {
+                    return (
+                        <button className="homeTweetButton" onClick={() => this.handleAddTweet(e)}>+Add</button>
+                    )
+                }
+            }) : <button className="homeTweetButton" onClick={() => this.handleAddTweet(e)}>+Add</button>
+            console.log(homeTweetButton);
             var text = e.text;
             var text1 = text.replace(/https.*$/g, '')
             var text2 = text1.replace(/^(.*?): /g, '')
@@ -148,11 +246,24 @@ export default class Home extends Component {
                             {e.extended_entities ? e.extended_entities.media[3] ? <img src={e.extended_entities.media[3].media_url} alt="" className="tweetImg" /> : null : null}
                         </div>
                     </div>
-                    <button onClick={() => this.handleAddTweet(i)}>+Add</button>
+                    {homeTweetButton}
                 </div>
             )
         }) : <div className="homePrompt">You don't have any personal tweets...</div>
+
         let searchedTweets = this.state.searchedTweets.length > 0 ? this.state.searchedTweets.map((e, i) => {
+            var homeTweetButton = this.props.bookTweets.length > 0 ? this.props.bookTweets.map((x, y) => {
+                if (x.twitter_tweet_id && e.id == x.twitter_tweet_id) {
+                    return (
+                        <button className="homeTweetButton" id="remove" onClick={() => this.handleRemoveTweet(e)}></button>
+                    )
+                }
+                else {
+                    return (
+                        <button className="homeTweetButton" onClick={() => this.handleAddTweet(e)}>+Add</button>
+                    )
+                }
+            }) : <button className="homeTweetButton" onClick={() => this.handleAddTweet(e)}>+Add</button>
             var text = e.text;
             var text1 = text.replace(/https.*$/g, '')
             var text2 = text1.replace(/^(.*?): /g, '')
@@ -180,10 +291,11 @@ export default class Home extends Component {
                                 { background: `${e.extended_entities.media[3].media_url}` }} className="tweetImg"></div> : null : null}
                         </div>
                     </div>
-                    <button onClick={() => this.handleAddTweet(i)}>+Add</button>
+                    {homeTweetButton}
                 </div>
             )
         }) : <div className="homePrompt">Try a different search. That one didn't work...</div>
+
         return (
             <div className='homeContainer'>
                 <div className="searchContainer">
@@ -231,3 +343,12 @@ export default class Home extends Component {
         )
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        bookTweets: state.bookTweets,
+    }
+}
+
+
+export default connect(mapStateToProps, { getBookTweets, getUserInfo })(Home);

@@ -106,6 +106,7 @@ app.post('/api/updatetweets', controller.updateTweets) //adds tweets to booktwee
 app.get('/api/selectedtweets', controller.selectedTweets) //gets selected tweets for book creation step 4
 app.get('/api/selectedtweets/:bookId', controller.bookTweets) //gets selected tweets for draft books in step 4
 app.delete('/api/removetweet/:tweetId', controller.removeTweet) //remove tweet from selected tweets for book being designed
+app.delete('/api/homeremovetweet/:tweet', controller.homeRemoveTweet) //remove tweet from selected tweets on home page
 app.delete('/api/removefromcart/:bookId', controller.removeFromCart) //remove book from cart
 app.put('/api/changequantity/:bookId/:diff', controller.changeQuantity) //change quantity in cart for specific book in cart
 app.get('/api/getdrafts/', controller.getDrafts) //get drafts of books for logged in user

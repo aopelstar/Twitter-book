@@ -8,7 +8,7 @@
   display: flex;
 }
 
-.tweets button {
+.homeTweetButton {
     border-radius: 50%;
     background: var(--twitter-logo);
     border: none;
@@ -18,10 +18,28 @@
     height: 50px;
     margin-top: auto;
     margin-bottom: auto;
+    cursor: pointer;
+    outline: none;
 }
 
-.tweets button:hover {
+.homeTweetButton:hover {
     background: var(--twitter-veri);
+}
+
+#remove {
+  background: red;
+  background-image: url('../images/trash.png');
+  background-size: 25px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+#remove:hover {
+  background: lightcoral;
+  background-image: url('../images/trash.png');
+  background-size: 25px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 }
 
 .homeFilterButton {
@@ -32,14 +50,11 @@
   background: var(--twitter-logo);
   height: 25px;
   margin-top: 5px;
+  cursor: pointer;
 }
 
 .homeFilterButton:hover {
   background: var(--twitter-veri);
-}
-
-.searchContainer:nth-child(1) .tweets {
-    margin-top: 25px;
 }
 
 .tweetUserImg{
@@ -158,6 +173,7 @@ searchBody {
     color: white;
     padding: 3px;
     margin-left: 5px;
+    cursor: pointer;
 }
 
 .tweetSearch button:hover {

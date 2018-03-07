@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
 import stripe from '../stripeKey';
-import logo from '../images/logo.svg';
 import Modal from 'react-modal';
 
 const customStyles = {

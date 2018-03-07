@@ -89,16 +89,12 @@
       width: 120px;
       background: var(--twitter-logo);
       color: white;
+      cursor: pointer;
   }
 
   .accountLinks div:hover {
       background: var(--twitter-veri);
   }
-
-  .accountLinks div:hover > a{
-    background: var(--twitter-logo);
-    color: white;
-}
   
   .accountLogo{
     height: 75px;
@@ -147,6 +143,7 @@
     border: none;
     border-radius: 20px;
     height: 25px;
+    cursor: pointer;
 }
 
 .draftButtons button:hover {
