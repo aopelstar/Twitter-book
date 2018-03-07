@@ -31,6 +31,7 @@ class NewBook extends Component {
             blocked: false,
             quantity: 1,
             listOfTweets: [],
+            tweets: [],
         }
         this.selectBookSize = this.selectBookSize.bind(this)
         this.handleTitleInput = this.handleTitleInput.bind(this)
@@ -44,6 +45,7 @@ class NewBook extends Component {
         this.handleChange = this.handleChange.bind(this)
         this.addTweetToBook = this.addTweetToBook.bind(this)
         this.handleTextChange = this.handleTextChange.bind(this)
+        this.deleteTweetFromBook = this.deleteTweetFromBook.bind(this)
     }
     async componentDidMount() {
         await this.props.getUserInfo()
@@ -200,6 +202,15 @@ class NewBook extends Component {
             position: position
         })
     }
+    deleteTweetFromBook(e){
+        console.log(e)
+        var id = e
+         axios.delete(`/api/deleteTweetFromBook/${id}`).then( res => {
+            this.setState({
+                tweets: res.data
+            })
+        })
+    }
     render() {
         return (
             <div className='stepsContainer'>
@@ -233,6 +244,8 @@ class NewBook extends Component {
                     handlePageLayout={this.handlePageLayout}
                     addTweetToBook={this.addTweetToBook}
                     selectedLayout={this.state.pageLayout}
+                    deleteTweetFromBook={this.deleteTweetFromBook}
+                    bookTweets={this.state.tweets}
                 /> : null}
                 {this.state.position === 5 ? <Step5
                     quantity={this.state.quantity}

@@ -236,6 +236,16 @@ module.exports = {
        await db.get_drafts([user]).then(update => {
             res.status(200).send(update)
         })
+    },
+    deleteTweetFromBook: async (req,res) => {
+        const db = req.app.get('db');
+        let id = req.params.id;
+        let user = req.user.auth_id;
+
+        await db.delete_tweet_from_book([id]).then( deleted => {})
+        await db.get_booktweets([user]).then( resp => {
+            res.status(200).send(resp)
+        })
     }
 
 
