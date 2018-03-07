@@ -43,7 +43,7 @@ module.exports = {
 
     tweetsCategory: (req, res) => {
         var { cat } = req.params
-        T.get('users/suggestions/:slug', {slug: cat}, function (err, data, response) {
+         T.get('users/suggestions/:slug', {slug: cat}, function (err, data, response) {
         }).then(category => { res.status(200).send(category) })
     },
 
