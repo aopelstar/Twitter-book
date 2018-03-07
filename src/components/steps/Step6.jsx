@@ -212,7 +212,7 @@ export default class Step6 extends Component {
             </div>
         })
         return (
-            <div className="stepOneContainer">
+            <div className="stepSixContainer">
                 {cart}
                 <div className="step6BookTotalComp">Total: ${Math.floor(total, -1)}</div>
 
