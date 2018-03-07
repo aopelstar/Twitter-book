@@ -56,13 +56,17 @@ export default class Step4 extends Component {
                         </div>
                     </div>
                     <div className="media">
-                        {e.tweet_img1 ? <img src={e.tweet_img1} alt="" className="tweetImg" /> : null}
-                        {e.tweet_img2 ? <img src={e.tweet_img2} alt="" className="tweetImg" /> : null}
-                    </div>
-                    <div className="media">
-                        {e.tweet_img3 ? <img src={e.tweet_img3} alt="" className="tweetImg" /> : null}
-                        {e.tweet_img4 ? <img src={e.tweet_img4} alt="" className="tweetImg" /> : null}
-                    </div>
+                            {e.tweet_img1 ? <div style={
+                                { background: `${e.tweet_img1}` }} className="tweetImg"></div> : null}
+                            {e.tweet_img2 ?  <div style={
+                                { background: `${e.tweet_img2}` }} className="tweetImg"></div> : null}
+                        </div>
+                        <div className="media">
+                            {e.tweet_img3 ? <div style={
+                                { background: `${e.tweet_img3}` }} className="tweetImg"></div> : null}
+                            {e.tweet_img4 ? <div style={
+                                { background: `${e.tweet_img4}` }} className="tweetImg"></div> : null}
+                        </div>
                     {/* <button onClick={() => this.props.addTweetToBook(e)}>Add Tweet to book</button> */}
                     <button onClick={() => this.props.deleteTweetFromBook(e.tweet_id)} >Delete from book</button>
                     <br />
