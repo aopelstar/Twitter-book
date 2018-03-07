@@ -1,6 +1,45 @@
 .tweets{
-  width: 70vw;
+  width: 100%;
   font-size: 12px;
+  border-bottom: solid;
+  border-width: 1px;
+  border-color: lightgray;
+  padding: 15px;
+  display: flex;
+}
+
+.tweets button {
+    border-radius: 50%;
+    background: var(--twitter-logo);
+    border: none;
+    color: white;
+    padding: 3px;
+    width: 50px;
+    height: 50px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.tweets button:hover {
+    background: var(--twitter-veri);
+}
+
+.homeFilterButton {
+  border-radius: 25px;
+  padding: 4px;
+  color: white;
+  border: none;
+  background: var(--twitter-logo);
+  height: 25px;
+  margin-top: 5px;
+}
+
+.homeFilterButton:hover {
+  background: var(--twitter-veri);
+}
+
+.searchContainer:nth-child(1) .tweets {
+    margin-top: 25px;
 }
 
 .tweetUserImg{
@@ -9,9 +48,23 @@
   width: 50px;
 }
 
+.homeTitle {
+  font-weight: bold;
+}
+
+.media {
+  margin-top: 5px;
+}
+
+.homePrompt {
+  margin-top: 15px;
+}
+
 .tweetHead{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  width: 80%;
+  margin-left: 5px;
 }
 
 .usernameAndScreenname{
@@ -32,25 +85,27 @@
 }
 
 .tweetImg{
-  height: 120px;
+  max-width: 190px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .tweetProfileImg{
   height: 50px;
 }
 
-.media{
-  margin-left: 60px;
-}
-
 .tweetTextContainer{
   margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
 }
 
 .tweetText{
-  width: 30vw;
   line-height: 20px;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .homeContainer{
@@ -64,6 +119,8 @@
   overflow-y: scroll;
   background: white;
   width: 45%;
+  padding: 15px;
+  position: relative;
 }
 
 .homeRight {
@@ -71,32 +128,86 @@
     height: 85vh;
 }
 
+.tweetSearch {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    width: 75%;
+    margin-top: 10px;
+    height: 75px;
+    background: white;
+}
+
+searchBody {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.tweetSearch input {
+    border-radius: 2px;
+    border: solid;
+    border-width: 2px;
+    border-color: var(--twitter-veri)
+}
+
+.tweetSearch button {
+    border-radius: 25px;
+    background: var(--twitter-logo);
+    border: none;
+    color: white;
+    padding: 3px;
+    margin-left: 5px;
+}
+
+.tweetSearch button:hover {
+    background: var(--twitter-veri);
+}
+
 .featuredContainer{
   height: 42.5vh;
-  width: 100%;
+  width: 98%;
   overflow-y: scroll;
   background: white;
   margin-left: 10px;
+  padding: 15px;
 }
 
 .newBookButton{
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    height: 70px;
-    width: 70px;
-    border-radius: 50%;
-    background-color: var(--twitter-logo);
-    font-size: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 2px 2px 2px silver,
-    -2px 2px 2px silver;
-    color: white;
-  }
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  background-color: var(--twitter-logo);
+  font-size: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 2px 2px 2px silver,
+  -2px 2px 2px silver;
+  color: white;
+}
 
-  .newBookButton:hover {
-      background: var(--twitter-veri);
-  }
+.newBookButton:hover {
+    background: var(--twitter-veri);
+}
+
+.homeFiltersContainer {
+  width: 100%;
+  background: white;
+  height: 41.5vh;
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 15px;
+}
+
+.homeFilters {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 15px;
+  justify-content: space-around;
+  width: 70%;
+}
