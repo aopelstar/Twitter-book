@@ -26,8 +26,7 @@
     "redux": "^3.7.2",
     "redux-promise-middleware": "^5.0.0",
     "stripe": "^5.5.0",
-    "twit": "^2.2.9",
-    "twitter": "^1.7.1"
+    "twit": "^2.2.9"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -36,8 +35,5 @@
     "eject": "react-scripts eject"
   },
   "main": "server/index.js",
-  "proxy": "http://localhost:4321",
-  "devDependencies": {
-    "jest": "^22.4.0"
-  }
+  "proxy": "http://localhost:4321"
 }

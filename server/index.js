@@ -16,6 +16,7 @@ const paymentController = require('./controller/payment_controller');
 const checkforSession = require('./middleware/checkForSession');
 const app = express();
 
+
 app.use( express.static( `${__dirname}/../build` ) );
 app.use(bodyparser.json());
 app.use(cors());
