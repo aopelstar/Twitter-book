@@ -141,7 +141,7 @@ export default class Cart extends Component {
     onToken = (token) => {
         this.progressModal()
         token.card = void 0;
-        axios.post('http://localhost:4321/api/payment', {
+        axios.post('/api/payment', {
             token,
             amount: this.state.total,
             address: this.state.address,

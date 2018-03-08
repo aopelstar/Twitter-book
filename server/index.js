@@ -16,6 +16,7 @@ const paymentController = require('./controller/payment_controller');
 const checkforSession = require('./middleware/checkForSession');
 const app = express();
 
+app.use( express.static( `${__dirname}/../build` ) );
 app.use(bodyparser.json());
 app.use(cors());
 massive(process.env.CONNECTION_STRING).then(db => {
@@ -77,7 +78,7 @@ passport.deserializeUser((user, done) => {
 
 app.get('/auth', passport.authenticate('auth0'));
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: 'http://localhost:3000/#/home',
+    successRedirect: '/#/home',
     failureRedirect: '/'
 }));
 
@@ -117,6 +118,10 @@ app.delete('/api/deleteTweetFromBook/:id', controller.deleteTweetFromBook)//dele
 //Stripe Endpoint
 app.post('/api/payment', paymentController.payment); //payment
 
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../build/index.html') );
+})
 //port
 const port = process.env.SERVER_PORT || 4321
 app.listen(port, () => console.log(`Lots of heavy petting on port ${port}`))
