@@ -31,7 +31,7 @@ class Home extends Component {
             yourTweets: true,
             user: {},
             quantity: 0,
-            booktweets: [],  
+            booktweets: [],
             added: ''
         }
         this.openModal = this.openModal.bind(this);
@@ -209,8 +209,8 @@ class Home extends Component {
         }) : null
         let yourTweets = this.state.tweets.length > 0 ? this.state.tweets.map((e, i) => {
             var homeTweetButton = false
-            var buttonToggle = this.props.bookTweets.map((x,y)=>{
-                if(x.twitter_tweet_id == e.id){
+            var buttonToggle = this.props.bookTweets.map((x, y) => {
+                if (x.twitter_tweet_id == e.id) {
                     return true
                 }
                 return false
@@ -244,9 +244,8 @@ class Home extends Component {
         }) : <div className="homePrompt">You don't have any personal tweets...</div>
 
         let searchedTweets = this.state.searchedTweets.length > 0 ? this.state.searchedTweets.map((e, i) => {
-            var homeTweetButton = false
-            var buttonToggle = this.props.bookTweets.map((x,y)=>{
-                if(x.twitter_tweet_id == e.id){
+            var buttonToggle = this.props.bookTweets.map((x, y) => {
+                if (x.twitter_tweet_id == e.id) {
                     return true
                 }
                 return false
@@ -266,19 +265,15 @@ class Home extends Component {
                             <div className='tweetText'>{text2}</div>
                         </div>
                         <div className="media">
-                            {e.extended_entities ? e.extended_entities.media[0] ? <div style={
-                                { background: `${e.extended_entities.media[0].media_url}` }} className="tweetImg"></div> : null : null}
-                            {e.extended_entities ? e.extended_entities.media[1] ? <div style={
-                                { background: `${e.extended_entities.media[1].media_url}` }} className="tweetImg"></div> : null : null}
+                            {e.extended_entities ? e.extended_entities.media[0] ? <img src={e.extended_entities.media[0].media_url} alt="" className="tweetImg" /> : null : null}
+                            {e.extended_entities ? e.extended_entities.media[1] ? <img src={e.extended_entities.media[1].media_url} alt="" className="tweetImg" /> : null : null}
                         </div>
                         <div className="media">
-                            {e.extended_entities ? e.extended_entities.media[2] ? <div style={
-                                { background: `${e.extended_entities.media[2].media_url}` }} className="tweetImg"></div> : null : null}
-                            {e.extended_entities ? e.extended_entities.media[3] ? <div style={
-                                { background: `${e.extended_entities.media[3].media_url}` }} className="tweetImg"></div> : null : null}
+                            {e.extended_entities ? e.extended_entities.media[2] ? <img src={e.extended_entities.media[2].media_url} alt="" className="tweetImg" /> : null : null}
+                            {e.extended_entities ? e.extended_entities.media[3] ? <img src={e.extended_entities.media[3].media_url} alt="" className="tweetImg" /> : null : null}
                         </div>
                     </div>
-                    {buttonToggle.includes(true) ? <button key={i} className="homeTweetButton" id='remove' onClick={() => this.handleRemoveTweet(e)}></button> : <button key={i} className="homeTweetButton" onClick={() => this.handleAddTweet(e)}>+Add</button> }
+                    {buttonToggle.includes(true) ? <button key={i} className="homeTweetButton" id='remove' onClick={() => this.handleRemoveTweet(e)}></button> : <button key={i} className="homeTweetButton" onClick={() => this.handleAddTweet(e)}>+Add</button>}
                 </div>
             )
         }) : <div className="homePrompt">Try a different search. That one didn't work...</div>
