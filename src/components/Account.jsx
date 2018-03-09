@@ -72,7 +72,6 @@ class Account extends Component {
         else if (this.state.accountDisplay === "orders") {
             accountDisplay = <Orders orders={this.state.orders} />
         }
-        console.log(this.state.drafts)
         return (
             <div className="accountContainer">
                 <div className="accountBody">

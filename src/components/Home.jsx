@@ -31,7 +31,8 @@ class Home extends Component {
             yourTweets: true,
             user: {},
             quantity: 0,
-            booktweets: []
+            booktweets: [],  
+            added: ''
         }
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
@@ -82,7 +83,6 @@ class Home extends Component {
 
     handleClickSearch(e) {
         axios.post('/api/searchedUser', { screenName: e }).then(res => {
-            console.log(res.data.data)
             this.setState({
                 searchedTweets: res.data.data,
                 yourTweets: false
@@ -113,6 +113,9 @@ class Home extends Component {
     }
 
     handleAddTweet(i) {
+        this.setState({
+            added: 'yes'
+        })
         let tweet = i
         let tweetImg = tweet.user.profile_image_url.replace("normal", "400x400")
         var text = tweet.text;
@@ -138,6 +141,9 @@ class Home extends Component {
     handleRemoveTweet(i) {
         axios.delete('/api/homeremovetweet/' + i.id).then(res => {
             this.props.getBookTweets();
+        })
+        this.setState({
+            added: 'no'
         })
     }
 
@@ -209,12 +215,11 @@ class Home extends Component {
         }) : null
         let yourTweets = this.state.tweets.length > 0 ? this.state.tweets.map((e, i) => {
             var homeTweetButton = false
-            console.log(homeTweetButton);
             var buttonToggle = this.props.bookTweets.map((x,y)=>{
                 if(x.twitter_tweet_id == e.id){
-                    homeTweetButton = true
+                    return true
                 }
-                homeTweetButton = false
+                return false
             })
             var text = e.text;
             var text1 = text.replace(/https.*$/g, '')
@@ -239,7 +244,7 @@ class Home extends Component {
                             {e.extended_entities ? e.extended_entities.media[3] ? <img src={e.extended_entities.media[3].media_url} alt="" className="tweetImg" /> : null : null}
                         </div>
                     </div>
-                    {homeTweetButton ? <button key={i} className="homeTweetButton" id='remove' onClick={() => this.handleRemoveTweet(e)}></button> : <button key={i} className="homeTweetButton" onClick={() => this.handleAddTweet(e)}>+Add</button>}
+                    {buttonToggle.includes(true) ? <button key={i} className="homeTweetButton" id='remove' onClick={() => this.handleRemoveTweet(e)}></button> : <button key={i} className="homeTweetButton" onClick={() => this.handleAddTweet(e)}>+Add</button>}
                 </div>
             )
         }) : <div className="homePrompt">You don't have any personal tweets...</div>
