@@ -10,7 +10,7 @@ class App extends Component {
   render() {
     return (
       <div className="mainBody">
-          {window.location.hash === '#/' ? null : <Header />}
+          {window.location.hash === "#/" ? null : <Header />}
         {Routes}
       </div>
     );
