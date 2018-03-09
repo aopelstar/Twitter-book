@@ -141,7 +141,8 @@ class Home extends Component {
         })
     }
 
-    openModal() {
+    openModal(e) {
+        console.log(e);
         this.setState({
             modalIsOpen: true
         })
@@ -175,20 +176,8 @@ class Home extends Component {
             let bookSubTitle = e.book_subtitle ? e.book_subtitle : null
             let bookTitle = e.book_title ? e.book_title : "No book title chosen yet."
             let image = e.book_size === "large" ? large : small
-            return (<div className="draftContainer" key={i}>
-                <div className="accountDraft">
-                    <div className="draftImgContainer">
-                        <img src={image} alt={bookTitle} style={{ background: `${bookColor}` }} className="draftImg" />
-                        <div className="draftSize">{bookSize}</div>
-                    </div>
-                    <div className="draftNames">
-                        <div className="draftTitle">{bookTitle}</div>
-                        <div className="draftSubTitle">{bookSubTitle}</div>
-                    </div>
-                    <div className="draftButtons">
-                        <button onClick={() => this.openModal()}>Purchase Now</button>
-                        <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} style={modalStyle} >
-                            <div className='checkoutQuantity'>
+            let modal = (<Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} style={modalStyle} >
+                            <div className='checkoutQuantity' key={e.book_id}>
                                 <h1>Price: <strong>{e.book_price}</strong></h1>
                                 <div className="field" id="quantityfield">
                                     <div className='quantityDisplay'>
@@ -199,9 +188,22 @@ class Home extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <button className="addToCart" onClick={() => this.addToCart(e)}>Add to cart</button>
+                                <button value={e} className="addToCart" onClick={() => this.addToCart(e)}>Add to cart</button>
                             </div>
-                        </Modal>
+                        </Modal>)
+            return (<div className="draftContainer" key={e.book_id}>
+                <div className="accountDraft">
+                    <div className="draftImgContainer">
+                        <img src={image} alt={bookTitle} style={{ background: `${bookColor}` }} className="draftImg" />
+                        <div className="draftSize">{bookSize}</div>
+                    </div>
+                    <div className="draftNames">
+                        <div className="draftTitle">{bookTitle}</div>
+                        <div className="draftSubTitle">{bookSubTitle}</div>
+                    </div>
+                    <div className="draftButtons">
+                        <button onClick={() => this.openModal(e)}>Purchase Now</button>
+                        {modal}
                     </div>
                 </div>
             </div>

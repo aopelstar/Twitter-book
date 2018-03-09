@@ -131,7 +131,7 @@ export default class Step6 extends Component {
     }
 
     closeSucessModal(){
-        window.location.assign('http://localhost:3000/#/home')
+        window.location.assign(process.env.REACT_APP_HOME_REDIRECT)
         this.setState({
             successModalIsOpen: false
         })
@@ -164,7 +164,7 @@ export default class Step6 extends Component {
         this.progressModal()
         this.closeModal()
         token.card = void 0;
-        axios.post('http://localhost:4321/api/payment', {
+        axios.post('/api/payment', {
             token,
             amount: this.state.total,
             address: this.state.address,
