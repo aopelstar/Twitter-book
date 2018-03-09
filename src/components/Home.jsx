@@ -18,7 +18,6 @@ const modalStyle = {
         background: "white",
         margin: "auto",
     }
-    
 }
 
 class Home extends Component {

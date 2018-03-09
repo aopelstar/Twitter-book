@@ -382,3 +382,12 @@
 .trashCan{
   height: 20px;
 }
+.minSize{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 68.70vh;
+  min-width: 40vw;
+  overflow-y: scroll;
+}
