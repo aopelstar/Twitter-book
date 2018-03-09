@@ -126,7 +126,10 @@
 .homeContainer{
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center;animation-name: fadeIn;
+  animation-iteration-count: 1;
+  animation-duration: 1.2s;
+  animation-fill-mode: forwards;
 }
 
 .searchContainer{
