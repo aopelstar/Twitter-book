@@ -138,7 +138,6 @@ module.exports = {
         const db = req.app.get('db');
         let user = req.user.auth_id;
         let tweetId = req.params.tweet;
-        console.log(tweetId);
         db.remove_tweetfromhome([+tweetId]).then(deleted => {
             db.get_booktweets([user]).then(tweets => {
                 res.status(200).send(tweets)
