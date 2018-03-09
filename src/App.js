@@ -10,7 +10,7 @@ class App extends Component {
   render() {
     return (
       <div className="mainBody">
-          {window.location.href === process.env.REACT_APP_HEADER_CHECK ? null : <Header />}
+          {window.location.pathname === '/' ? null : <Header />}
         {Routes}
       </div>
     );
