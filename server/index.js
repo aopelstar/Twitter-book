@@ -119,4 +119,4 @@ app.post('/api/payment', paymentController.payment); //payment
 
 //port
 const port = process.env.SERVER_PORT || 4321
-app.listen(port, () => console.log(`Lots of heavy petting on port ${port}`))
+app.listen(port, () => console.log(`I'm listening on ${port}`))
