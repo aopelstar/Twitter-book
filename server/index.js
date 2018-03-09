@@ -21,6 +21,7 @@ app.use(cors());
 massive(process.env.CONNECTION_STRING).then(db => {
     app.set('db', db);
 })
+app.use( express.static( `${__dirname}/../build` ) );
 
 // sessions
 
@@ -77,7 +78,7 @@ passport.deserializeUser((user, done) => {
 
 app.get('/auth', passport.authenticate('auth0'));
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: 'http://localhost:3000/#/home',
+    successRedirect: process.env.REACT_APP_HOME_REDIRECT,
     failureRedirect: '/'
 }));
 

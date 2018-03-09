@@ -11,7 +11,7 @@ class App extends Component {
   render() {
     return (
       <div className="mainBody">
-          {window.location.href === "http://localhost:3000/#/" ? null : <Header />}
+          {window.location.href === process.env.REACT_APP_HEADER_CHECK ? null : <Header />}
         {Routes}
       </div>
     );
