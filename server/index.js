@@ -21,7 +21,7 @@ app.use(cors());
 massive(process.env.CONNECTION_STRING).then(db => {
     app.set('db', db);
 })
-app.use( express.static( `${__dirname}/../build` ) );
+
 
 // sessions
 
@@ -118,6 +118,7 @@ app.delete('/api/deleteTweetFromBook/:id', controller.deleteTweetFromBook)//dele
 //Stripe Endpoint
 app.post('/api/payment', paymentController.payment); //payment
 
+app.use( express.static( `${__dirname}/../build` ) );
 //port
 const port = process.env.SERVER_PORT || 4321
 app.listen(port, () => console.log(`I'm listening on ${port}`))
