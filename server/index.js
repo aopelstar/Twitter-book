@@ -17,6 +17,7 @@ const path = require('path');
 const checkforSession = require('./middleware/checkForSession');
 const app = express();
 
+app.use( express.static( `${__dirname}/../build` ) );
 app.use(bodyparser.json());
 app.use(cors());
 massive(process.env.CONNECTION_STRING).then(db => {
@@ -119,7 +120,7 @@ app.delete('/api/deleteTweetFromBook/:id', controller.deleteTweetFromBook)//dele
 //Stripe Endpoint
 app.post('/api/payment', paymentController.payment); //payment
 
-app.use( express.static( `${__dirname}/../build` ) );
+
 app.get('*', (req, res)=>{
     res.sendFile(path.join(__dirname, '../build/index.html'));
 });
