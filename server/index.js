@@ -10,6 +10,7 @@ const cors = require('cors');
 const controller = require('./controller/twitter_controller');
 const axios = require('axios');
 const paymentController = require('./controller/payment_controller');
+const path = require('path');
 
 //app set up
 
@@ -119,6 +120,9 @@ app.delete('/api/deleteTweetFromBook/:id', controller.deleteTweetFromBook)//dele
 app.post('/api/payment', paymentController.payment); //payment
 
 app.use( express.static( `${__dirname}/../build` ) );
+app.get('*', (req, res)=>{
+    res.sendFile(path.join(__dirname, '../build/index.html'));
+});
 //port
 const port = process.env.SERVER_PORT || 4321
 app.listen(port, () => console.log(`I'm listening on ${port}`))
