@@ -113,9 +113,6 @@ class Home extends Component {
     }
 
     handleAddTweet(i) {
-        this.setState({
-            added: 'yes'
-        })
         let tweet = i
         let tweetImg = tweet.user.profile_image_url.replace("normal", "400x400")
         var text = tweet.text;
@@ -134,16 +131,13 @@ class Home extends Component {
             tweet_id: tweet.id
         }
         axios.post('/api/updatetweets', tweetBody).then(res => {
+            this.props.getBookTweets();
         })
-        this.props.getBookTweets();
     }
 
     handleRemoveTweet(i) {
         axios.delete('/api/homeremovetweet/' + i.id).then(res => {
             this.props.getBookTweets();
-        })
-        this.setState({
-            added: 'no'
         })
     }
 
@@ -251,10 +245,11 @@ class Home extends Component {
 
         let searchedTweets = this.state.searchedTweets.length > 0 ? this.state.searchedTweets.map((e, i) => {
             var homeTweetButton = false
-            this.props.bookTweets.map((x, y) => {
-                if (e.id != x.twitter_tweet_id) {
-                    homeTweetButton = true
+            var buttonToggle = this.props.bookTweets.map((x,y)=>{
+                if(x.twitter_tweet_id == e.id){
+                    return true
                 }
+                return false
             })
             var text = e.text;
             var text1 = text.replace(/https.*$/g, '')
@@ -283,7 +278,7 @@ class Home extends Component {
                                 { background: `${e.extended_entities.media[3].media_url}` }} className="tweetImg"></div> : null : null}
                         </div>
                     </div>
-                    {homeTweetButton ? <button key={i} className="homeTweetButton" onClick={() => this.handleAddTweet(e)}>+Add</button> : <button key={i} className="homeTweetButton" id='remove' onClick={() => this.handleRemoveTweet(e)}>+Add</button>}
+                    {buttonToggle.includes(true) ? <button key={i} className="homeTweetButton" id='remove' onClick={() => this.handleRemoveTweet(e)}></button> : <button key={i} className="homeTweetButton" onClick={() => this.handleAddTweet(e)}>+Add</button> }
                 </div>
             )
         }) : <div className="homePrompt">Try a different search. That one didn't work...</div>
