@@ -11,7 +11,7 @@ module.exports = {
 
     userExist: () => {
         var user = "Juan Castro"
-        if(user==false){
+        if (user == false) {
             return "false"
         } else {
             return user
@@ -20,12 +20,26 @@ module.exports = {
 
     isAnArray: () => {
         var params = ['book', true, 'dog', 'elephantitis', 700, 'Jeft Goldbloom']
-         return params
+        return params
     },
 
     imageSize: () => {
         image = 'profilepic+normal'
         return image.replace('normal', '400x400')
+    },
+    answer: () => {
+        var stateTweets = [{ name: "Dan", age: 28 }, { name: "James", age: 30 }, { name: "Mason", age: 40 }, { name: "Trent", age: 7 }, { name: "Andrew", age: 29 }, { name: 'Justin', age: 20 }]
+        var selectedTweets = [{ name: "Dan", age: 28 }, { name: "Mason", age: 40 }, { name: 'Justin', age: 20 }]
+        let tweet2 = stateTweets.map((e, i) => {
+            let tweet = selectedTweets.map((x, y) => {
+                if (x.name === e.name) {
+                    return true
+                }
+                return false
+            })
+            return tweet
+        })
+        return tweet2
     },
 
     currencyConversion: (amount) => {
@@ -53,7 +67,7 @@ module.exports = {
     },
 
     changeQty: (user, bookId, diff) => {
-        var cart = [{user_id:1, book_id:2, quantity:3}, {user_id:1, book_id:3, quantity:2}, {user_id:2, book_id:2, quantity:3}];
+        var cart = [{ user_id: 1, book_id: 2, quantity: 3 }, { user_id: 1, book_id: 3, quantity: 2 }, { user_id: 2, book_id: 2, quantity: 3 }];
 
         for (let i = 0; i < cart.length; i++) {
             if (cart[i].user_id === user && cart[i].book_id === bookId) {

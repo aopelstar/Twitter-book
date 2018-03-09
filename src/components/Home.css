@@ -51,6 +51,7 @@
   height: 25px;
   margin-top: 5px;
   cursor: pointer;
+  outline: none;
 }
 
 .homeFilterButton:hover {
@@ -229,4 +230,6 @@ searchBody {
   margin-top: 15px;
   justify-content: space-around;
   width: 70%;
+  margin-left: auto;
+  margin-right: auto;
 }

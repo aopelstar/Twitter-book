@@ -23,6 +23,14 @@ describe('removing the retweet tag from the text', () => {
     let text = fns.changeText()
     expect(typeof text).toBe('string')
   })
+  test('getting true', () => {
+    let ans = fns.answer()
+    expect(ans.includes(true)).toBe(false)
+  })
+  test('returns a value', () => {
+    let ans = fns.answer()
+    expect(typeof ans).toBe('object')
+  })
 })
 
 
