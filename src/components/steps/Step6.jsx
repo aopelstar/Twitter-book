@@ -8,41 +8,32 @@ import './step6.css'
 
 const customStyles = {
     content: {
-        minheight: "250px",
         borderradius: "6px", 
-        position: "absolute",
-        top: "60px",
-        left: "35%",
+        margin: 'auto',
         width: "500px",
-        height: "40%",
-        background: "#c0deed"
+        padding: "20px",
+        background: "#1dcaff"
 
     }
 }
 
 const progressStyle = {
    content: {
-    minheight: "250px",
     borderradius: "6px", 
-    position: "absolute",
-    top: "60px",
-    left: "35%",
-    width: "30%",
-    height: "30%",
-    background: "#c0deed"
+    margin: 'auto',
+    width: "500px",
+    padding: "20px",
+    background: "#1dcaff"
    }
 }
 
 const successStyle = {
     content: {
-        minheight: "250px",
         borderradius: "6px", 
-        position: "absolute",
-        top: "60px",
-        left: "35%",
-        width: "30%",
-        height: "30%",
-        background: "#c0deed"
+        margin: "auto",
+        padding: "20px",
+        width: "500px",
+        background: "#1dcaff"
     }
 
 }
@@ -131,7 +122,7 @@ export default class Step6 extends Component {
     }
 
     closeSucessModal(){
-        window.location.assign('/#/home')
+        window.location.assign(process.env.REACT_APP_HOME_REDIRECT)
         this.setState({
             successModalIsOpen: false
         })

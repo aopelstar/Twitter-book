@@ -38,7 +38,6 @@ export function setBook(book){
 
 export function getBookTweets(){
     let bookTweetData = axios.get('/api/selectedtweets').then(tweets=>{
-        console.log(tweets);
         return tweets.data
     })
     return {

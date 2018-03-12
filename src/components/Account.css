@@ -2,6 +2,19 @@
     display: flex;
     padding-left: 60px;
     padding-right: 60px;
+    animation-name: fadeIn;
+    animation-iteration-count: 1;
+    animation-duration: 1.2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
 }
 
 .accountBody {
@@ -126,7 +139,7 @@
 
 .accountSideBody {
     overflow-y: scroll;
-    height: 70vh;
+    height: 68.7vh;
 }
 
 .draftButtons {

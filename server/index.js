@@ -10,12 +10,12 @@ const cors = require('cors');
 const controller = require('./controller/twitter_controller');
 const axios = require('axios');
 const paymentController = require('./controller/payment_controller');
+const path = require('path');
 
 //app set up
 
 const checkforSession = require('./middleware/checkForSession');
 const app = express();
-
 
 app.use( express.static( `${__dirname}/../build` ) );
 app.use(bodyparser.json());
@@ -23,6 +23,7 @@ app.use(cors());
 massive(process.env.CONNECTION_STRING).then(db => {
     app.set('db', db);
 })
+
 
 // sessions
 
@@ -79,7 +80,7 @@ passport.deserializeUser((user, done) => {
 
 app.get('/auth', passport.authenticate('auth0'));
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: '/#/home',
+    successRedirect: process.env.REACT_APP_HOME_REDIRECT,
     failureRedirect: '/'
 }));
 
@@ -120,9 +121,9 @@ app.delete('/api/deleteTweetFromBook/:id', controller.deleteTweetFromBook)//dele
 app.post('/api/payment', paymentController.payment); //payment
 
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../build/index.html') );
-})
+app.get('*', (req, res)=>{
+    res.sendFile(path.join(__dirname, '../build/index.html'));
+});
 //port
 const port = process.env.SERVER_PORT || 4321
-app.listen(port, () => console.log(`Lots of heavy petting on port ${port}`))
+app.listen(port, () => console.log(`I'm listening on ${port}`))

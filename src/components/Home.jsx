@@ -30,7 +30,9 @@ class Home extends Component {
             searchedTweets: [],
             yourTweets: true,
             user: {},
-            quantity: 0
+            quantity: 0,
+            booktweets: [],
+            added: ''
         }
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
@@ -59,7 +61,6 @@ class Home extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps.bookTweets)
     }
 
     updateTweetSearch(val) {
@@ -82,7 +83,6 @@ class Home extends Component {
 
     handleClickSearch(e) {
         axios.post('/api/searchedUser', { screenName: e }).then(res => {
-            console.log(res.data.data)
             this.setState({
                 searchedTweets: res.data.data,
                 yourTweets: false
@@ -104,7 +104,7 @@ class Home extends Component {
             , user_id: this.state.user.auth_id
         }
 
-        axios.post('/api/addtocart', cartBody ).then(cart => {
+        axios.post('/api/addtocart', cartBody).then(cart => {
             this.setState({
                 modalIsOpen: false,
                 quantity: 0
@@ -131,8 +131,8 @@ class Home extends Component {
             tweet_id: tweet.id
         }
         axios.post('/api/updatetweets', tweetBody).then(res => {
+            this.props.getBookTweets();
         })
-        this.props.getBookTweets();
     }
 
     handleRemoveTweet(i) {
@@ -141,7 +141,8 @@ class Home extends Component {
         })
     }
 
-    openModal() {
+    openModal(e) {
+        console.log(e);
         this.setState({
             modalIsOpen: true
         })
@@ -175,20 +176,8 @@ class Home extends Component {
             let bookSubTitle = e.book_subtitle ? e.book_subtitle : null
             let bookTitle = e.book_title ? e.book_title : "No book title chosen yet."
             let image = e.book_size === "large" ? large : small
-            return (<div className="draftContainer" key={i}>
-                <div className="accountDraft">
-                    <div className="draftImgContainer">
-                        <img src={image} alt={bookTitle} style={{ background: `${bookColor}` }} className="draftImg" />
-                        <div className="draftSize">{bookSize}</div>
-                    </div>
-                    <div className="draftNames">
-                        <div className="draftTitle">{bookTitle}</div>
-                        <div className="draftSubTitle">{bookSubTitle}</div>
-                    </div>
-                    <div className="draftButtons">
-                        <button onClick={() => this.openModal()}>Purchase Now</button>
-                        <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} style={modalStyle} >
-                            <div className='checkoutQuantity'>
+            let modal = (<Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} style={modalStyle} >
+                            <div className='checkoutQuantity' key={e.book_id}>
                                 <h1>Price: <strong>{e.book_price}</strong></h1>
                                 <div className="field" id="quantityfield">
                                     <div className='quantityDisplay'>
@@ -199,30 +188,35 @@ class Home extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <button className="addToCart" onClick={()=>this.addToCart(e)}>Add to cart</button>
+                                <button value={e} className="addToCart" onClick={() => this.addToCart(e)}>Add to cart</button>
                             </div>
-                        </Modal>
+                        </Modal>)
+            return (<div className="draftContainer" key={e.book_id}>
+                <div className="accountDraft">
+                    <div className="draftImgContainer">
+                        <img src={image} alt={bookTitle} style={{ background: `${bookColor}` }} className="draftImg" />
+                        <div className="draftSize">{bookSize}</div>
+                    </div>
+                    <div className="draftNames">
+                        <div className="draftTitle">{bookTitle}</div>
+                        <div className="draftSubTitle">{bookSubTitle}</div>
+                    </div>
+                    <div className="draftButtons">
+                        <button onClick={() => this.openModal(e)}>Purchase Now</button>
+                        {modal}
                     </div>
                 </div>
             </div>
             )
         }) : null
-        console.log(this.state.tweets);
         let yourTweets = this.state.tweets.length > 0 ? this.state.tweets.map((e, i) => {
-            console.log(this.props.bookTweets)
-            var homeTweetButton = this.props.bookTweets.length > 0 ? this.props.bookTweets.map((x, y) => {
-                if (x.twitter_tweet_id && e.id == x.twitter_tweet_id) {
-                    return (
-                        <button className="homeTweetButton" id='remove' onClick={() => this.handleRemoveTweet(e)}></button>
-                    )
+            var homeTweetButton = false
+            var buttonToggle = this.props.bookTweets.map((x, y) => {
+                if (x.twitter_tweet_id == e.id) {
+                    return true
                 }
-                else {
-                    return (
-                        <button className="homeTweetButton" onClick={() => this.handleAddTweet(e)}>+Add</button>
-                    )
-                }
-            }) : <button className="homeTweetButton" onClick={() => this.handleAddTweet(e)}>+Add</button>
-            console.log(homeTweetButton);
+                return false
+            })
             var text = e.text;
             var text1 = text.replace(/https.*$/g, '')
             var text2 = text1.replace(/^(.*?): /g, '')
@@ -246,24 +240,18 @@ class Home extends Component {
                             {e.extended_entities ? e.extended_entities.media[3] ? <img src={e.extended_entities.media[3].media_url} alt="" className="tweetImg" /> : null : null}
                         </div>
                     </div>
-                    {homeTweetButton}
+                    {buttonToggle.includes(true) ? <button key={i} className="homeTweetButton" id='remove' onClick={() => this.handleRemoveTweet(e)}></button> : <button key={i} className="homeTweetButton" onClick={() => this.handleAddTweet(e)}>+Add</button>}
                 </div>
             )
         }) : <div className="homePrompt">You don't have any personal tweets...</div>
 
         let searchedTweets = this.state.searchedTweets.length > 0 ? this.state.searchedTweets.map((e, i) => {
-            var homeTweetButton = this.props.bookTweets.length > 0 ? this.props.bookTweets.map((x, y) => {
-                if (x.twitter_tweet_id && e.id == x.twitter_tweet_id) {
-                    return (
-                        <button className="homeTweetButton" id="remove" onClick={() => this.handleRemoveTweet(e)}></button>
-                    )
+            var buttonToggle = this.props.bookTweets.map((x, y) => {
+                if (x.twitter_tweet_id == e.id) {
+                    return true
                 }
-                else {
-                    return (
-                        <button className="homeTweetButton" onClick={() => this.handleAddTweet(e)}>+Add</button>
-                    )
-                }
-            }) : <button className="homeTweetButton" onClick={() => this.handleAddTweet(e)}>+Add</button>
+                return false
+            })
             var text = e.text;
             var text1 = text.replace(/https.*$/g, '')
             var text2 = text1.replace(/^(.*?): /g, '')
@@ -279,19 +267,15 @@ class Home extends Component {
                             <div className='tweetText'>{text2}</div>
                         </div>
                         <div className="media">
-                            {e.extended_entities ? e.extended_entities.media[0] ? <div style={
-                                { background: `${e.extended_entities.media[0].media_url}` }} className="tweetImg"></div> : null : null}
-                            {e.extended_entities ? e.extended_entities.media[1] ? <div style={
-                                { background: `${e.extended_entities.media[1].media_url}` }} className="tweetImg"></div> : null : null}
+                            {e.extended_entities ? e.extended_entities.media[0] ? <img src={e.extended_entities.media[0].media_url} alt="" className="tweetImg" /> : null : null}
+                            {e.extended_entities ? e.extended_entities.media[1] ? <img src={e.extended_entities.media[1].media_url} alt="" className="tweetImg" /> : null : null}
                         </div>
                         <div className="media">
-                            {e.extended_entities ? e.extended_entities.media[2] ? <div style={
-                                { background: `${e.extended_entities.media[2].media_url}` }} className="tweetImg"></div> : null : null}
-                            {e.extended_entities ? e.extended_entities.media[3] ? <div style={
-                                { background: `${e.extended_entities.media[3].media_url}` }} className="tweetImg"></div> : null : null}
+                            {e.extended_entities ? e.extended_entities.media[2] ? <img src={e.extended_entities.media[2].media_url} alt="" className="tweetImg" /> : null : null}
+                            {e.extended_entities ? e.extended_entities.media[3] ? <img src={e.extended_entities.media[3].media_url} alt="" className="tweetImg" /> : null : null}
                         </div>
                     </div>
-                    {homeTweetButton}
+                    {buttonToggle.includes(true) ? <button key={i} className="homeTweetButton" id='remove' onClick={() => this.handleRemoveTweet(e)}></button> : <button key={i} className="homeTweetButton" onClick={() => this.handleAddTweet(e)}>+Add</button>}
                 </div>
             )
         }) : <div className="homePrompt">Try a different search. That one didn't work...</div>

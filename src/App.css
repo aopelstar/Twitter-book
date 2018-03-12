@@ -105,6 +105,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  animation-name: fadeIn;
+  animation-iteration-count: 1;
+  animation-duration: 1.2s;
+  animation-fill-mode: forwards;
 }
 .stepNavigation{
   height: 10vh;
@@ -152,6 +156,27 @@
   box-shadow: inset 0px 0px 20px 1px silver;
   border-radius: 5px;
   background-color: var(--white);
+  padding:10px;
+}
+.slideLeft{
+  height: 65vh;
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  /* animation-name: slideLeft;
+  animation-iteration-count: 1;
+  animation-duration: 1.2s;
+  animation-fill-mode: forwards; */
+}
+@keyframes slideLeft{
+  from{
+    margin-left: 50%;
+  }
+  to{
+    margin-left: -2000px
+  }
 }
 .bookSize{
   text-align: center;
@@ -354,9 +379,7 @@
   bottom: 17vh;
 }
 .tweetImg{
-  height: 200px;
-  background-position: center;
-
+  width: 200px;
 }
 .SFtweets{
   width: 80%;
@@ -367,18 +390,15 @@
   padding: 15px;
   display: flex;
 }
-.SFtweets button {
-  border-radius: 50%;
-  background: rgb(161, 67, 67);
-  border: none;
-  color: white;
-  padding: 3px;
-  width: 50px;
-  height: 50px;
-  margin-top: auto;
-  margin-bottom: auto;
-  font-size: 22px;
-}
 .trashCan{
   height: 20px;
+}
+.minSize{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 68.70vh;
+  min-width: 40vw;
+  overflow-y: scroll;
 }

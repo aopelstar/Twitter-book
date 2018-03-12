@@ -56,10 +56,10 @@ export default class Cart extends Component {
             var subtotal = element.book_price * element.quantity
             total += subtotal
         })
-            this.setState({
-                bookCart: this.props.cart,
-                total: total
-            })
+        this.setState({
+            bookCart: this.props.cart,
+            total: total
+        })
     }
 
     increment(key, id) {
@@ -169,24 +169,36 @@ export default class Cart extends Component {
         let cart = this.state.bookCart.map((cartLine, i) => {
             let subTotal = cartLine.book_price * cartLine.quantity;
 
-            return <div className="accountCartLine" key={i}>
-                {/* <div className="accountBookImage"><img src = {logo} alt='logo' className='accountLogo'/></div> */}
-                <div className="accountBookTitle">{cartLine.book_title}</div>
-                <div className="accountBookSub">{cartLine.book_subtitle}</div>
-                <div className="accountBookPrice">{cartLine.book_price}</div>
-                <div className="accountBookQuantity">{cartLine.quantity}
+            return <div className="step6CartLine" key={i}>
+                <div className="title-main-6">
+                    <div className="step6BookTitle">Title: {cartLine.book_title}</div>
+                    <div className="step6BookSub">Subtitle: {cartLine.book_subtitle}</div>
+                </div>
+                <div className="price-main-6">
+                    <div className="step6BookPrice">Price: ${cartLine.book_price}</div>
+                    <div className="step6BookQuantity">Quantity: {cartLine.quantity}</div>
+                </div>
+                <div>
                     <button className="incrementUp" onClick={() => this.increment("up", cartLine.book_id)}>+</button>
-                    <button className="incrementDown" onClick={() => this.increment("down", cartLine.book_id)}>-</button></div>
-                <div className="accountBookTotal">{subTotal}</div>
-
+                    <button className="incrementDown" onClick={() => this.increment("down", cartLine.book_id)}>-</button>
+                </div>
+                <div className="total-main-6">
+                    <div className="step6BookTotal">Subtotal: </div>
+                    <div className="step6BookTotalNumber">${Math.floor(subTotal, -1)}</div>
+                </div>
             </div>
         })
         return (
             <div className="accountCart">
-                {cart}
-                <div className="accountBookTotal">{total}</div>
+                <div className="accountSideContainer">
+                    <h1>Your Cart:</h1>
+                    <div className="minSize">
+                        {cart}
+                        <div className="accountBookTotal">{total}</div>
 
-                <button className="checkout" onClick={this.openModal}>Check it out</button>
+                        <button className="checkout" onClick={this.openModal}>Check it out</button>
+                    </div>
+                </div>
 
                 < Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} style={customStyles}>
 

@@ -203,7 +203,6 @@ class NewBook extends Component {
         })
     }
     deleteTweetFromBook(e){
-        console.log(e)
         var id = e
          axios.delete(`/api/deleteTweetFromBook/${id}`).then( res => {
             this.setState({

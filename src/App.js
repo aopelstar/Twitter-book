@@ -7,11 +7,10 @@ import Header from './components/Header';
 
 
 class App extends Component {
-
   render() {
     return (
       <div className="mainBody">
-          {window.location.href === "/#/" ? null : <Header />}
+          {window.location.pathname === "/" ? null : <Header />}
         {Routes}
       </div>
     );
